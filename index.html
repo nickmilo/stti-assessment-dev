@@ -577,7 +577,45 @@
             text-decoration: underline;
             color: var(--lyt-purple-deep);
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            padding-right: 1.5rem;
+            transition: color 0.2s ease;
+        }
+        
+        .section-title:hover {
+            color: var(--lyt-purple);
+        }
+        
+        .section-title::after {
+            content: '▼';
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .section-title.collapsed::after {
+            transform: rotate(-90deg);
+        }
+        
+        .section-content {
             font-size: 1rem;
+            color: #4a5568;
+            line-height: 1.6;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .section-content.collapsed {
+            max-height: 0;
+            margin-bottom: 0;
+        }
+        
+        .section-content.expanded {
+            max-height: 500px;
         }
 
         .section-content {
@@ -1019,15 +1057,15 @@
 
                 <!-- Additional Analysis Sections -->
                 <div class="overwhelmed-section" id="overwhelmedSection" style="display: none;">
-                    <div class="section-title">When Westerners feel overwhelmed…</div>
-                    <div class="section-content" id="overwhelmedContent">
+                    <div class="section-title collapsed" onclick="toggleSection('overwhelmedContent', this)">When Westerners feel overwhelmed…</div>
+                    <div class="section-content collapsed" id="overwhelmedContent">
                         They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression.
                     </div>
                 </div>
 
                 <div class="stuck-unstuck-section" id="stuckUnstuckSection" style="display: none;">
-                    <div class="section-title">Getting stuck and unstuck as an IS-Architect</div>
-                    <div class="section-content" id="stuckUnstuckContent">
+                    <div class="section-title collapsed" onclick="toggleSection('stuckUnstuckContent', this)">Getting stuck and unstuck as an IS-Architect</div>
+                    <div class="section-content collapsed" id="stuckUnstuckContent">
                         When you combine your Westerner archetypes of Inner Guide and Synthesizer with an Architect tendency, we now can understand that it's most difficult to access your Creative archetype—yet that's exactly what you most need.
                         <br><br>
                         That said, since your tendency is to architect, the easiest way to move between the west (reflection) and the east (expression) is going to be by tapping into your Producer archetype, since it aligns with your more natural structured approach.
@@ -1035,8 +1073,8 @@
                 </div>
 
                 <div class="prompts-section" id="promptsSection" style="display: none;">
-                    <div class="section-title">Your prompts as an IS-Architect to go from West to East</div>
-                    <div class="section-content" id="promptsContent">
+                    <div class="section-title collapsed" onclick="toggleSection('promptsContent', this)">Your prompts as an IS-Architect to go from West to East</div>
+                    <div class="section-content collapsed" id="promptsContent">
                         How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you'll likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express the unique ideas you have as a westerner known for deep thoughts.
                     </div>
                 </div>
@@ -1601,6 +1639,23 @@
                     .catch(() => alert('Unable to copy to clipboard'));
             } else {
                 alert(shareText);
+            }
+        }
+
+        function toggleSection(contentId, titleElement) {
+            const content = document.getElementById(contentId);
+            const isCollapsed = content.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                // Expand
+                content.classList.remove('collapsed');
+                content.classList.add('expanded');
+                titleElement.classList.remove('collapsed');
+            } else {
+                // Collapse
+                content.classList.remove('expanded');
+                content.classList.add('collapsed');
+                titleElement.classList.add('collapsed');
             }
         }
 
