@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="text-center py-8 px-4 bg-gradient-to-br from-[var(--lyt-purple)] to-[var(--lyt-cyan)] text-white relative overflow-hidden flex items-center justify-center gap-8">
+      <div className="text-center py-8 px-4 bg-gradient-to-br from-[#b9adff] to-[#5dbcd2] text-white relative overflow-hidden flex items-center justify-center gap-8">
         <div className="absolute inset-0 opacity-30" style={{
           backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='20' cy='20' r='1' fill='rgba(255,255,255,0.1)'/><circle cx='80' cy='30' r='1' fill='rgba(255,255,255,0.1)'/><circle cx='60' cy='70' r='1' fill='rgba(255,255,255,0.1)'/><line x1='20' y1='20' x2='60' y2='70' stroke='rgba(255,255,255,0.1)' stroke-width='0.5'/><line x1='60' y1='70' x2='80' y2='30' stroke='rgba(255,255,255,0.1)' stroke-width='0.5'/></svg>")`,
           backgroundRepeat: 'repeat'
@@ -111,7 +111,7 @@ export default function Home() {
       {/* Footer */}
       <div className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-xl font-medium mb-4" style={{ fontFamily: "'Canela Deck', sans-serif", color: 'var(--lyt-purple)' }}>
+          <h3 className="text-xl font-medium mb-4 text-purple-400" style={{ fontFamily: "'Canela Deck', sans-serif" }}>
             Educational Licensing & Research Opportunities
           </h3>
           <p className="mb-4 opacity-90">
@@ -119,13 +119,13 @@ export default function Home() {
             This validated instrument is perfect for case studies, rigorous academic testing, and educational research initiatives.
           </p>
           <p className="mb-8">
-            <a href="mailto:hello@linkingyourthinking.com" className="text-[var(--lyt-cyan)] hover:text-[var(--lyt-purple)] font-medium">
+            <a href="mailto:hello@linkingyourthinking.com" className="text-cyan-400 hover:text-purple-400 font-medium">
               Contact us at hello@linkingyourthinking.com
             </a> to inquire about classroom licenses, research partnerships, and institutional access.
           </p>
           <div className="border-t border-white/30 pt-8 text-sm opacity-80">
             © 2025 Linking Your Thinking. The STTI Assessment is proprietary and protected by copyright.<br />
-            All rights reserved. | <a href="https://www.linkingyourthinking.com" className="text-[var(--lyt-cyan)] hover:text-[var(--lyt-purple)]">linkingyourthinking.com</a>
+            All rights reserved. | <a href="https://www.linkingyourthinking.com" className="text-cyan-400 hover:text-purple-400">linkingyourthinking.com</a>
           </div>
         </div>
       </div>
