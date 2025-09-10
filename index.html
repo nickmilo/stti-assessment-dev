@@ -1512,37 +1512,87 @@
         let answers = {};
         let userEmail = '';
         
-        // Simple direct secret code system
+        // 4-digit secret codes (0001-0024)
+        let keySequence = '';
+        let keyTimer = null;
+        
+        const profileMappings = {
+            '0001': { code: 'IP-Architect', name: 'The Converter', orientation: 'Diagonal' },
+            '0002': { code: 'IP-Gardener', name: 'The Converter', orientation: 'Diagonal' },
+            '0003': { code: 'IS-Architect', name: 'The Philosopher', orientation: 'Westerner' },
+            '0004': { code: 'IS-Gardener', name: 'The Philosopher', orientation: 'Westerner' },
+            '0005': { code: 'IC-Architect', name: 'The Explorer', orientation: 'Southerner' },
+            '0006': { code: 'IC-Gardener', name: 'The Explorer', orientation: 'Southerner' },
+            '0007': { code: 'PI-Architect', name: 'The Converter', orientation: 'Diagonal' },
+            '0008': { code: 'PI-Gardener', name: 'The Converter', orientation: 'Diagonal' },
+            '0009': { code: 'PS-Architect', name: 'The Builder', orientation: 'Northerner' },
+            '0010': { code: 'PS-Gardener', name: 'The Builder', orientation: 'Northerner' },
+            '0011': { code: 'PC-Architect', name: 'The Maker', orientation: 'Easterner' },
+            '0012': { code: 'PC-Gardener', name: 'The Maker', orientation: 'Easterner' },
+            '0013': { code: 'SI-Architect', name: 'The Philosopher', orientation: 'Westerner' },
+            '0014': { code: 'SI-Gardener', name: 'The Philosopher', orientation: 'Westerner' },
+            '0015': { code: 'SP-Architect', name: 'The Builder', orientation: 'Northerner' },
+            '0016': { code: 'SP-Gardener', name: 'The Builder', orientation: 'Northerner' },
+            '0017': { code: 'SC-Architect', name: 'The Translator', orientation: 'Diagonal' },
+            '0018': { code: 'SC-Gardener', name: 'The Translator', orientation: 'Diagonal' },
+            '0019': { code: 'CI-Architect', name: 'The Explorer', orientation: 'Southerner' },
+            '0020': { code: 'CI-Gardener', name: 'The Explorer', orientation: 'Southerner' },
+            '0021': { code: 'CP-Architect', name: 'The Maker', orientation: 'Easterner' },
+            '0022': { code: 'CP-Gardener', name: 'The Maker', orientation: 'Easterner' },
+            '0023': { code: 'CS-Architect', name: 'The Translator', orientation: 'Diagonal' },
+            '0024': { code: 'CS-Gardener', name: 'The Translator', orientation: 'Diagonal' }
+        };
+        
         window.addEventListener('keydown', function(e) {
             // Only work when not in an input field
             if (document.activeElement.tagName === 'INPUT') return;
             
-            if (e.key === 'z' || e.key === 'Z') {
-                // Directly manipulate the DOM to show results
-                try {
-                    // Hide all screens
-                    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            if (e.key >= '0' && e.key <= '9') {
+                // Build four-digit sequence
+                keySequence += e.key;
+                
+                // Clear any existing timer
+                if (keyTimer) clearTimeout(keyTimer);
+                
+                // Set timer to reset sequence after 2 seconds
+                keyTimer = setTimeout(() => {
+                    keySequence = '';
+                }, 2000);
+                
+                // Check if we have a valid four-digit code
+                if (keySequence.length === 4 && profileMappings[keySequence]) {
+                    const profile = profileMappings[keySequence];
                     
-                    // Show results screen
-                    const resultsScreen = document.getElementById('resultsScreen');
-                    if (resultsScreen) {
-                        resultsScreen.classList.add('active');
+                    try {
+                        // Hide all screens
+                        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
                         
-                        // Load IS-Architect profile with all the content we created
-                        loadProfile('IS-Architect', 'The Philosopher', 'Westerner');
-                        
-                        console.log('Secret code Z activated - IS-Architect loaded');
-                    } else {
-                        alert('Results screen not found!');
+                        // Show results screen
+                        const resultsScreen = document.getElementById('resultsScreen');
+                        if (resultsScreen) {
+                            resultsScreen.classList.add('active');
+                            
+                            // Load the specific profile
+                            loadProfileByCode(profile.code, profile.name, profile.orientation);
+                            
+                            console.log(`Secret code ${keySequence} activated - ${profile.code} loaded`);
+                        }
+                    } catch (err) {
+                        console.error('Error loading profile:', err);
                     }
-                } catch (err) {
-                    alert('Error: ' + err.message);
+                    
+                    keySequence = ''; // Reset
+                    clearTimeout(keyTimer);
+                } else if (keySequence.length > 4) {
+                    // Reset if too many digits
+                    keySequence = '';
+                    clearTimeout(keyTimer);
                 }
             }
         });
         
-        // Simple profile loader that sets all the customized content
-        function loadProfile(profileCode, profileName, orientation) {
+        // Profile loader that sets all the customized content for any profile
+        function loadProfileByCode(profileCode, profileName, orientation) {
             // Basic profile info
             const codeEl = document.getElementById('profileCode');
             if (codeEl) codeEl.textContent = profileCode;
@@ -1553,35 +1603,77 @@
             const orientationEl = document.getElementById('orientationPill');
             if (orientationEl) orientationEl.textContent = orientation;
             
-            // Set archetype pills for IS-Architect
+            // Extract archetypes and tendency from profile code
+            const [archetypes, tendency] = profileCode.split('-');
+            const primary = archetypes[0];
+            const secondary = archetypes[1];
+            
+            // Archetype names and pill classes
+            const archetypeNames = {
+                'I': 'Inner Guide',
+                'S': 'Synthesizer', 
+                'P': 'Producer',
+                'C': 'Creative'
+            };
+            
+            const archetypePillClasses = {
+                'I': 'inner-guide-pill',
+                'S': 'synthesizer-pill',
+                'P': 'producer-pill',
+                'C': 'creative-pill'
+            };
+            
+            // Set archetype pills dynamically based on profile
             const primaryPill = document.getElementById('primaryArchetypePill');
             if (primaryPill) {
-                primaryPill.textContent = 'Inner Guide';
-                primaryPill.className = 'archetype-pill inner-guide-pill';
+                primaryPill.textContent = archetypeNames[primary];
+                primaryPill.className = `archetype-pill ${archetypePillClasses[primary]}`;
             }
             
             const secondaryPill = document.getElementById('secondaryArchetypePill');
             if (secondaryPill) {
-                secondaryPill.textContent = 'Synthesizer';
-                secondaryPill.className = 'archetype-pill synthesizer-pill';
+                secondaryPill.textContent = archetypeNames[secondary];
+                secondaryPill.className = `archetype-pill ${archetypePillClasses[secondary]}`;
             }
             
+            // Set third and fourth pills (faded) - using mock score ranking for now
+            const otherArchetypes = ['I', 'S', 'P', 'C'].filter(a => a !== primary && a !== secondary);
+            
             const thirdPill = document.getElementById('thirdArchetypePill');
-            if (thirdPill) {
-                thirdPill.textContent = 'Producer';
-                thirdPill.className = 'archetype-pill secondary-archetype producer-pill';
+            if (thirdPill && otherArchetypes[0]) {
+                thirdPill.textContent = archetypeNames[otherArchetypes[0]];
+                thirdPill.className = `archetype-pill secondary-archetype ${archetypePillClasses[otherArchetypes[0]]}`;
             }
             
             const fourthPill = document.getElementById('fourthArchetypePill');
-            if (fourthPill) {
-                fourthPill.textContent = 'Creative';
-                fourthPill.className = 'archetype-pill secondary-archetype creative-pill';
+            if (fourthPill && otherArchetypes[1]) {
+                fourthPill.textContent = archetypeNames[otherArchetypes[1]];
+                fourthPill.className = `archetype-pill secondary-archetype ${archetypePillClasses[otherArchetypes[1]]}`;
             }
             
-            // Set archetype description
+            // Set archetype description based on combination
             const archetypeDesc = document.getElementById('archetypeDescription');
             if (archetypeDesc) {
-                archetypeDesc.innerHTML = 'The <strong>Inner Guide</strong> and <strong>Synthesizer</strong> combination creates a philosophical approach to sensemaking. You naturally seek deep understanding and meaning, often spending significant time in reflection and analysis. Your strength lies in your ability to synthesize complex ideas and find underlying patterns, though you may sometimes struggle with moving from contemplation to action.';
+                let description = '';
+                const sortedArchetypes = archetypes.split('').sort().join('');
+                
+                if (sortedArchetypes === 'IS') {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates a philosophical approach to sensemaking. You naturally seek deep understanding and meaning, often spending significant time in reflection and analysis. Your strength lies in your ability to synthesize complex ideas and find underlying patterns, though you may sometimes struggle with moving from contemplation to action.`;
+                } else if (sortedArchetypes === 'CP') {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates a maker's approach to sensemaking. You thrive on creative expression and productive output, naturally translating ideas into tangible results. Your strength lies in your ability to innovate and execute, though you may sometimes need to balance your action-oriented nature with deeper reflection.`;
+                } else if (sortedArchetypes === 'PS') {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates a builder's approach to sensemaking. You excel at systematic creation and structured progress, combining practical action with comprehensive understanding. Your strength lies in your ability to construct robust frameworks and methodologies, making complex projects manageable and sustainable.`;
+                } else if (sortedArchetypes === 'CI') {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates an explorer's approach to sensemaking. You thrive on creative discovery and meaningful investigation, naturally seeking novel perspectives and innovative solutions. Your strength lies in your ability to venture into uncharted territory and find unique insights that others might miss.`;
+                } else if (sortedArchetypes === 'CS') {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates a translator's approach to sensemaking. You excel at bridging different worlds of understanding, making complex or abstract concepts accessible to others. Your strength lies in your ability to synthesize diverse perspectives and communicate insights across different contexts and audiences.`;
+                } else if (sortedArchetypes === 'IP') {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates a converter's approach to sensemaking. You excel at transforming deep insights into practical applications, bridging the gap between meaning and action. Your strength lies in your ability to take abstract understanding and convert it into concrete, productive outcomes.`;
+                } else {
+                    description = `The <strong>${archetypeNames[primary]}</strong> and <strong>${archetypeNames[secondary]}</strong> combination creates a unique approach to sensemaking that blends their distinctive strengths.`;
+                }
+                
+                archetypeDesc.innerHTML = description;
             }
             
             // Set tendency pills
@@ -1597,10 +1689,14 @@
                 secondaryTendencyPill.className = 'tendency-pill secondary-tendency gardener-pill';
             }
             
-            // Set tendency description
+            // Set tendency description based on tendency
             const tendencyDesc = document.getElementById('tendencyDescription');
             if (tendencyDesc) {
-                tendencyDesc.innerHTML = 'The <strong>Architect</strong> is your dominant sensemaking tendency. This means you gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.';
+                if (tendency === 'Architect') {
+                    tendencyDesc.innerHTML = 'The <strong>Architect</strong> is your dominant sensemaking tendency. This means you gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.';
+                } else {
+                    tendencyDesc.innerHTML = 'The <strong>Gardener</strong> is your dominant sensemaking tendency. This means you prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.';
+                }
             }
             
             // Set orientation description
@@ -1684,21 +1780,6 @@
 
         startBtn.addEventListener('click', function() {
             userEmail = emailInput.value;
-            
-            // Check for secret codes in email field
-            const secretCodes = {
-                'test': 'IS-Architect',
-                'demo': 'CP-Gardener',
-                '0003': 'IS-Architect',
-                '0021': 'CP-Architect'
-            };
-            
-            if (secretCodes[userEmail.toLowerCase()]) {
-                // Secret code entered - show results directly
-                showTestResults(secretCodes[userEmail.toLowerCase()]);
-                return;
-            }
-            
             showScreen('assessmentScreen');
             loadQuestion();
         });
