@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, DM_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { DM_Mono, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const dmMono = DM_Mono({

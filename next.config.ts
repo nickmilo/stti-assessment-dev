@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'standalone',
+  trailingSlash: false,
+  experimental: {
+    optimizeCss: true,
+  },
+  compiler: {
+    removeConsole: false,
+  }
 };
 
 export default nextConfig;
