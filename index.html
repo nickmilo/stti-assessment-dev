@@ -1512,36 +1512,9 @@
         let answers = {};
         let userEmail = '';
         
-        // 4-digit secret codes (0001-0024)
+        // Simple 4-digit secret codes - start with just a few that work
         let keySequence = '';
         let keyTimer = null;
-        
-        const profileMappings = {
-            '0001': { code: 'IP-Architect', name: 'The Converter', orientation: 'Diagonal' },
-            '0002': { code: 'IP-Gardener', name: 'The Converter', orientation: 'Diagonal' },
-            '0003': { code: 'IS-Architect', name: 'The Philosopher', orientation: 'Westerner' },
-            '0004': { code: 'IS-Gardener', name: 'The Philosopher', orientation: 'Westerner' },
-            '0005': { code: 'IC-Architect', name: 'The Explorer', orientation: 'Southerner' },
-            '0006': { code: 'IC-Gardener', name: 'The Explorer', orientation: 'Southerner' },
-            '0007': { code: 'PI-Architect', name: 'The Converter', orientation: 'Diagonal' },
-            '0008': { code: 'PI-Gardener', name: 'The Converter', orientation: 'Diagonal' },
-            '0009': { code: 'PS-Architect', name: 'The Builder', orientation: 'Northerner' },
-            '0010': { code: 'PS-Gardener', name: 'The Builder', orientation: 'Northerner' },
-            '0011': { code: 'PC-Architect', name: 'The Maker', orientation: 'Easterner' },
-            '0012': { code: 'PC-Gardener', name: 'The Maker', orientation: 'Easterner' },
-            '0013': { code: 'SI-Architect', name: 'The Philosopher', orientation: 'Westerner' },
-            '0014': { code: 'SI-Gardener', name: 'The Philosopher', orientation: 'Westerner' },
-            '0015': { code: 'SP-Architect', name: 'The Builder', orientation: 'Northerner' },
-            '0016': { code: 'SP-Gardener', name: 'The Builder', orientation: 'Northerner' },
-            '0017': { code: 'SC-Architect', name: 'The Translator', orientation: 'Diagonal' },
-            '0018': { code: 'SC-Gardener', name: 'The Translator', orientation: 'Diagonal' },
-            '0019': { code: 'CI-Architect', name: 'The Explorer', orientation: 'Southerner' },
-            '0020': { code: 'CI-Gardener', name: 'The Explorer', orientation: 'Southerner' },
-            '0021': { code: 'CP-Architect', name: 'The Maker', orientation: 'Easterner' },
-            '0022': { code: 'CP-Gardener', name: 'The Maker', orientation: 'Easterner' },
-            '0023': { code: 'CS-Architect', name: 'The Translator', orientation: 'Diagonal' },
-            '0024': { code: 'CS-Gardener', name: 'The Translator', orientation: 'Diagonal' }
-        };
         
         window.addEventListener('keydown', function(e) {
             // Only work when not in an input field
@@ -1559,30 +1532,19 @@
                     keySequence = '';
                 }, 2000);
                 
-                // Check if we have a valid four-digit code
-                if (keySequence.length === 4 && profileMappings[keySequence]) {
-                    const profile = profileMappings[keySequence];
-                    
-                    try {
-                        // Hide all screens
-                        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                        
-                        // Show results screen
-                        const resultsScreen = document.getElementById('resultsScreen');
-                        if (resultsScreen) {
-                            resultsScreen.classList.add('active');
-                            
-                            // Load the specific profile
-                            loadProfileByCode(profile.code, profile.name, profile.orientation);
-                            
-                            console.log(`Secret code ${keySequence} activated - ${profile.code} loaded`);
-                        }
-                    } catch (err) {
-                        console.error('Error loading profile:', err);
-                    }
-                    
-                    keySequence = ''; // Reset
-                    clearTimeout(keyTimer);
+                // Check specific codes
+                if (keySequence === '0003') {
+                    // IS-Architect
+                    showSimpleProfile('IS-Architect', 'The Philosopher');
+                    keySequence = '';
+                } else if (keySequence === '0021') {
+                    // CP-Architect  
+                    showSimpleProfile('CP-Architect', 'The Maker');
+                    keySequence = '';
+                } else if (keySequence === '0009') {
+                    // PS-Architect
+                    showSimpleProfile('PS-Architect', 'The Builder');
+                    keySequence = '';
                 } else if (keySequence.length > 4) {
                     // Reset if too many digits
                     keySequence = '';
@@ -1590,6 +1552,31 @@
                 }
             }
         });
+        
+        function showSimpleProfile(profileCode, profileName) {
+            try {
+                // Hide all screens
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                
+                // Show results screen
+                const resultsScreen = document.getElementById('resultsScreen');
+                if (resultsScreen) {
+                    resultsScreen.classList.add('active');
+                    
+                    // Set basic info
+                    const codeEl = document.getElementById('profileCode');
+                    if (codeEl) codeEl.textContent = profileCode;
+                    
+                    const subtitleEl = document.getElementById('profileSubtitle');
+                    if (subtitleEl) subtitleEl.textContent = profileName;
+                    
+                    console.log(`Secret code activated - ${profileCode} loaded`);
+                }
+            } catch (err) {
+                console.error('Error loading profile:', err);
+                alert('Error: ' + err.message);
+            }
+        }
         
         // Profile loader that sets all the customized content for any profile
         function loadProfileByCode(profileCode, profileName, orientation) {
