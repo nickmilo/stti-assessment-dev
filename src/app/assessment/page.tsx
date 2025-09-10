@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { questions } from '@/data/questions';
 import { calculateScores, determineProfile } from '@/utils/scoring';
+import { FORMSPREE_ENDPOINT } from '@/config/formspree';
 
 type AnswerOption = 'SD' | 'D' | 'A' | 'SA';
 
@@ -38,8 +39,12 @@ export default function AssessmentPage() {
         setCurrentQuestion(currentQuestion + 1);
       }, 400);
     } else {
-      // On last question, show results
+      // On last question, show results and submit data
       setTimeout(() => {
+        const answersArray = Object.values(newAnswers);
+        const scores = calculateScores(answersArray);
+        const profile = determineProfile(scores);
+        submitAssessmentData(email, newAnswers, profile);
         setShowResults(true);
       }, 400);
     }
@@ -55,7 +60,11 @@ export default function AssessmentPage() {
     if (currentQuestion < questions.length - 1 && answers[currentQuestion]) {
       setCurrentQuestion(currentQuestion + 1);
     } else if (currentQuestion === questions.length - 1 && answers[currentQuestion]) {
-      // If on last question and it's answered, show results
+      // If on last question and it's answered, show results and submit data
+      const answersArray = Object.values(answers);
+      const scores = calculateScores(answersArray);
+      const profile = determineProfile(scores);
+      submitAssessmentData(email, answers, profile);
       setShowResults(true);
     }
   };
@@ -84,6 +93,40 @@ export default function AssessmentPage() {
         .catch(() => alert('Unable to copy to clipboard'));
     } else {
       alert(shareText);
+    }
+  };
+
+  // Submit assessment data to Formspree
+  const submitAssessmentData = async (email: string, answers: Record<number, Answer>, profile: any) => {
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          profile_code: profile.code,
+          dominant_archetypes: profile.dominantArchetypes.join(' & '),
+          tendency: profile.tendency,
+          scores: profile.scores,
+          timestamp: new Date().toISOString(),
+          answers: Object.values(answers).map(answer => ({
+            question_id: answer.questionId,
+            question_text: questions.find(q => q.id === answer.questionId)?.text,
+            answer: answer.answer,
+            archetype: questions.find(q => q.id === answer.questionId)?.archetype
+          }))
+        })
+      });
+
+      if (response.ok) {
+        console.log('Assessment data submitted successfully');
+      } else {
+        console.error('Failed to submit assessment data');
+      }
+    } catch (error) {
+      console.error('Error submitting assessment data:', error);
     }
   };
 
