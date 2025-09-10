@@ -2,8 +2,8 @@
 // Update this with your actual Vercel URL after deployment
 
 export const SITE_CONFIG = {
-  // Replace with your actual Vercel URL (e.g., "https://stti-assessment.vercel.app")
-  url: 'https://YOUR_VERCEL_URL.vercel.app',
+  // Your live Vercel URL
+  url: 'https://stti-assessment.vercel.app',
   name: 'STTI Assessment',
   description: 'Discover Your Sensemaking Type & Tendencies',
   
