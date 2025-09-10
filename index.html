@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STTI Assessment - Discover Your Sensemaking Type</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Canela Deck';
+            src: url('CanelaDeck-Regular-Trial.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Canela Deck';
+            src: url('CanelaDeck-Medium-Trial.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --lyt-purple: #b9adff;
+            --lyt-purple-deep: #8272d0;
+            --lyt-yellow: #fcf601;
+            --lyt-yellow-muted: #c7c400;
+            --lyt-cyan: #5dbcd2;
+            --lyt-pink: #d669bc;
+            --lyt-green: #67c073;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><line x1="20" y1="20" x2="60" y2="70" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><line x1="60" y1="70" x2="80" y2="30" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-family: 'Canela Deck', Helvetica, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .email-capture {
+            text-align: center;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(185, 173, 255, 0.1);
+            border: 2px solid rgba(185, 173, 255, 0.2);
+        }
+
+        .email-capture h2 {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .email-capture p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .email-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--lyt-purple);
+            box-shadow: 0 0 0 3px rgba(185, 173, 255, 0.1);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .assessment {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(185, 173, 255, 0.1);
+            border: 2px solid rgba(185, 173, 255, 0.2);
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-family: 'DM Mono', monospace;
+            color: var(--lyt-purple-deep);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-section {
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--lyt-purple-deep);
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .answer-btn {
+            padding: 1rem 1.5rem;
+            border: 2px solid;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .answer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .answer-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(-50%, -50%);
+        }
+
+        .answer-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .sd {
+            border-color: var(--lyt-purple-deep);
+            color: var(--lyt-purple-deep);
+        }
+        .sd::before { background: var(--lyt-purple-deep); }
+        .sd:hover { color: white; }
+
+        .d {
+            border-color: var(--lyt-yellow-muted);
+            color: var(--lyt-yellow-muted);
+        }
+        .d::before { background: var(--lyt-yellow-muted); }
+        .d:hover { color: white; }
+
+        .a {
+            border-color: var(--lyt-cyan);
+            color: var(--lyt-cyan);
+        }
+        .a::before { background: var(--lyt-cyan); }
+        .a:hover { color: white; }
+
+        .sa {
+            border-color: var(--lyt-pink);
+            color: var(--lyt-pink);
+        }
+        .sa::before { background: var(--lyt-pink); }
+        .sa:hover { color: white; }
+
+        .answer-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem;
+            border: 1px solid var(--lyt-purple);
+            background: white;
+            color: var(--lyt-purple);
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--lyt-purple);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #ccc;
+        }
+
+        .results {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(185, 173, 255, 0.1);
+            border: 2px solid rgba(185, 173, 255, 0.2);
+        }
+
+        .profile-code {
+            font-family: 'DM Mono', monospace;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 1rem;
+        }
+
+        .profile-title {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0.5rem;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer h3 {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 1.2rem;
+            color: var(--lyt-purple);
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: var(--lyt-cyan);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--lyt-purple);
+        }
+
+        .footer-credits {
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="lyt-logo.png" alt="Linking Your Thinking" class="logo">
+        <div class="header-content">
+            <h1>STTI Assessment</h1>
+            <p>Discover Your Sensemaking Type & Tendencies</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Email Capture Screen -->
+        <div id="emailScreen" class="screen active">
+            <div class="email-capture">
+                <h2>Get Your Results</h2>
+                <p>Enter your email to receive your personalized STTI results. We'll send you a detailed breakdown of your sensemaking type and suggestions for optimization.</p>
+                <input type="email" id="emailInput" class="email-input" placeholder="Enter your email address">
+                <br>
+                <button id="startBtn" class="start-btn" disabled>Start Assessment</button>
+            </div>
+        </div>
+
+        <!-- Assessment Screen -->
+        <div id="assessmentScreen" class="screen">
+            <div class="assessment">
+                <div class="progress-section">
+                    <div class="progress-text" id="progressText">Question 1 of 53</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-text" id="questionText">Loading question...</div>
+                    
+                    <div class="answers">
+                        <button class="answer-btn sd" onclick="selectAnswer('SD')">
+                            <span>Strongly Disagree</span>
+                        </button>
+                        <button class="answer-btn d" onclick="selectAnswer('D')">
+                            <span>Disagree</span>
+                        </button>
+                        <button class="answer-btn a" onclick="selectAnswer('A')">
+                            <span>Agree</span>
+                        </button>
+                        <button class="answer-btn sa" onclick="selectAnswer('SA')">
+                            <span>Strongly Agree</span>
+                        </button>
+                    </div>
+
+                    <div class="navigation">
+                        <button id="backBtn" class="nav-btn" onclick="goBack()">‹</button>
+                        <button id="forwardBtn" class="nav-btn" onclick="goForward()">›</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="results">
+                <div class="profile-code" id="profileCode">IP-Architect</div>
+                <div class="profile-title" id="profileTitle">Inner Guide & Producer - Architect</div>
+                <div class="profile-description" id="profileDescription">
+                    Your unique cognitive pattern reveals how you process information and navigate complexity.
+                </div>
+                <button class="share-btn" onclick="shareResults()">Share Results</button>
+                <button class="share-btn" onclick="restartAssessment()">Take Again</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h3>Educational Licensing & Research Opportunities</h3>
+        <p>
+            Interested in using the STTI Assessment in your classroom, research, or academic program? 
+            This validated instrument is perfect for case studies, rigorous academic testing, and educational research initiatives.
+        </p>
+        <p>
+            <a href="mailto:hello@linkingyourthinking.com">Contact us at hello@linkingyourthinking.com</a> 
+            to inquire about classroom licenses, research partnerships, and institutional access.
+        </p>
+        <div class="footer-credits">
+            © 2025 Linking Your Thinking. The STTI Assessment is proprietary and protected by copyright.<br>
+            All rights reserved. | <a href="https://www.linkingyourthinking.com">linkingyourthinking.com</a>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { id: 1, text: "I am really satisfied when I create something that feels original to me.", archetype: 'C+' },
+            { id: 2, text: "I naturally look at topics from many angles.", archetype: 'S+' },
+            { id: 3, text: "I find working from detailed plans draining.", archetype: 'G+' },
+            { id: 4, text: "I prefer to read summaries, not wade through a lot of information.", archetype: 'S-' },
+            { id: 5, text: "I am energized by making progress on tasks.", archetype: 'P+' },
+            { id: 6, text: "If I'm putting something together, I start building before opening the manual.", archetype: 'G+' },
+            { id: 7, text: "I prefer novels over non-fiction.", archetype: 'RH' },
+            { id: 8, text: "I feel satisfied when my explorations lead to something unexpected.", archetype: 'G+' },
+            { id: 9, text: "I don't tend to reflect on my life experiences.", archetype: 'I-' },
+            { id: 10, text: "I am willing to put in the work required for my ideas to have an impact on others.", archetype: 'C+' },
+            { id: 11, text: "Working from detailed plans is energizing for me.", archetype: 'A+' },
+            { id: 12, text: "I am not particularly interested in abstract ideas.", archetype: 'S-' },
+            { id: 13, text: "I find exploring without a set path energizing.", archetype: 'G+' },
+            { id: 14, text: "I have a hard time making progress on my goals.", archetype: 'P-' },
+            { id: 15, text: "Taking action on what I learn is important to me.", archetype: 'P+' },
+            { id: 16, text: "I am drained by reflecting on my life.", archetype: 'I-' },
+            { id: 17, text: "I rarely share my ideas with others.", archetype: 'C-' },
+            { id: 18, text: "Mapping out everything ahead of time helps me focus on what matters.", archetype: 'A+' },
+            { id: 19, text: "I prefer classic literature over sci-fi or fantasy.", archetype: 'RH' },
+            { id: 20, text: "I feel really satisfied when I get a lot of things done in a day.", archetype: 'P+' },
+            { id: 21, text: "I dive in without a plan when starting a new project.", archetype: 'G+' },
+            { id: 22, text: "I'm more extrovert than introvert.", archetype: 'RH' },
+            { id: 23, text: "I find exploring topics in depth energizing.", archetype: 'S+' },
+            { id: 24, text: "Creating something original doesn't give me particular satisfaction.", archetype: 'C-' },
+            { id: 25, text: "Having a clear plan at the start of something new is important to me.", archetype: 'A+' },
+            { id: 26, text: "I am not particularly interested in personal reflection.", archetype: 'I-' },
+            { id: 27, text: "I am energized by expressing my unique perspective.", archetype: 'C+' },
+            { id: 28, text: "If I'm putting something together, I read the manual first.", archetype: 'A+' },
+            { id: 29, text: "There will always be more to do. I don't stress about getting stuff done.", archetype: 'P-' },
+            { id: 30, text: "I often spend time reflecting on my life experiences.", archetype: 'I+' },
+            { id: 31, text: "Being able to do something with my learning isn't that important to me.", archetype: 'P-' },
+            { id: 32, text: "I am really satisfied when I make sense out of complex information.", archetype: 'S+' },
+            { id: 33, text: "Exploring without a set path drains me.", archetype: 'A+' },
+            { id: 34, text: "I find expressing my unique perspective draining.", archetype: 'C-' },
+            { id: 35, text: "I consistently take action on the tasks and plans of the day.", archetype: 'P+' },
+            { id: 36, text: "Trying to map out everything ahead of time is a waste of time.", archetype: 'G+' },
+            { id: 37, text: "I prefer a mountain hike rather than a beach stroll.", archetype: 'RH' },
+            { id: 38, text: "I feel satisfied when I execute a well-structured plan.", archetype: 'A+' },
+            { id: 39, text: "I enjoy working with a lot of information.", archetype: 'S+' },
+            { id: 40, text: "I am not particularly interested in taking detours without a high-level picture.", archetype: 'A+' },
+            { id: 41, text: "I think introspection is overrated. I'm content to take life as it comes.", archetype: 'I-' },
+            { id: 42, text: "Executing a structured plan doesn't appeal to me.", archetype: 'G+' },
+            { id: 43, text: "I find working on tasks draining.", archetype: 'P-' },
+            { id: 44, text: "Having flexibility at the start of something new is important to me.", archetype: 'G+' },
+            { id: 45, text: "I feel really satisfied when I am making sense of my life.", archetype: 'I+' },
+            { id: 46, text: "I'm more introvert than extrovert.", archetype: 'RH' },
+            { id: 47, text: "I often share my ideas with others.", archetype: 'C+' },
+            { id: 48, text: "While it would be nice to impact others with my original creations, I have more pressing priorities.", archetype: 'C-' },
+            { id: 49, text: "I am drained by exploring topics in depth.", archetype: 'S-' },
+            { id: 50, text: "When beginning a new project, I usually start by making a plan.", archetype: 'A+' },
+            { id: 51, text: "I feel a strong need to think about my values and what really matters to me.", archetype: 'I+' },
+            { id: 52, text: "I find reflecting on my life energizing.", archetype: 'I+' },
+            { id: 53, text: "I don't feel the need to exhaustively explore an idea.", archetype: 'S-' }
+        ];
+
+        let currentQuestion = 0;
+        let answers = {};
+        let userEmail = '';
+
+        // Email validation and start
+        const emailInput = document.getElementById('emailInput');
+        const startBtn = document.getElementById('startBtn');
+
+        emailInput.addEventListener('input', function() {
+            const email = this.value;
+            const isValid = email.includes('@') && email.length > 5;
+            startBtn.disabled = !isValid;
+        });
+
+        startBtn.addEventListener('click', function() {
+            userEmail = emailInput.value;
+            showScreen('assessmentScreen');
+            loadQuestion();
+        });
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function updateNavButtons() {
+            const backBtn = document.getElementById('backBtn');
+            const forwardBtn = document.getElementById('forwardBtn');
+            
+            backBtn.disabled = currentQuestion === 0;
+            forwardBtn.disabled = !answers[currentQuestion];
+        }
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const question = questions[currentQuestion];
+            document.getElementById('questionText').textContent = question.text;
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            highlightSelectedAnswer();
+            updateNavButtons();
+        }
+
+        function highlightSelectedAnswer() {
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.style.opacity = '1';
+                btn.style.transform = 'scale(1)';
+            });
+            
+            if (answers[currentQuestion]) {
+                const selectedBtn = document.querySelector(`[onclick="selectAnswer('${answers[currentQuestion].answer}')"]`);
+                if (selectedBtn) {
+                    selectedBtn.style.opacity = '0.8';
+                    selectedBtn.style.transform = 'scale(0.95)';
+                }
+            }
+        }
+
+        function selectAnswer(response) {
+            answers[currentQuestion] = {
+                questionId: questions[currentQuestion].id,
+                answer: response,
+                archetype: questions[currentQuestion].archetype
+            };
+            
+            // Visual feedback
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.style.transform = 'scale(1)';
+            });
+            
+            const selectedBtn = event.target.closest('.answer-btn');
+            if (selectedBtn) {
+                selectedBtn.style.transform = 'scale(0.95)';
+            }
+
+            updateNavButtons();
+            
+            // Auto-advance after a short delay
+            if (currentQuestion < questions.length - 1) {
+                setTimeout(() => {
+                    currentQuestion++;
+                    loadQuestion();
+                }, 400);
+            } else {
+                setTimeout(() => {
+                    showResults();
+                }, 400);
+            }
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function goForward() {
+            if (currentQuestion < questions.length - 1 && answers[currentQuestion]) {
+                currentQuestion++;
+                loadQuestion();
+            } else if (currentQuestion === questions.length - 1 && answers[currentQuestion]) {
+                showResults();
+            }
+        }
+
+        function calculateScores() {
+            const scores = { I: 0, S: 0, P: 0, C: 0, A: 0, G: 0 };
+            
+            Object.values(answers).forEach(answer => {
+                if (answer.archetype === 'RH') return; // Skip red herrings
+                
+                const archetype = answer.archetype.substring(0, 1);
+                const polarity = answer.archetype.substring(1);
+                
+                let score = 0;
+                switch (answer.answer) {
+                    case 'SD': score = polarity === '+' ? 1 : 4; break;
+                    case 'D': score = polarity === '+' ? 2 : 3; break;
+                    case 'A': score = polarity === '+' ? 3 : 2; break;
+                    case 'SA': score = polarity === '+' ? 4 : 1; break;
+                }
+                
+                scores[archetype] += score;
+            });
+            
+            return scores;
+        }
+
+        function determineProfile(scores) {
+            // Get top 2 archetypes
+            const archetypeScores = [
+                ['I', scores.I], ['S', scores.S], ['P', scores.P], ['C', scores.C]
+            ].sort((a, b) => b[1] - a[1]);
+            
+            // Determine tendency
+            const tendency = scores.A > scores.G ? 'Architect' : 'Gardener';
+            
+            const dominantArchetypes = [archetypeScores[0][0], archetypeScores[1][0]];
+            const code = dominantArchetypes.join('') + '-' + tendency;
+            
+            return { code, dominantArchetypes, tendency, scores };
+        }
+
+        async function submitToFormspree(profile) {
+            try {
+                const response = await fetch('https://formspree.io/f/xvgblrvw', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: userEmail,
+                        profile_code: profile.code,
+                        dominant_archetypes: profile.dominantArchetypes.join(' & '),
+                        tendency: profile.tendency,
+                        scores: profile.scores,
+                        timestamp: new Date().toISOString(),
+                        answers: Object.values(answers).map(answer => ({
+                            question_id: answer.questionId,
+                            question_text: questions.find(q => q.id === answer.questionId)?.text,
+                            answer: answer.answer,
+                            archetype: answer.archetype
+                        }))
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('Data submitted to Formspree successfully');
+                } else {
+                    console.error('Failed to submit to Formspree');
+                }
+            } catch (error) {
+                console.error('Error submitting to Formspree:', error);
+            }
+        }
+
+        function showResults() {
+            const scores = calculateScores();
+            const profile = determineProfile(scores);
+            
+            // Submit to Formspree
+            submitToFormspree(profile);
+            
+            // Update results display
+            document.getElementById('profileCode').textContent = profile.code;
+            
+            const archetypeNames = {
+                'I': 'Inner Guide',
+                'S': 'Synthesizer', 
+                'P': 'Producer',
+                'C': 'Creative'
+            };
+            
+            const title = `${archetypeNames[profile.dominantArchetypes[0]]} & ${archetypeNames[profile.dominantArchetypes[1]]} - ${profile.tendency}`;
+            document.getElementById('profileTitle').textContent = title;
+            
+            document.getElementById('profileDescription').innerHTML = 
+                `You blend the <strong>${archetypeNames[profile.dominantArchetypes[0]]}</strong> and <strong>${archetypeNames[profile.dominantArchetypes[1]]}</strong> approaches with <strong>${profile.tendency}</strong> tendencies. This unique combination shapes how you process information, make decisions, and navigate complexity in your personal and professional life.`;
+            
+            showScreen('resultsScreen');
+        }
+
+        function shareResults() {
+            const profileCode = document.getElementById('profileCode').textContent;
+            const shareText = `I just discovered I'm a ${profileCode} on the STTI Assessment! Find out your sensemaking type at https://nickmilo.github.io/stti-assessment/`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: `I'm a ${profileCode}! - STTI Assessment`,
+                    text: shareText,
+                    url: 'https://nickmilo.github.io/stti-assessment/'
+                }).catch(err => console.log('Error sharing:', err));
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareText)
+                    .then(() => alert('Share text copied to clipboard!'))
+                    .catch(() => alert('Unable to copy to clipboard'));
+            } else {
+                alert(shareText);
+            }
+        }
+
+        function restartAssessment() {
+            currentQuestion = 0;
+            answers = {};
+            userEmail = '';
+            document.getElementById('emailInput').value = '';
+            startBtn.disabled = true;
+            showScreen('emailScreen');
+        }
+    </script>
+</body>
+</html>
