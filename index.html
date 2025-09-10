@@ -225,8 +225,8 @@
 
         .answers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
             margin-bottom: 2rem;
         }
 
@@ -437,11 +437,24 @@
             }
 
             .answers {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            .answer-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
             }
 
             .container {
                 padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .answers {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
             }
         }
     </style>
