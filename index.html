@@ -1804,9 +1804,29 @@
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
-            // Determine if Westerner or Easterner based on profile archetypes
-            const isWesterner = (profile.dominantArchetypes.includes('I') && profile.dominantArchetypes.includes('S'));
-            const isEasterner = (profile.dominantArchetypes.includes('P') && profile.dominantArchetypes.includes('C'));
+            // Determine orientation based on archetype combinations
+            const archetypes = profile.dominantArchetypes.sort().join('');
+            let orientation = '';
+            
+            if (archetypes === 'IS' || archetypes === 'SI') {
+                orientation = 'Westerner';
+            } else if (archetypes === 'CP' || archetypes === 'PC') {
+                orientation = 'Easterner';
+            } else if (archetypes === 'PS' || archetypes === 'SP') {
+                orientation = 'Northerner';
+            } else if (archetypes === 'CI' || archetypes === 'IC') {
+                orientation = 'Southerner';
+            } else if (archetypes === 'CS' || archetypes === 'SC') {
+                orientation = 'Diagonal';
+            } else if (archetypes === 'IP' || archetypes === 'PI') {
+                orientation = 'Diagonal';
+            } else {
+                orientation = 'Mixed';
+            }
+            
+            // Legacy variables for backward compatibility
+            const isWesterner = (orientation === 'Westerner');
+            const isEasterner = (orientation === 'Easterner');
             
             const westernerTitle = document.getElementById('westernerTitle');
             const westernerDescription = document.getElementById('westernerDescription');
@@ -1816,9 +1836,6 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
-            
-            // Determine profile type based on archetype combinations
-            const archetypes = profile.dominantArchetypes.sort().join('');
             
             if (archetypes === 'IS' || archetypes === 'SI') {
                 profileSubtitle.textContent = 'The Philosopher';
@@ -1838,13 +1855,7 @@
             
             // Update orientation pill
             const orientationPill = document.getElementById('orientationPill');
-            if (isWesterner) {
-                orientationPill.textContent = 'Westerner';
-            } else if (isEasterner) {
-                orientationPill.textContent = 'Easterner';
-            } else {
-                orientationPill.textContent = 'Mixed';
-            }
+            orientationPill.textContent = orientation;
             
             if (isWesterner) {
                 westernerTitle.textContent = 'Orientation';
@@ -2162,9 +2173,29 @@
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
-            // Determine if Westerner or Easterner based on profile archetypes
-            const isWesterner = (profile.dominantArchetypes.includes('I') && profile.dominantArchetypes.includes('S'));
-            const isEasterner = (profile.dominantArchetypes.includes('P') && profile.dominantArchetypes.includes('C'));
+            // Determine orientation based on archetype combinations
+            const archetypes = profile.dominantArchetypes.sort().join('');
+            let orientation = '';
+            
+            if (archetypes === 'IS' || archetypes === 'SI') {
+                orientation = 'Westerner';
+            } else if (archetypes === 'CP' || archetypes === 'PC') {
+                orientation = 'Easterner';
+            } else if (archetypes === 'PS' || archetypes === 'SP') {
+                orientation = 'Northerner';
+            } else if (archetypes === 'CI' || archetypes === 'IC') {
+                orientation = 'Southerner';
+            } else if (archetypes === 'CS' || archetypes === 'SC') {
+                orientation = 'Diagonal';
+            } else if (archetypes === 'IP' || archetypes === 'PI') {
+                orientation = 'Diagonal';
+            } else {
+                orientation = 'Mixed';
+            }
+            
+            // Legacy variables for backward compatibility
+            const isWesterner = (orientation === 'Westerner');
+            const isEasterner = (orientation === 'Easterner');
             
             const westernerTitle = document.getElementById('westernerTitle');
             const westernerDescription = document.getElementById('westernerDescription');
@@ -2174,9 +2205,6 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
-            
-            // Determine profile type based on archetype combinations
-            const archetypes = profile.dominantArchetypes.sort().join('');
             
             if (archetypes === 'IS' || archetypes === 'SI') {
                 profileSubtitle.textContent = 'The Philosopher';
@@ -2196,13 +2224,7 @@
             
             // Update orientation pill
             const orientationPill = document.getElementById('orientationPill');
-            if (isWesterner) {
-                orientationPill.textContent = 'Westerner';
-            } else if (isEasterner) {
-                orientationPill.textContent = 'Easterner';
-            } else {
-                orientationPill.textContent = 'Mixed';
-            }
+            orientationPill.textContent = orientation;
             
             if (isWesterner) {
                 westernerTitle.textContent = 'Orientation';
