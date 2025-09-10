@@ -1868,15 +1868,24 @@
             const orientationPill = document.getElementById('orientationPill');
             orientationPill.textContent = orientation;
             
-            if (isWesterner) {
-                westernerTitle.textContent = 'Orientation';
+            westernerTitle.textContent = 'Orientation';
+            
+            if (orientation === 'Westerner') {
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
-            } else if (isEasterner) {
-                westernerTitle.textContent = 'Orientation';
-                westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+            } else if (orientation === 'Easterner') {
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
+            } else if (orientation === 'Northerner') {
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
+            } else if (orientation === 'Southerner') {
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
+            } else if (orientation === 'Diagonal') {
+                if (archetypes === 'CS' || archetypes === 'SC') {
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
+                } else {
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
+                }
             } else {
-                westernerTitle.textContent = 'Orientation';
-                westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
             // Show additional sections for IS-Architect
@@ -2244,15 +2253,24 @@
             const orientationPill = document.getElementById('orientationPill');
             orientationPill.textContent = orientation;
             
-            if (isWesterner) {
-                westernerTitle.textContent = 'Orientation';
+            westernerTitle.textContent = 'Orientation';
+            
+            if (orientation === 'Westerner') {
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
-            } else if (isEasterner) {
-                westernerTitle.textContent = 'Orientation';
-                westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+            } else if (orientation === 'Easterner') {
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
+            } else if (orientation === 'Northerner') {
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
+            } else if (orientation === 'Southerner') {
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
+            } else if (orientation === 'Diagonal') {
+                if (archetypes === 'CS' || archetypes === 'SC') {
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
+                } else {
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
+                }
             } else {
-                westernerTitle.textContent = 'Orientation';
-                westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
             // Show additional sections for IS-Architect
