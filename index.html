@@ -1527,34 +1527,64 @@
             // Only work when not in an input field
             if (document.activeElement.tagName === 'INPUT') return;
             
-            // Just test for specific key presses - forget the sequence
-            if (e.key === '9') {
-                console.log('9 key pressed - activating test');
-                try {
-                    // Hide all screens
-                    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                    
-                    // Show results screen
-                    const resultsScreen = document.getElementById('resultsScreen');
-                    if (resultsScreen) {
-                        resultsScreen.classList.add('active');
-                        
-                        // Set some basic values to test
-                        const profileCode = document.getElementById('profileCode');
-                        if (profileCode) profileCode.textContent = 'IS-Architect';
-                        
-                        const profileSubtitle = document.getElementById('profileSubtitle');
-                        if (profileSubtitle) profileSubtitle.textContent = 'The Philosopher';
-                        
-                        alert('9 key activated! Check if you see the results screen.');
-                    } else {
-                        alert('Results screen not found!');
-                    }
-                } catch (err) {
-                    alert('Error: ' + err.message);
+            // Build sequence for 4-digit codes
+            if (e.key >= '0' && e.key <= '9') {
+                keySequence += e.key;
+                console.log('Building sequence:', keySequence);
+                
+                // Clear timer
+                if (keyTimer) clearTimeout(keyTimer);
+                
+                // Reset after 3 seconds
+                keyTimer = setTimeout(() => {
+                    console.log('Resetting sequence');
+                    keySequence = '';
+                }, 3000);
+                
+                // Check for exact match
+                if (keySequence === '0003') {
+                    console.log('0003 MATCH! Activating...');
+                    activateProfile('IS-Architect', 'The Philosopher');
+                    keySequence = '';
+                    clearTimeout(keyTimer);
+                } else if (keySequence.length >= 4) {
+                    console.log('4+ digits, resetting');
+                    keySequence = '';
+                    clearTimeout(keyTimer);
                 }
             }
+            
+            // Keep 9 key as backup
+            if (e.key === '9' && keySequence === '') {
+                console.log('9 key backup');
+                activateProfile('IS-Architect', 'The Philosopher');
+            }
         });
+        
+        function activateProfile(code, name) {
+            try {
+                // Hide all screens
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                
+                // Show results screen
+                const resultsScreen = document.getElementById('resultsScreen');
+                if (resultsScreen) {
+                    resultsScreen.classList.add('active');
+                    
+                    // Set profile info
+                    const profileCode = document.getElementById('profileCode');
+                    if (profileCode) profileCode.textContent = code;
+                    
+                    const profileSubtitle = document.getElementById('profileSubtitle');
+                    if (profileSubtitle) profileSubtitle.textContent = name;
+                    
+                    console.log(`${code} activated successfully`);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error: ' + err.message);
+            }
+        }
         
         // Profile loader that sets all the customized content for any profile
         function loadProfileByCode(profileCode, profileName, orientation) {
