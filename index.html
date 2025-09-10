@@ -1184,9 +1184,9 @@
             showScreen('emailScreen');
         }
 
-        // Debug shortcut: Press Option+R (Mac) or Alt+R (Windows) to jump to results page
+        // Debug shortcut: Press 'Z' to jump to results page for testing
         document.addEventListener('keydown', function(event) {
-            if ((event.altKey || event.metaKey) && (event.key === 'r' || event.key === 'R')) {
+            if (event.key === 'z' || event.key === 'Z') {
                 // Skip to results with sample data
                 userEmail = 'test@example.com';
                 
@@ -1200,7 +1200,6 @@
                 }
                 
                 showResults();
-                event.preventDefault(); // Prevent default browser behavior
             }
         });
 
