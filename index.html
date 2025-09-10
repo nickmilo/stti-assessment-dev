@@ -2061,6 +2061,12 @@
 
         // Debug shortcuts: Four-digit codes (0001-0024) for specific profiles
         document.addEventListener('keydown', function(event) {
+            // Temporary Z key shortcut for testing
+            if (event.key === 'z' || event.key === 'Z') {
+                showTestResults('IS-Architect');
+                return;
+            }
+            
             if (event.key >= '0' && event.key <= '9') {
                 // Build four-digit sequence
                 keySequence += event.key;
