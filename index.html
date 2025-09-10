@@ -385,14 +385,73 @@
         .orientation-pill {
             display: inline-block;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #4a5568;
             background-color: rgba(93, 188, 210, 0.15);
             border: 1px solid var(--lyt-cyan);
-            padding: 0.25rem 1rem;
-            border-radius: 16px;
-            margin-top: 1rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 18px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
+        }
+        
+        .tendency-pill {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: #4a5568;
+            padding: 0.3rem 1.2rem;
+            border-radius: 18px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+        
+        .architect-pill {
+            background-color: rgba(93, 188, 210, 0.15);
+            border-color: var(--lyt-cyan);
+        }
+        
+        .gardener-pill {
+            background-color: rgba(103, 192, 115, 0.15);
+            border-color: var(--lyt-green);
+        }
+        
+        .archetype-pills {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .archetype-pill {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: #4a5568;
+            padding: 0.3rem 1.2rem;
+            border-radius: 18px;
+            font-weight: 600;
+            border: 1px solid;
+        }
+        
+        .inner-guide-pill {
+            background-color: rgba(252, 246, 1, 0.2);
+            border-color: var(--lyt-yellow-muted);
+        }
+        
+        .synthesizer-pill {
+            background-color: rgba(93, 188, 210, 0.15);
+            border-color: var(--lyt-cyan);
+        }
+        
+        .producer-pill {
+            background-color: rgba(214, 105, 188, 0.15);
+            border-color: var(--lyt-pink);
+        }
+        
+        .creative-pill {
+            background-color: rgba(185, 173, 255, 0.2);
+            border-color: var(--lyt-purple);
         }
 
         .archetype-description {
@@ -919,12 +978,14 @@
                     <div class="chord-diagram">
                         <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
                         <img id="chordDiagram" src="Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
-                        <div class="orientation-pill" id="orientationPill">Westerner</div>
                     </div>
                     <div class="profile-info">
                         <div class="profile-code" id="profileCode">IP-Architect</div>
                         <div class="archetype-title">Sensemaking Archetypes</div>
-                        <div class="archetype-subtitle" id="archetypeSubtitle">Inner Guide & Synthesizer</div>
+                        <div class="archetype-pills">
+                            <div class="archetype-pill inner-guide-pill" id="primaryArchetypePill">Inner Guide</div>
+                            <div class="archetype-pill synthesizer-pill" id="secondaryArchetypePill">Synthesizer</div>
+                        </div>
                         <div class="archetype-description" id="archetypeDescription">
                             Your unique cognitive pattern reveals how you process information and navigate complexity.
                         </div>
@@ -934,14 +995,14 @@
                 <div class="second-row">
                     <div class="westerner-section">
                         <div class="westerner-title" id="westernerTitle">Sensemaking Orientation</div>
-                        <div class="westerner-subtitle" id="westernerSubtitle">Westerner with a tendency to Architect</div>
+                        <div class="orientation-pill" id="orientationPill">Westerner</div>
                         <div class="westerner-description" id="westernerDescription">
                             Your westerner/easterner analysis will appear here.
                         </div>
                     </div>
                     <div class="tendency-section">
                         <div class="tendency-title">Sensemaking Tendency</div>
-                        <div class="tendency-subtitle" id="tendencySubtitle">Architect</div>
+                        <div class="tendency-pill architect-pill" id="tendencyPill">Architect</div>
                         <div class="tendency-description" id="tendencyDescription">
                             Your tendency description will appear here.
                         </div>
@@ -1426,13 +1487,35 @@
             const secondaryDesc = archetypeDescriptions[profile.dominantArchetypes[1]];
             const tendencyDesc = tendencyDescriptions[profile.tendency];
             
-            // Update archetype subtitle and description
-            document.getElementById('archetypeSubtitle').innerHTML = `<strong>${primaryArchetype}</strong> & <strong>${secondaryArchetype}</strong>`;
+            // Update archetype pills
+            document.getElementById('primaryArchetypePill').textContent = primaryArchetype;
+            document.getElementById('secondaryArchetypePill').textContent = secondaryArchetype;
+            
+            // Update pill classes based on archetype types
+            const primaryPill = document.getElementById('primaryArchetypePill');
+            const secondaryPill = document.getElementById('secondaryArchetypePill');
+            
+            // Reset classes
+            primaryPill.className = 'archetype-pill';
+            secondaryPill.className = 'archetype-pill';
+            
+            // Add appropriate color classes
+            if (primaryArchetype === 'Inner Guide') primaryPill.classList.add('inner-guide-pill');
+            else if (primaryArchetype === 'Synthesizer') primaryPill.classList.add('synthesizer-pill');
+            else if (primaryArchetype === 'Producer') primaryPill.classList.add('producer-pill');
+            else if (primaryArchetype === 'Creative') primaryPill.classList.add('creative-pill');
+            
+            if (secondaryArchetype === 'Inner Guide') secondaryPill.classList.add('inner-guide-pill');
+            else if (secondaryArchetype === 'Synthesizer') secondaryPill.classList.add('synthesizer-pill');
+            else if (secondaryArchetype === 'Producer') secondaryPill.classList.add('producer-pill');
+            else if (secondaryArchetype === 'Creative') secondaryPill.classList.add('creative-pill');
             document.getElementById('archetypeDescription').innerHTML = 
                 `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This means you ${primaryDesc}, along with ${secondaryDesc}.`;
             
-            // Update tendency subtitle and description  
-            document.getElementById('tendencySubtitle').innerHTML = `<strong>${profile.tendency}</strong>`;
+            // Update tendency pill
+            const tendencyPill = document.getElementById('tendencyPill');
+            tendencyPill.textContent = profile.tendency;
+            tendencyPill.className = 'tendency-pill ' + (profile.tendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
@@ -1448,29 +1531,32 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
-            const orientationPill = document.getElementById('orientationPill');
             if (isWesterner) {
                 profileSubtitle.textContent = 'The Philosopher';
-                orientationPill.textContent = 'Westerner';
             } else if (isEasterner) {
                 profileSubtitle.textContent = 'The Maker';
-                orientationPill.textContent = 'Easterner';
             } else {
                 profileSubtitle.textContent = 'The Explorer';
+            }
+            
+            // Update orientation pill
+            const orientationPill = document.getElementById('orientationPill');
+            if (isWesterner) {
+                orientationPill.textContent = 'Westerner';
+            } else if (isEasterner) {
+                orientationPill.textContent = 'Easterner';
+            } else {
                 orientationPill.textContent = 'Mixed';
             }
             
             if (isWesterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.innerHTML = `<strong>Westerner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
             } else if (isEasterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.innerHTML = `<strong>Easterner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.innerHTML = '<strong>Balanced</strong> orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
@@ -1616,13 +1702,35 @@
             const secondaryDesc = archetypeDescriptions[profile.dominantArchetypes[1]];
             const tendencyDesc = tendencyDescriptions[profile.tendency];
             
-            // Update archetype subtitle and description
-            document.getElementById('archetypeSubtitle').innerHTML = `<strong>${primaryArchetype}</strong> & <strong>${secondaryArchetype}</strong>`;
+            // Update archetype pills
+            document.getElementById('primaryArchetypePill').textContent = primaryArchetype;
+            document.getElementById('secondaryArchetypePill').textContent = secondaryArchetype;
+            
+            // Update pill classes based on archetype types
+            const primaryPill = document.getElementById('primaryArchetypePill');
+            const secondaryPill = document.getElementById('secondaryArchetypePill');
+            
+            // Reset classes
+            primaryPill.className = 'archetype-pill';
+            secondaryPill.className = 'archetype-pill';
+            
+            // Add appropriate color classes
+            if (primaryArchetype === 'Inner Guide') primaryPill.classList.add('inner-guide-pill');
+            else if (primaryArchetype === 'Synthesizer') primaryPill.classList.add('synthesizer-pill');
+            else if (primaryArchetype === 'Producer') primaryPill.classList.add('producer-pill');
+            else if (primaryArchetype === 'Creative') primaryPill.classList.add('creative-pill');
+            
+            if (secondaryArchetype === 'Inner Guide') secondaryPill.classList.add('inner-guide-pill');
+            else if (secondaryArchetype === 'Synthesizer') secondaryPill.classList.add('synthesizer-pill');
+            else if (secondaryArchetype === 'Producer') secondaryPill.classList.add('producer-pill');
+            else if (secondaryArchetype === 'Creative') secondaryPill.classList.add('creative-pill');
             document.getElementById('archetypeDescription').innerHTML = 
                 `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This means you ${primaryDesc}, along with ${secondaryDesc}.`;
             
-            // Update tendency subtitle and description  
-            document.getElementById('tendencySubtitle').innerHTML = `<strong>${profile.tendency}</strong>`;
+            // Update tendency pill
+            const tendencyPill = document.getElementById('tendencyPill');
+            tendencyPill.textContent = profile.tendency;
+            tendencyPill.className = 'tendency-pill ' + (profile.tendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
@@ -1638,29 +1746,32 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
-            const orientationPill = document.getElementById('orientationPill');
             if (isWesterner) {
                 profileSubtitle.textContent = 'The Philosopher';
-                orientationPill.textContent = 'Westerner';
             } else if (isEasterner) {
                 profileSubtitle.textContent = 'The Maker';
-                orientationPill.textContent = 'Easterner';
             } else {
                 profileSubtitle.textContent = 'The Explorer';
+            }
+            
+            // Update orientation pill
+            const orientationPill = document.getElementById('orientationPill');
+            if (isWesterner) {
+                orientationPill.textContent = 'Westerner';
+            } else if (isEasterner) {
+                orientationPill.textContent = 'Easterner';
+            } else {
                 orientationPill.textContent = 'Mixed';
             }
             
             if (isWesterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.innerHTML = `<strong>Westerner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
             } else if (isEasterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.innerHTML = `<strong>Easterner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.innerHTML = '<strong>Balanced</strong> orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
