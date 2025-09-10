@@ -882,6 +882,58 @@
             transform: translateY(-2px);
         }
 
+        .share-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .share-dropdown {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid rgba(185, 173, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        .share-dropdown.show {
+            display: block;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            color: #2d3748;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .share-option:hover {
+            background-color: #f7fafc;
+        }
+
+        .share-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
         .footer {
             background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
             color: white;
@@ -1120,7 +1172,27 @@
 
                 <!-- Action buttons (first set) -->
                 <div style="margin: 3rem 0; text-align: center;">
-                    <button class="share-btn" onclick="shareResults()">Share Results</button>
+                    <div class="share-dropdown-container">
+                        <button class="share-btn" onclick="toggleShareDropdown(this)">Share Results ▼</button>
+                        <div class="share-dropdown">
+                            <button class="share-option" onclick="shareToTwitter()">
+                                <span class="share-icon">🐦</span>
+                                Share on X (Twitter)
+                            </button>
+                            <button class="share-option" onclick="shareToLinkedIn()">
+                                <span class="share-icon">💼</span>
+                                Share on LinkedIn
+                            </button>
+                            <button class="share-option" onclick="copyResultsLink()">
+                                <span class="share-icon">📋</span>
+                                Copy Link
+                            </button>
+                            <button class="share-option" onclick="shareViaEmail()">
+                                <span class="share-icon">✉️</span>
+                                Share via Email
+                            </button>
+                        </div>
+                    </div>
                     <a href="https://www.linkingyourthinking.com/workshop" target="_blank" class="share-btn" style="text-decoration: none;">Learn More</a>
                 </div>
 
@@ -1177,7 +1249,27 @@
 
                 <!-- Action buttons -->
                 <div style="margin: 3rem 0; text-align: center;">
-                    <button class="share-btn" onclick="shareResults()">Share Results</button>
+                    <div class="share-dropdown-container">
+                        <button class="share-btn" onclick="toggleShareDropdown(this)">Share Results ▼</button>
+                        <div class="share-dropdown">
+                            <button class="share-option" onclick="shareToTwitter()">
+                                <span class="share-icon">🐦</span>
+                                Share on X (Twitter)
+                            </button>
+                            <button class="share-option" onclick="shareToLinkedIn()">
+                                <span class="share-icon">💼</span>
+                                Share on LinkedIn
+                            </button>
+                            <button class="share-option" onclick="copyResultsLink()">
+                                <span class="share-icon">📋</span>
+                                Copy Link
+                            </button>
+                            <button class="share-option" onclick="shareViaEmail()">
+                                <span class="share-icon">✉️</span>
+                                Share via Email
+                            </button>
+                        </div>
+                    </div>
                     <a href="https://www.linkingyourthinking.com/workshop" target="_blank" class="share-btn" style="text-decoration: none;">Learn More</a>
                 </div>
 
@@ -1710,6 +1802,93 @@
                 alert(shareText);
             }
         }
+
+        function toggleShareDropdown(button) {
+            const dropdown = button.nextElementSibling;
+            const isVisible = dropdown.classList.contains('show');
+            
+            // Close all other dropdowns first
+            document.querySelectorAll('.share-dropdown.show').forEach(d => {
+                d.classList.remove('show');
+            });
+            
+            // Toggle current dropdown
+            if (!isVisible) {
+                dropdown.classList.add('show');
+            }
+        }
+
+        function shareToTwitter() {
+            const profileCode = document.getElementById('profileCode').textContent;
+            const subtitle = document.getElementById('profileSubtitle').textContent;
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`I just discovered I'm an ${profileCode} - ${subtitle}! Find out your sensemaking type:`);
+            
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+            closeAllDropdowns();
+        }
+
+        function shareToLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('My Sensemaking Type Results - STTI Assessment');
+            
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank');
+            closeAllDropdowns();
+        }
+
+        function copyResultsLink() {
+            const url = window.location.href;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url)
+                    .then(() => {
+                        alert('Link copied to clipboard!');
+                        closeAllDropdowns();
+                    })
+                    .catch(() => {
+                        alert('Unable to copy to clipboard');
+                        closeAllDropdowns();
+                    });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    alert('Link copied to clipboard!');
+                } catch (err) {
+                    alert('Unable to copy to clipboard');
+                }
+                document.body.removeChild(textArea);
+                closeAllDropdowns();
+            }
+        }
+
+        function shareViaEmail() {
+            const profileCode = document.getElementById('profileCode').textContent;
+            const subtitle = document.getElementById('profileSubtitle').textContent;
+            const url = window.location.href;
+            const subject = encodeURIComponent(`Check out my STTI Assessment results!`);
+            const body = encodeURIComponent(`I just discovered I'm an ${profileCode} - ${subtitle}! Find out your sensemaking type at: ${url}`);
+            
+            window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+            closeAllDropdowns();
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.share-dropdown.show').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.share-dropdown-container')) {
+                closeAllDropdowns();
+            }
+        });
 
         function toggleSection(contentId, titleElement) {
             const content = document.getElementById(contentId);
