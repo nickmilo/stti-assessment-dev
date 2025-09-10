@@ -2063,7 +2063,12 @@
         document.addEventListener('keydown', function(event) {
             // Temporary Z key shortcut for testing
             if (event.key === 'z' || event.key === 'Z') {
-                showTestResults('IS-Architect');
+                console.log('Z key pressed - showing IS-Architect results');
+                try {
+                    showTestResults('IS-Architect');
+                } catch (error) {
+                    console.error('Error in showTestResults:', error);
+                }
                 return;
             }
             
@@ -2094,7 +2099,10 @@
         });
 
         function showTestResults(targetProfile) {
-            userEmail = 'test@example.com';
+            // Ensure we have userEmail set for the secret codes to work
+            if (!userEmail) {
+                userEmail = 'test@example.com';
+            }
             
             // Show specific profile
             const [archetypes, tendency] = targetProfile.split('-');
@@ -2131,8 +2139,14 @@
         }
 
         function showSpecificProfile(profile) {
+            console.log('showSpecificProfile called with:', profile);
             // Update results display with specific profile
-            document.getElementById('profileCode').textContent = profile.code;
+            const profileCodeElement = document.getElementById('profileCode');
+            if (!profileCodeElement) {
+                console.error('Element with id "profileCode" not found');
+                return;
+            }
+            profileCodeElement.textContent = profile.code;
             
             const archetypeNames = {
                 'I': 'Inner Guide',
