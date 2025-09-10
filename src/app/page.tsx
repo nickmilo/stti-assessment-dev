@@ -43,9 +43,9 @@ export default function Home() {
 
           {/* Key Benefits */}
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-[var(--lyt-purple)]/20">
-              <div className="w-12 h-12 bg-[var(--lyt-purple)]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[var(--lyt-purple-deep)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-[#b9adff]/20">
+              <div className="w-12 h-12 bg-[#b9adff]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-[#8272d0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
@@ -53,9 +53,9 @@ export default function Home() {
               <p className="text-gray-600">Understand your unique cognitive patterns and decision-making style.</p>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-[var(--lyt-cyan)]/20">
-              <div className="w-12 h-12 bg-[var(--lyt-cyan)]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[var(--lyt-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-[#5dbcd2]/20">
+              <div className="w-12 h-12 bg-[#5dbcd2]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-[#5dbcd2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
@@ -63,9 +63,9 @@ export default function Home() {
               <p className="text-gray-600">Improve collaboration by understanding different thinking styles.</p>
             </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-[var(--lyt-pink)]/20">
-              <div className="w-12 h-12 bg-[var(--lyt-pink)]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[var(--lyt-pink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-[#d669bc]/20">
+              <div className="w-12 h-12 bg-[#d669bc]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-[#d669bc]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -75,7 +75,7 @@ export default function Home() {
           </div>
 
           {/* CTA Section */}
-          <div className="bg-white rounded-lg p-8 shadow-sm mb-12 border border-[var(--lyt-purple)]/20">
+          <div className="bg-white rounded-lg p-8 shadow-sm mb-12 border border-[#b9adff]/20">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4" style={{ fontFamily: "'Canela Deck', sans-serif" }}>
               Ready to discover your sensemaking type?
             </h2>
@@ -86,7 +86,7 @@ export default function Home() {
             
             <Link 
               href="/assessment"
-              className="inline-block bg-gradient-to-r from-[var(--lyt-purple)] to-[var(--lyt-cyan)] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity"
+              className="inline-block bg-gradient-to-r from-[#b9adff] to-[#5dbcd2] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity"
             >
               Take the STTI Assessment
             </Link>

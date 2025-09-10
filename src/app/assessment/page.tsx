@@ -145,7 +145,7 @@ export default function AssessmentPage() {
       <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%)' }}>
         {/* Header */}
         <div className="text-center py-8 px-4 relative overflow-hidden flex items-center justify-center gap-8" style={{
-          background: 'linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%)',
+          background: 'linear-gradient(135deg, #b9adff 0%, #5dbcd2 100%)',
           color: 'white'
         }}>
           <div className="absolute inset-0 opacity-30" style={{
@@ -196,7 +196,7 @@ export default function AssessmentPage() {
                 disabled={!email.includes('@')}
                 className="w-full py-3 px-6 rounded-lg font-semibold text-white transition-opacity disabled:opacity-50"
                 style={{ 
-                  background: 'linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%)',
+                  background: 'linear-gradient(135deg, #b9adff 0%, #5dbcd2 100%)',
                   fontFamily: "'Space Grotesk', sans-serif"
                 }}
               >
@@ -222,7 +222,7 @@ export default function AssessmentPage() {
       <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%)' }}>
         {/* Header */}
         <div className="text-center py-8 px-4 relative overflow-hidden flex items-center justify-center gap-8" style={{
-          background: 'linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%)',
+          background: 'linear-gradient(135deg, #b9adff 0%, #5dbcd2 100%)',
           color: 'white'
         }}>
           <div className="absolute inset-0 opacity-30" style={{
@@ -255,7 +255,7 @@ export default function AssessmentPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Chord Diagram */}
                 <div className="text-center">
-                  <h3 className="text-xl font-semibold mb-4" style={{ fontFamily: "'Canela Deck', sans-serif", color: 'var(--lyt-purple-deep)' }}>
+                  <h3 className="text-xl font-semibold mb-4" style={{ fontFamily: "'Canela Deck', sans-serif", color: '#8272d0' }}>
                     Your Sensemaking Pattern
                   </h3>
                   <div className="rounded-lg p-4 inline-block" style={{ background: 'linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%)' }}>
@@ -271,7 +271,7 @@ export default function AssessmentPage() {
 
                 {/* Description */}
                 <div>
-                  <h3 className="text-xl font-semibold mb-4" style={{ fontFamily: "'Canela Deck', sans-serif", color: 'var(--lyt-purple-deep)' }}>
+                  <h3 className="text-xl font-semibold mb-4" style={{ fontFamily: "'Canela Deck', sans-serif", color: '#8272d0' }}>
                     About Your Type
                   </h3>
                   <p className="text-gray-700 mb-6 leading-relaxed">
@@ -288,7 +288,7 @@ export default function AssessmentPage() {
                     onClick={shareResults}
                     className="px-6 py-3 rounded-lg font-medium text-white transition-opacity hover:opacity-90"
                     style={{ 
-                      background: 'linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%)',
+                      background: 'linear-gradient(135deg, #b9adff 0%, #5dbcd2 100%)',
                       fontFamily: "'Space Grotesk', sans-serif"
                     }}
                   >
@@ -323,7 +323,7 @@ export default function AssessmentPage() {
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%)' }}>
       {/* Header */}
       <div className="text-center py-8 px-4 relative overflow-hidden flex items-center justify-center gap-8" style={{
-        background: 'linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%)',
+        background: 'linear-gradient(135deg, #b9adff 0%, #5dbcd2 100%)',
         color: 'white'
       }}>
         <div className="absolute inset-0 opacity-30" style={{
@@ -353,7 +353,7 @@ export default function AssessmentPage() {
         <div className="bg-white rounded-lg shadow-md p-8 border border-purple-200">
           {/* Progress */}
           <div className="mb-8">
-            <div className="mb-2" style={{ fontFamily: "'DM Mono', monospace", color: 'var(--lyt-purple-deep)', fontSize: '0.9rem' }}>
+            <div className="mb-2" style={{ fontFamily: "'DM Mono', monospace", color: '#8272d0', fontSize: '0.9rem' }}>
               Question {currentQuestion + 1} of {questions.length}
             </div>
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -361,7 +361,7 @@ export default function AssessmentPage() {
                 className="h-full rounded-full transition-all duration-500"
                 style={{ 
                   width: `${progress}%`,
-                  background: 'linear-gradient(90deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%)'
+                  background: 'linear-gradient(90deg, #b9adff 0%, #5dbcd2 100%)'
                 }}
               />
             </div>
@@ -371,7 +371,7 @@ export default function AssessmentPage() {
           <div>
             <h3 className="text-xl mb-8" style={{ 
               fontFamily: "'Space Grotesk', sans-serif", 
-              color: 'var(--lyt-purple-deep)',
+              color: '#8272d0',
               fontWeight: '500'
             }}>
               {question.text}
@@ -383,9 +383,9 @@ export default function AssessmentPage() {
                 onClick={() => handleAnswer('SD')}
                 className="p-4 border-2 rounded-lg font-medium transition-all duration-300 hover:opacity-80"
                 style={{
-                  borderColor: 'var(--lyt-purple-deep)',
-                  color: 'var(--lyt-purple-deep)',
-                  background: selectedAnswer === 'SD' ? 'var(--lyt-purple-deep)' : 'white',
+                  borderColor: '#8272d0',
+                  color: '#8272d0',
+                  background: selectedAnswer === 'SD' ? '#8272d0' : 'white',
                   ...(selectedAnswer === 'SD' && { color: 'white' }),
                   fontFamily: "'Space Grotesk', sans-serif"
                 }}
@@ -397,9 +397,9 @@ export default function AssessmentPage() {
                 onClick={() => handleAnswer('D')}
                 className="p-4 border-2 rounded-lg font-medium transition-all duration-300 hover:opacity-80"
                 style={{
-                  borderColor: 'var(--lyt-yellow-muted)',
-                  color: 'var(--lyt-yellow-muted)',
-                  background: selectedAnswer === 'D' ? 'var(--lyt-yellow-muted)' : 'white',
+                  borderColor: '#c7c400',
+                  color: '#c7c400',
+                  background: selectedAnswer === 'D' ? '#c7c400' : 'white',
                   ...(selectedAnswer === 'D' && { color: 'white' }),
                   fontFamily: "'Space Grotesk', sans-serif"
                 }}
@@ -411,9 +411,9 @@ export default function AssessmentPage() {
                 onClick={() => handleAnswer('A')}
                 className="p-4 border-2 rounded-lg font-medium transition-all duration-300 hover:opacity-80"
                 style={{
-                  borderColor: 'var(--lyt-cyan)',
-                  color: 'var(--lyt-cyan)',
-                  background: selectedAnswer === 'A' ? 'var(--lyt-cyan)' : 'white',
+                  borderColor: '#5dbcd2',
+                  color: '#5dbcd2',
+                  background: selectedAnswer === 'A' ? '#5dbcd2' : 'white',
                   ...(selectedAnswer === 'A' && { color: 'white' }),
                   fontFamily: "'Space Grotesk', sans-serif"
                 }}
@@ -425,9 +425,9 @@ export default function AssessmentPage() {
                 onClick={() => handleAnswer('SA')}
                 className="p-4 border-2 rounded-lg font-medium transition-all duration-300 hover:opacity-80"
                 style={{
-                  borderColor: 'var(--lyt-pink)',
-                  color: 'var(--lyt-pink)',
-                  background: selectedAnswer === 'SA' ? 'var(--lyt-pink)' : 'white',
+                  borderColor: '#d669bc',
+                  color: '#d669bc',
+                  background: selectedAnswer === 'SA' ? '#d669bc' : 'white',
                   ...(selectedAnswer === 'SA' && { color: 'white' }),
                   fontFamily: "'Space Grotesk', sans-serif"
                 }}
@@ -443,8 +443,8 @@ export default function AssessmentPage() {
                 disabled={currentQuestion === 0}
                 className="w-10 h-10 border rounded-full flex items-center justify-center text-lg font-medium transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                 style={{
-                  borderColor: 'var(--lyt-purple)',
-                  color: 'var(--lyt-purple)',
+                  borderColor: '#b9adff',
+                  color: '#b9adff',
                   background: 'white'
                 }}
               >
@@ -456,8 +456,8 @@ export default function AssessmentPage() {
                 disabled={!answers[currentQuestion]}
                 className="w-10 h-10 border rounded-full flex items-center justify-center text-lg font-medium transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                 style={{
-                  borderColor: 'var(--lyt-purple)',
-                  color: 'var(--lyt-purple)',
+                  borderColor: '#b9adff',
+                  color: '#b9adff',
                   background: 'white'
                 }}
               >
