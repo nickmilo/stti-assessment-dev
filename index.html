@@ -1512,7 +1512,7 @@
         let answers = {};
         let userEmail = '';
         
-        // Simple 4-digit secret codes - start with just a few that work
+        // Simple secret code system - exact copy of what worked with Z key
         let keySequence = '';
         let keyTimer = null;
         
@@ -1532,19 +1532,33 @@
                     keySequence = '';
                 }, 2000);
                 
-                // Check specific codes
+                // Check for 0003 - exact copy of working Z key logic
                 if (keySequence === '0003') {
-                    // IS-Architect
-                    showSimpleProfile('IS-Architect', 'The Philosopher');
-                    keySequence = '';
-                } else if (keySequence === '0021') {
-                    // CP-Architect  
-                    showSimpleProfile('CP-Architect', 'The Maker');
-                    keySequence = '';
-                } else if (keySequence === '0009') {
-                    // PS-Architect
-                    showSimpleProfile('PS-Architect', 'The Builder');
-                    keySequence = '';
+                    try {
+                        // Hide all screens
+                        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                        
+                        // Show results screen
+                        const resultsScreen = document.getElementById('resultsScreen');
+                        if (resultsScreen) {
+                            resultsScreen.classList.add('active');
+                            
+                            // Set some basic values to test
+                            const profileCode = document.getElementById('profileCode');
+                            if (profileCode) profileCode.textContent = 'IS-Architect';
+                            
+                            const profileSubtitle = document.getElementById('profileSubtitle');
+                            if (profileSubtitle) profileSubtitle.textContent = 'The Philosopher';
+                            
+                            alert('Secret code 0003 activated! Check if you see the results screen.');
+                        } else {
+                            alert('Results screen not found!');
+                        }
+                    } catch (err) {
+                        alert('Error: ' + err.message);
+                    }
+                    keySequence = ''; // Reset
+                    clearTimeout(keyTimer);
                 } else if (keySequence.length > 4) {
                     // Reset if too many digits
                     keySequence = '';
@@ -1552,31 +1566,6 @@
                 }
             }
         });
-        
-        function showSimpleProfile(profileCode, profileName) {
-            try {
-                // Hide all screens
-                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                
-                // Show results screen
-                const resultsScreen = document.getElementById('resultsScreen');
-                if (resultsScreen) {
-                    resultsScreen.classList.add('active');
-                    
-                    // Set basic info
-                    const codeEl = document.getElementById('profileCode');
-                    if (codeEl) codeEl.textContent = profileCode;
-                    
-                    const subtitleEl = document.getElementById('profileSubtitle');
-                    if (subtitleEl) subtitleEl.textContent = profileName;
-                    
-                    console.log(`Secret code activated - ${profileCode} loaded`);
-                }
-            } catch (err) {
-                console.error('Error loading profile:', err);
-                alert('Error: ' + err.message);
-            }
-        }
         
         // Profile loader that sets all the customized content for any profile
         function loadProfileByCode(profileCode, profileName, orientation) {
