@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Canela Deck';
+  src: url('/CanelaDeck-Regular-Trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela Deck';
+  src: url('/CanelaDeck-Medium-Trial.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --lyt-purple: #b9adff;
+  --lyt-purple-deep: #8272d0;
+  --lyt-yellow: #fcf601;
+  --lyt-yellow-muted: #c7c400;
+  --lyt-cyan: #5dbcd2;
+  --lyt-pink: #d669bc;
+  --lyt-green: #67c073;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+  color: #2d3748;
+  line-height: 1.6;
+  min-height: 100vh;
+}

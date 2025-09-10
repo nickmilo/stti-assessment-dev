@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STTI Assessment - Discover Your Sensemaking Type</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Canela Deck';
+            src: url('CanelaDeck-Regular-Trial.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Canela Deck';
+            src: url('CanelaDeck-Medium-Trial.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --lyt-purple: #b9adff;
+            --lyt-purple-deep: #8272d0;
+            --lyt-yellow: #fcf601;
+            --lyt-yellow-muted: #c7c400;
+            --lyt-cyan: #5dbcd2;
+            --lyt-pink: #d669bc;
+            --lyt-green: #67c073;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><line x1="20" y1="20" x2="60" y2="70" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><line x1="60" y1="70" x2="80" y2="30" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-family: 'Canela Deck', Helvetica, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 2rem 1rem;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(185, 173, 255, 0.1);
+            border: 2px solid rgba(185, 173, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(185, 173, 255, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-text {
+            font-family: 'DM Mono', monospace;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress {
+            background: #f0f0f0;
+            height: 8px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .question {
+            position: relative;
+            z-index: 1;
+        }
+
+        .question h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .answer-btn {
+            padding: 1.2rem 1rem;
+            border: 2px solid;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+
+        .answer-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(-50%, -50%);
+        }
+
+        .answer-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .sd {
+            border-color: var(--lyt-purple-deep);
+            color: var(--lyt-purple-deep);
+        }
+        .sd::before { background: var(--lyt-purple-deep); }
+        .sd:hover { color: white; }
+
+        .d {
+            border-color: var(--lyt-yellow-muted);
+            color: var(--lyt-yellow-muted);
+        }
+        .d::before { background: var(--lyt-yellow-muted); }
+        .d:hover { color: white; }
+
+        .a {
+            border-color: var(--lyt-cyan);
+            color: var(--lyt-cyan);
+        }
+        .a::before { background: var(--lyt-cyan); }
+        .a:hover { color: white; }
+
+        .sa {
+            border-color: var(--lyt-pink);
+            color: var(--lyt-pink);
+        }
+        .sa::before { background: var(--lyt-pink); }
+        .sa:hover { color: white; }
+
+        .answer-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem;
+            border: 1px solid var(--lyt-purple);
+            background: white;
+            color: var(--lyt-purple);
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--lyt-purple);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #ccc;
+        }
+
+        .results {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(185, 173, 255, 0.1);
+            border: 2px solid rgba(185, 173, 255, 0.2);
+        }
+
+        .profile-code {
+            font-family: 'DM Mono', monospace;
+            font-size: 4rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0 2rem 0;
+        }
+
+        .profile-description {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Mono', monospace;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(185, 173, 255, 0.3);
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            font-family: 'Canela Deck', 'DM Mono', monospace;
+            color: var(--lyt-purple);
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: var(--lyt-cyan);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            color: var(--lyt-purple);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(185, 173, 255, 0.3);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header { 
+                flex-direction: column; 
+                gap: 1rem; 
+            }
+            .header h1 { font-size: 2rem; }
+            .logo { width: 60px; height: 60px; }
+            .answers { grid-template-columns: repeat(2, 1fr); }
+            .profile-code { font-size: 3rem; }
+            .answer-btn { padding: 1rem 0.5rem; font-size: 0.85rem; }
+            .navigation { flex-direction: column; }
+        }
+        
+        @media (max-width: 480px) {
+            .answers { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="lyt-logo.png" alt="Linking Your Thinking" class="logo">
+        <div class="header-content">
+            <h1>STTI Assessment</h1>
+            <p>Discover Your Sensemaking Type & Tendencies</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="assessment">
+            <div class="question-container">
+                <div class="progress-section">
+                    <div class="progress-text" id="progressText">Question 1 of 5</div>
+                    <div class="progress">
+                        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3 id="questionText">Loading your first question...</h3>
+                    <div class="answers">
+                        <button class="answer-btn sd" onclick="answer('SD')">
+                            <span>Strongly Disagree</span>
+                        </button>
+                        <button class="answer-btn d" onclick="answer('D')">
+                            <span>Disagree</span>
+                        </button>
+                        <button class="answer-btn a" onclick="answer('A')">
+                            <span>Agree</span>
+                        </button>
+                        <button class="answer-btn sa" onclick="answer('SA')">
+                            <span>Strongly Agree</span>
+                        </button>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button id="backBtn" class="nav-btn" onclick="goBack()" disabled>
+                            ←
+                        </button>
+                        <button id="forwardBtn" class="nav-btn" onclick="goForward()" disabled>
+                            →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="results">
+                <h2 style="font-family: 'Canela Deck', 'DM Mono', monospace; color: #2d3748; margin-bottom: 1rem;">Your Sensemaking Profile</h2>
+                <div class="profile-code" id="profileCode">IS-A</div>
+                <p class="profile-description" id="profileDescription">
+                    Your unique cognitive pattern reveals how you process information and navigate complexity.
+                </p>
+                <button class="restart-btn" onclick="shareResults()">Share your results</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <h3>Educational Licensing & Research Opportunities</h3>
+            <p>
+                Interested in using the STTI Assessment in your classroom, research, or academic program? 
+                This validated instrument is perfect for case studies, rigorous academic testing, and educational research initiatives.
+            </p>
+            <p>
+                <a href="mailto:hello@linkingyourthinking.com">Contact us at hello@linkingyourthinking.com</a> 
+                to inquire about classroom licenses, research partnerships, and institutional access.
+            </p>
+            <div class="copyright">
+                © 2025 Linking Your Thinking. The STTI Assessment is proprietary and protected by copyright.<br>
+                All rights reserved. | <a href="https://www.linkingyourthinking.com">linkingyourthinking.com</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { id: 1, text: "I often spend time reflecting on my life experiences and what they mean to me.", archetype: "I+" },
+            { id: 2, text: "I naturally look at topics from many different angles before forming an opinion.", archetype: "S+" },
+            { id: 3, text: "I prefer to get things done rather than spend too much time talking about them.", archetype: "P+" },
+            { id: 4, text: "I enjoy coming up with original ideas that others haven't thought of before.", archetype: "C+" },
+            { id: 5, text: "I like to have a clear plan and structure before starting any major project.", archetype: "A+" }
+        ];
+
+        let currentQuestion = 0;
+        let answers = {}; // Changed to object for indexed access
+
+        function updateNavButtons() {
+            const backBtn = document.getElementById('backBtn');
+            const forwardBtn = document.getElementById('forwardBtn');
+            
+            // Back button: enabled if not on first question
+            backBtn.disabled = currentQuestion === 0;
+            
+            // Forward button: enabled if current question has been answered and not past the end
+            forwardBtn.disabled = !answers[currentQuestion];
+        }
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const question = questions[currentQuestion];
+            document.getElementById('questionText').textContent = question.text;
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Highlight previously selected answer if exists
+            highlightSelectedAnswer();
+            updateNavButtons();
+        }
+
+        function highlightSelectedAnswer() {
+            // Reset all buttons first
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.style.opacity = '1';
+                btn.style.transform = 'scale(1)';
+            });
+
+            // Highlight previously selected answer
+            if (answers[currentQuestion]) {
+                const selectedAnswer = answers[currentQuestion].answer;
+                const btnClass = selectedAnswer.toLowerCase();
+                const selectedBtn = document.querySelector(`.answer-btn.${btnClass}`);
+                if (selectedBtn) {
+                    selectedBtn.style.opacity = '0.7';
+                    selectedBtn.style.transform = 'scale(0.95)';
+                }
+            }
+        }
+
+        function answer(response) {
+            // Visual feedback
+            event.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                if (event.target) event.target.style.transform = 'scale(1)';
+            }, 150);
+
+            // Store answer (overwrite if changing answer)
+            answers[currentQuestion] = {
+                questionId: questions[currentQuestion].id,
+                answer: response,
+                archetype: questions[currentQuestion].archetype
+            };
+
+            // Auto-advance to next question or show results
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                setTimeout(() => {
+                    loadQuestion();
+                }, 400);
+            } else {
+                // On last question, show results
+                setTimeout(() => {
+                    showResults();
+                }, 400);
+            }
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function goForward() {
+            if (currentQuestion < questions.length - 1 && answers[currentQuestion]) {
+                currentQuestion++;
+                loadQuestion();
+            } else if (currentQuestion === questions.length - 1 && answers[currentQuestion]) {
+                // If on last question and it's answered, show results
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('assessment').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            
+            // Convert answers object to array for scoring
+            const answersArray = Object.values(answers);
+            
+            // Simple scoring for demo
+            let scores = { I: 0, S: 0, P: 0, C: 0, A: 0 };
+            answersArray.forEach(ans => {
+                const type = ans.archetype.charAt(0);
+                const value = ans.answer === 'SA' ? 4 : ans.answer === 'A' ? 3 : ans.answer === 'D' ? 2 : 1;
+                if (scores[type] !== undefined) scores[type] += value;
+            });
+
+            // Find top 2 archetypes
+            const archetypeEntries = Object.entries(scores).filter(([key]) => ['I', 'S', 'P', 'C'].includes(key));
+            const sorted = archetypeEntries.sort(([,a], [,b]) => b - a);
+            
+            // Determine tendency (simplified for demo)
+            const tendency = scores.A > 2 ? 'Architect' : 'Gardener';
+            const profileCode = `${sorted[0][0]}${sorted[1][0]}-${tendency}`;
+            
+            const archetypeNames = {
+                'I': 'Inner Guide', 'S': 'Synthesizer', 'P': 'Producer', 'C': 'Creative'
+            };
+            
+            document.getElementById('profileCode').textContent = profileCode;
+            document.getElementById('profileDescription').innerHTML = 
+                `You blend the <strong>${archetypeNames[sorted[0][0]]}</strong> and <strong>${archetypeNames[sorted[1][0]]}</strong> approaches with <strong>${tendency}</strong> tendencies. This unique combination shapes how you process information, make decisions, and navigate complexity in your personal and professional life.`;
+        }
+
+        function shareResults() {
+            const profileCode = document.getElementById('profileCode').textContent;
+            const shareText = `I just discovered I'm a ${profileCode} on the STTI Assessment! Find out your sensemaking type at [URL]`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: `I'm a ${profileCode}!`,
+                    text: shareText,
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareText)
+                    .then(() => alert('Share text copied to clipboard!'))
+                    .catch(() => alert('Unable to copy to clipboard'));
+            } else {
+                alert(shareText);
+            }
+        }
+
+        function restart() {
+            currentQuestion = 0;
+            answers = {};
+            document.getElementById('assessment').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            loadQuestion();
+        }
+
+        // Start the assessment
+        loadQuestion();
+    </script>
+</body>
+</html>
