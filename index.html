@@ -1348,12 +1348,9 @@
         let keySequence = '';
         let keyTimer = null;
 
-        // Debug shortcuts: Press 'Z' for random or four-digit codes (0001-0024) for specific profiles
+        // Debug shortcuts: Four-digit codes (0001-0024) for specific profiles
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'z' || event.key === 'Z') {
-                // Skip to results with random sample data
-                showTestResults();
-            } else if (event.key >= '0' && event.key <= '9') {
+            if (event.key >= '0' && event.key <= '9') {
                 // Build four-digit sequence
                 keySequence += event.key;
                 
@@ -1379,45 +1376,33 @@
             }
         });
 
-        function showTestResults(targetProfile = null) {
+        function showTestResults(targetProfile) {
             userEmail = 'test@example.com';
             
-            if (targetProfile) {
-                // Show specific profile
-                const [archetypes, tendency] = targetProfile.split('-');
-                const primary = archetypes[0];
-                const secondary = archetypes[1];
-                
-                // Create mock profile object
-                const mockProfile = {
-                    code: targetProfile,
-                    dominantArchetypes: [primary, secondary],
-                    tendency: tendency,
-                    scores: { I: 20, S: 15, P: 18, C: 12, A: tendency === 'Architect' ? 25 : 15, G: tendency === 'Gardener' ? 25 : 15 }
+            // Show specific profile
+            const [archetypes, tendency] = targetProfile.split('-');
+            const primary = archetypes[0];
+            const secondary = archetypes[1];
+            
+            // Create mock profile object
+            const mockProfile = {
+                code: targetProfile,
+                dominantArchetypes: [primary, secondary],
+                tendency: tendency,
+                scores: { I: 20, S: 15, P: 18, C: 12, A: tendency === 'Architect' ? 25 : 15, G: tendency === 'Gardener' ? 25 : 15 }
+            };
+            
+            // Fill answers with sample data
+            for (let i = 0; i < 48; i++) {
+                answers[i] = {
+                    questionId: questions[i].id,
+                    answer: 'A',
+                    archetype: questions[i].archetype
                 };
-                
-                // Fill answers with sample data
-                for (let i = 0; i < 48; i++) {
-                    answers[i] = {
-                        questionId: questions[i].id,
-                        answer: 'A',
-                        archetype: questions[i].archetype
-                    };
-                }
-                
-                // Directly show the specific profile
-                showSpecificProfile(mockProfile);
-            } else {
-                // Random profile (original Z behavior)
-                for (let i = 0; i < 48; i++) {
-                    answers[i] = {
-                        questionId: questions[i].id,
-                        answer: Math.random() > 0.5 ? 'A' : 'SA',
-                        archetype: questions[i].archetype
-                    };
-                }
-                showResults();
             }
+            
+            // Directly show the specific profile
+            showSpecificProfile(mockProfile);
         }
 
         function showSpecificProfile(profile) {
