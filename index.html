@@ -384,13 +384,23 @@
             font-size: 1.1rem;
         }
 
+        .second-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tendency-section {
+            display: flex;
+            flex-direction: column;
+        }
+
         .tendency-description {
             font-size: 1.1rem;
             color: #666;
             line-height: 1.6;
-            margin-bottom: 3rem;
             text-align: left;
-            max-width: none;
         }
 
         .tendency-title {
@@ -399,6 +409,26 @@
             color: var(--lyt-purple-deep);
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
+        }
+
+        .westerner-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .westerner-title {
+            font-family: 'DM Mono', monospace;
+            text-decoration: underline;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .westerner-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            text-align: left;
         }
 
         .detailed-analysis {
@@ -678,6 +708,11 @@
             .container {
                 padding: 1rem;
             }
+            
+            .second-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -793,9 +828,19 @@
                     </div>
                 </div>
                 
-                <div class="tendency-title">Sensemaking Tendency</div>
-                <div class="tendency-description" id="tendencyDescription">
-                    Your tendency description will appear here.
+                <div class="second-row">
+                    <div class="tendency-section">
+                        <div class="tendency-title">Sensemaking Tendency</div>
+                        <div class="tendency-description" id="tendencyDescription">
+                            Your tendency description will appear here.
+                        </div>
+                    </div>
+                    <div class="westerner-section">
+                        <div class="westerner-title" id="westernerTitle">You are a Westerner</div>
+                        <div class="westerner-description" id="westernerDescription">
+                            Your westerner/easterner analysis will appear here.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="detailed-analysis" id="detailedAnalysis" style="display: none;">
@@ -1259,9 +1304,27 @@
             document.getElementById('archetypeDescription').innerHTML = 
                 `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This means you ${primaryDesc}, along with ${secondaryDesc}.`;
             
-            // Second paragraph - tendency (goes in second row)
+            // Second paragraph - tendency (goes in second row left)
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
+            
+            // Determine if Westerner or Easterner based on profile archetypes
+            const isWesterner = (profile.dominantArchetypes.includes('I') && profile.dominantArchetypes.includes('S'));
+            const isEasterner = (profile.dominantArchetypes.includes('P') && profile.dominantArchetypes.includes('C'));
+            
+            const westernerTitle = document.getElementById('westernerTitle');
+            const westernerDescription = document.getElementById('westernerDescription');
+            
+            if (isWesterner) {
+                westernerTitle.textContent = 'You are a Westerner';
+                westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
+            } else if (isEasterner) {
+                westernerTitle.textContent = 'You are an Easterner';
+                westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+            } else {
+                westernerTitle.textContent = 'Mixed Profile';
+                westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+            }
             
             // Show detailed analysis for IS-Architect
             const detailedAnalysisSection = document.getElementById('detailedAnalysis');
@@ -1440,6 +1503,24 @@
             
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
+            
+            // Determine if Westerner or Easterner based on profile archetypes
+            const isWesterner = (profile.dominantArchetypes.includes('I') && profile.dominantArchetypes.includes('S'));
+            const isEasterner = (profile.dominantArchetypes.includes('P') && profile.dominantArchetypes.includes('C'));
+            
+            const westernerTitle = document.getElementById('westernerTitle');
+            const westernerDescription = document.getElementById('westernerDescription');
+            
+            if (isWesterner) {
+                westernerTitle.textContent = 'You are a Westerner';
+                westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
+            } else if (isEasterner) {
+                westernerTitle.textContent = 'You are an Easterner';
+                westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+            } else {
+                westernerTitle.textContent = 'Mixed Profile';
+                westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+            }
             
             // Update detailed analysis
             const detailedAnalysisSection = document.getElementById('detailedAnalysis');
