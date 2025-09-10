@@ -487,9 +487,43 @@
         }
 
         .chord-diagram img {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             display: block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .chord-diagram img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal styles for enlarged image */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
         }
 
         .share-btn {
@@ -599,8 +633,8 @@
             }
 
             .chord-diagram img {
-                width: 150px;
-                height: 150px;
+                width: 200px;
+                height: 200px;
             }
 
             .profile-header {
@@ -823,6 +857,11 @@
             © 2025 Linking Your Thinking. The STTI Assessment is proprietary and protected by copyright.<br>
             All rights reserved. | <a href="https://www.linkingyourthinking.com">linkingyourthinking.com</a>
         </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <img id="modalImage" src="" alt="Enlarged Sensemaking Pattern">
     </div>
 
     <script>
@@ -1140,6 +1179,22 @@
                 }
                 
                 showResults();
+            }
+        });
+
+        // Image modal functionality
+        document.addEventListener('click', function(event) {
+            // Check if clicked on chord diagram
+            if (event.target.id === 'chordDiagram') {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = event.target.src;
+                modal.classList.add('active');
+            }
+            
+            // Close modal when clicking anywhere on it
+            if (event.target.closest('#imageModal')) {
+                document.getElementById('imageModal').classList.remove('active');
             }
         });
     </script>
