@@ -472,6 +472,44 @@
             text-align: left;
         }
 
+        .overwhelmed-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #fff8f0 0%, #fff0f8 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--lyt-pink);
+        }
+
+        .stuck-unstuck-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0fff8 0%, #f0f8ff 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--lyt-cyan);
+        }
+
+        .prompts-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #fffef0 0%, #f8fff0 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--lyt-yellow-muted);
+        }
+
+        .section-title {
+            font-family: 'DM Mono', monospace;
+            text-decoration: underline;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
         .detailed-analysis {
             margin: 3rem 0;
             padding: 2rem;
@@ -891,6 +929,30 @@
                         <div class="westerner-description" id="westernerDescription">
                             Your westerner/easterner analysis will appear here.
                         </div>
+                    </div>
+                </div>
+
+                <!-- Additional Analysis Sections -->
+                <div class="overwhelmed-section" id="overwhelmedSection" style="display: none;">
+                    <div class="section-title">When Westerners feel overwhelmed…</div>
+                    <div class="section-content" id="overwhelmedContent">
+                        They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression.
+                    </div>
+                </div>
+
+                <div class="stuck-unstuck-section" id="stuckUnstuckSection" style="display: none;">
+                    <div class="section-title">Getting stuck and unstuck as an IS-Architect</div>
+                    <div class="section-content" id="stuckUnstuckContent">
+                        When you combine your Westerner archetypes of Inner Guide and Synthesizer with an Architect tendency, we now can understand that it's most difficult to access your Creative archetype—yet that's exactly what you most need.
+                        <br><br>
+                        That said, since your tendency is to architect, the easiest way to move between the west (reflection) and the east (expression) is going to be by tapping into your Producer archetype, since it aligns with your more natural structured approach.
+                    </div>
+                </div>
+
+                <div class="prompts-section" id="promptsSection" style="display: none;">
+                    <div class="section-title">Your prompts as an IS-Architect to go from West to East</div>
+                    <div class="section-content" id="promptsContent">
+                        How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you'll likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express the unique ideas you have as a westerner known for deep thoughts.
                     </div>
                 </div>
 
@@ -1395,11 +1457,17 @@
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
-            // Show detailed analysis for IS-Architect
+            // Show additional sections for IS-Architect
+            const overwhelmedSection = document.getElementById('overwhelmedSection');
+            const stuckUnstuckSection = document.getElementById('stuckUnstuckSection');
+            const promptsSection = document.getElementById('promptsSection');
             const detailedAnalysisSection = document.getElementById('detailedAnalysis');
             const analysisContent = document.getElementById('analysisContent');
             
             if (profile.code === 'IS-Architect') {
+                overwhelmedSection.style.display = 'block';
+                stuckUnstuckSection.style.display = 'block';
+                promptsSection.style.display = 'block';
                 detailedAnalysisSection.style.display = 'block';
                 analysisContent.innerHTML = `
                     <p>As an <strong>IS-Architect</strong>, you have a <strong>Westerner</strong> profile (notice how the image is predominantly focused on the western side). Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.</p>
@@ -1436,6 +1504,9 @@
                     <p>How can you step back from your current creative output to gain deeper understanding of its meaning? How can your <strong>Synthesizer</strong> help you see the connections between your unique expressions and larger patterns? Once your Synthesizer is activated, you'll likely find it becomes easier to drop into your <strong>Inner Guide</strong>, as you discover the personal significance behind your creative work (your <strong>CP</strong> superpower).</p>
                 `;
             } else {
+                overwhelmedSection.style.display = 'none';
+                stuckUnstuckSection.style.display = 'none';
+                promptsSection.style.display = 'none';
                 detailedAnalysisSection.style.display = 'none';
             }
             
@@ -1610,11 +1681,19 @@
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
+            // Show additional sections for IS-Architect
+            const overwhelmedSection = document.getElementById('overwhelmedSection');
+            const stuckUnstuckSection = document.getElementById('stuckUnstuckSection');
+            const promptsSection = document.getElementById('promptsSection');
+            
             // Update detailed analysis
             const detailedAnalysisSection = document.getElementById('detailedAnalysis');
             const analysisContent = document.getElementById('analysisContent');
             
             if (profile.code === 'IS-Architect') {
+                overwhelmedSection.style.display = 'block';
+                stuckUnstuckSection.style.display = 'block';
+                promptsSection.style.display = 'block';
                 detailedAnalysisSection.style.display = 'block';
                 analysisContent.innerHTML = `
                     <p>As an <strong>IS-Architect</strong>, you have a <strong>Westerner</strong> profile (notice how the image is predominantly focused on the western side). Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.</p>
@@ -1651,6 +1730,9 @@
                     <p>How can you step back from your current creative output to gain deeper understanding of its meaning? How can your <strong>Synthesizer</strong> help you see the connections between your unique expressions and larger patterns? Once your Synthesizer is activated, you'll likely find it becomes easier to drop into your <strong>Inner Guide</strong>, as you discover the personal significance behind your creative work (your <strong>CP</strong> superpower).</p>
                 `;
             } else {
+                overwhelmedSection.style.display = 'none';
+                stuckUnstuckSection.style.display = 'none';
+                promptsSection.style.display = 'none';
                 detailedAnalysisSection.style.display = 'none';
             }
             
