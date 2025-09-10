@@ -1512,12 +1512,6 @@
         let answers = {};
         let userEmail = '';
         
-        // Test if ANY key detection works
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'z' || e.key === 'Z') {
-                alert('Z key detected - basic keydown works!');
-            }
-        });
         
         // Simple secret code system - exact copy of what worked with Z key
         let keySequence = '';
@@ -2276,65 +2270,6 @@
         }
 
 
-        // Profile code mappings for quick testing (4-digit codes for safety)
-        const profileMappings = {
-            '0001': 'IP-Architect', '0002': 'IP-Gardener', '0003': 'IS-Architect', '0004': 'IS-Gardener', 
-            '0005': 'IC-Architect', '0006': 'IC-Gardener', '0007': 'PI-Architect', '0008': 'PI-Gardener',
-            '0009': 'PS-Architect', '0010': 'PS-Gardener', '0011': 'PC-Architect', '0012': 'PC-Gardener',
-            '0013': 'SI-Architect', '0014': 'SI-Gardener', '0015': 'SP-Architect', '0016': 'SP-Gardener',
-            '0017': 'SC-Architect', '0018': 'SC-Gardener', '0019': 'CI-Architect', '0020': 'CI-Gardener',
-            '0021': 'CP-Architect', '0022': 'CP-Gardener', '0023': 'CS-Architect', '0024': 'CS-Gardener'
-        };
-
-        // Simple keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
-            // Prevent shortcuts in input fields
-            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                return;
-            }
-            
-            // Z key shortcut for IS-Architect
-            if (event.key === 'z' || event.key === 'Z') {
-                console.log('Z key pressed - showing IS-Architect results');
-                showTestResults('IS-Architect');
-                return;
-            }
-            
-            // Other quick shortcuts
-            if (event.key === 'x' || event.key === 'X') {
-                showTestResults('CP-Gardener');
-                return;
-            }
-            if (event.key === 'c' || event.key === 'C') {
-                showTestResults('PS-Architect');
-                return;
-            }
-            
-            if (event.key >= '0' && event.key <= '9') {
-                // Build four-digit sequence
-                keySequence += event.key;
-                
-                // Clear any existing timer
-                if (keyTimer) clearTimeout(keyTimer);
-                
-                // Set timer to reset sequence after 2 seconds
-                keyTimer = setTimeout(() => {
-                    keySequence = '';
-                }, 2000);
-                
-                // Check if we have a valid four-digit code
-                if (keySequence.length === 4 && profileMappings[keySequence]) {
-                    const targetProfile = profileMappings[keySequence];
-                    showTestResults(targetProfile);
-                    keySequence = ''; // Reset
-                    clearTimeout(keyTimer);
-                } else if (keySequence.length > 4) {
-                    // Reset if too many digits
-                    keySequence = '';
-                    clearTimeout(keyTimer);
-                }
-            }
-        });
 
         function showTestResults(targetProfile) {
             // Ensure we have userEmail set for the secret codes to work
