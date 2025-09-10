@@ -1452,6 +1452,21 @@
     </div>
 
     <script>
+        // === COMPREHENSIVE DEBUG MODE ===
+        window.DEBUG_MODE = true;
+        console.log('🟢 DEBUG MODE ACTIVE - Script starting');
+        
+        // Override console.log to also show alerts in debug mode
+        const originalLog = console.log;
+        window.debugLog = function(...args) {
+            originalLog('🔍', ...args);
+            if (window.DEBUG_MODE) {
+                // Also track in a debug array
+                if (!window.debugMessages) window.debugMessages = [];
+                window.debugMessages.push(args.join(' '));
+            }
+        };
+
         const questions = [
             { id: 1, text: "I am really satisfied when I create something that feels original to me.", archetype: 'C+' },
             { id: 2, text: "I naturally look at topics from many angles.", archetype: 'S+' },
@@ -1511,39 +1526,6 @@
         let currentQuestion = 0;
         let answers = {};
         let userEmail = '';
-        
-        // Simple direct secret code system
-        window.addEventListener('keydown', function(e) {
-            // Only work when not in an input field
-            if (document.activeElement.tagName === 'INPUT') return;
-            
-            if (e.key === 'z' || e.key === 'Z') {
-                // Directly manipulate the DOM to show results
-                try {
-                    // Hide all screens
-                    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                    
-                    // Show results screen
-                    const resultsScreen = document.getElementById('resultsScreen');
-                    if (resultsScreen) {
-                        resultsScreen.classList.add('active');
-                        
-                        // Set some basic values to test
-                        const profileCode = document.getElementById('profileCode');
-                        if (profileCode) profileCode.textContent = 'IS-Architect';
-                        
-                        const profileSubtitle = document.getElementById('profileSubtitle');
-                        if (profileSubtitle) profileSubtitle.textContent = 'The Philosopher';
-                        
-                        alert('Secret code Z activated! Check if you see the results screen.');
-                    } else {
-                        alert('Results screen not found!');
-                    }
-                } catch (err) {
-                    alert('Error: ' + err.message);
-                }
-            }
-        });
 
         // Check for email in URL params or localStorage
         (function() {
@@ -2116,7 +2098,7 @@
             
             // Z key shortcut for IS-Architect
             if (event.key === 'z' || event.key === 'Z') {
-                console.log('Z key pressed - showing IS-Architect results');
+                debugLog('Z key pressed - showing IS-Architect results');
                 showTestResults('IS-Architect');
                 return;
             }
@@ -2158,6 +2140,8 @@
         });
 
         function showTestResults(targetProfile) {
+            debugLog('🎯 showTestResults called with:', targetProfile);
+            try {
             // Ensure we have userEmail set for the secret codes to work
             if (!userEmail) {
                 userEmail = 'test@example.com';
@@ -2194,11 +2178,17 @@
             }
             
             // Directly show the specific profile
+            debugLog('📊 About to call showSpecificProfile with:', mockProfile);
             showSpecificProfile(mockProfile);
+            } catch (error) {
+                debugLog('❌ ERROR in showTestResults:', error.message);
+                console.error('Full error:', error);
+                alert('Error: ' + error.message);
+            }
         }
 
         function showSpecificProfile(profile) {
-            console.log('showSpecificProfile called with:', profile);
+            debugLog('showSpecificProfile called with:', profile);
             // Update results display with specific profile
             const profileCodeElement = document.getElementById('profileCode');
             if (!profileCodeElement) {
@@ -2544,5 +2534,11 @@
             }
         });
     </script>
+
+    <div style="position: fixed; bottom: 10px; right: 10px; z-index: 9999; background: #333; color: white; padding: 10px; border-radius: 5px;">
+        <button onclick="window.DEBUG_MODE = !window.DEBUG_MODE; this.textContent = window.DEBUG_MODE ? 'Debug ON' : 'Debug OFF'">Debug ON</button>
+        <button onclick="if(window.debugMessages) alert(window.debugMessages.join('\n')); else alert('No debug messages');">Show Log</button>
+        <button onclick="showTestResults('IS-Architect')">Test IS-Arch</button>
+    </div>
 </body>
 </html>
