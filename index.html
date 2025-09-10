@@ -1524,60 +1524,34 @@
         let keyTimer = null;
         
         window.addEventListener('keydown', function(e) {
-            console.log('Key pressed:', e.key, 'Active element:', document.activeElement.tagName);
-            
             // Only work when not in an input field
-            if (document.activeElement.tagName === 'INPUT') {
-                console.log('Ignoring key because in INPUT field');
-                return;
-            }
+            if (document.activeElement.tagName === 'INPUT') return;
             
-            if (e.key >= '0' && e.key <= '9') {
-                // Build four-digit sequence
-                keySequence += e.key;
-                console.log('Key sequence now:', keySequence);
-                
-                // Clear any existing timer
-                if (keyTimer) clearTimeout(keyTimer);
-                
-                // Set timer to reset sequence after 2 seconds
-                keyTimer = setTimeout(() => {
-                    console.log('Timer reset, clearing sequence');
-                    keySequence = '';
-                }, 2000);
-                
-                // Check for 0003 - exact copy of working Z key logic
-                if (keySequence === '0003') {
-                    console.log('0003 detected! Activating...');
-                    try {
-                        // Hide all screens
-                        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            // Just test for specific key presses - forget the sequence
+            if (e.key === '9') {
+                console.log('9 key pressed - activating test');
+                try {
+                    // Hide all screens
+                    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                    
+                    // Show results screen
+                    const resultsScreen = document.getElementById('resultsScreen');
+                    if (resultsScreen) {
+                        resultsScreen.classList.add('active');
                         
-                        // Show results screen
-                        const resultsScreen = document.getElementById('resultsScreen');
-                        if (resultsScreen) {
-                            resultsScreen.classList.add('active');
-                            
-                            // Set some basic values to test
-                            const profileCode = document.getElementById('profileCode');
-                            if (profileCode) profileCode.textContent = 'IS-Architect';
-                            
-                            const profileSubtitle = document.getElementById('profileSubtitle');
-                            if (profileSubtitle) profileSubtitle.textContent = 'The Philosopher';
-                            
-                            alert('Secret code 0003 activated! Check if you see the results screen.');
-                        } else {
-                            alert('Results screen not found!');
-                        }
-                    } catch (err) {
-                        alert('Error: ' + err.message);
+                        // Set some basic values to test
+                        const profileCode = document.getElementById('profileCode');
+                        if (profileCode) profileCode.textContent = 'IS-Architect';
+                        
+                        const profileSubtitle = document.getElementById('profileSubtitle');
+                        if (profileSubtitle) profileSubtitle.textContent = 'The Philosopher';
+                        
+                        alert('9 key activated! Check if you see the results screen.');
+                    } else {
+                        alert('Results screen not found!');
                     }
-                    keySequence = ''; // Reset
-                    clearTimeout(keyTimer);
-                } else if (keySequence.length > 4) {
-                    // Reset if too many digits
-                    keySequence = '';
-                    clearTimeout(keyTimer);
+                } catch (err) {
+                    alert('Error: ' + err.message);
                 }
             }
         });
