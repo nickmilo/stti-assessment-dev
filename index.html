@@ -1512,28 +1512,43 @@
         let answers = {};
         let userEmail = '';
         
+        // Test if ANY key detection works
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'z' || e.key === 'Z') {
+                alert('Z key detected - basic keydown works!');
+            }
+        });
+        
         // Simple secret code system - exact copy of what worked with Z key
         let keySequence = '';
         let keyTimer = null;
         
         window.addEventListener('keydown', function(e) {
+            console.log('Key pressed:', e.key, 'Active element:', document.activeElement.tagName);
+            
             // Only work when not in an input field
-            if (document.activeElement.tagName === 'INPUT') return;
+            if (document.activeElement.tagName === 'INPUT') {
+                console.log('Ignoring key because in INPUT field');
+                return;
+            }
             
             if (e.key >= '0' && e.key <= '9') {
                 // Build four-digit sequence
                 keySequence += e.key;
+                console.log('Key sequence now:', keySequence);
                 
                 // Clear any existing timer
                 if (keyTimer) clearTimeout(keyTimer);
                 
                 // Set timer to reset sequence after 2 seconds
                 keyTimer = setTimeout(() => {
+                    console.log('Timer reset, clearing sequence');
                     keySequence = '';
                 }, 2000);
                 
                 // Check for 0003 - exact copy of working Z key logic
                 if (keySequence === '0003') {
+                    console.log('0003 detected! Activating...');
                     try {
                         // Hide all screens
                         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
