@@ -368,7 +368,7 @@
             font-family: 'Canela Deck', sans-serif;
             font-size: 1.8rem;
             color: var(--lyt-purple-deep);
-            margin: 1rem 0 2rem 0;
+            margin: 1rem 0 0 0;
             font-weight: 400;
         }
 
@@ -462,6 +462,16 @@
         .gardener-pill {
             background-color: rgba(103, 192, 115, 0.15);
             border-color: var(--lyt-green);
+        }
+
+        .tendency-pills-container {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .secondary-tendency {
+            opacity: 0.4;
         }
         
         .archetype-pills {
@@ -851,8 +861,8 @@
         }
 
         .image-modal img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 60%;
+            max-height: 70%;
             width: auto;
             height: auto;
             border-radius: 8px;
@@ -1128,14 +1138,14 @@
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
             <div class="results">
-                <!-- Profile Banner with Main Title and Code -->
-                <div class="profile-banner">
-                    <div class="banner-main-title">Your Sensemaking Profile</div>
-                    <div class="banner-profile-code" id="profileCode">IS-Architect</div>
-                </div>
+                <!-- Main title above gradient -->
+                <div class="profile-main-title">Your Sensemaking Profile</div>
                 
-                <!-- Subtitle outside the banner -->
-                <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
+                <!-- Profile Banner with Code and Subtitle -->
+                <div class="profile-banner">
+                    <div class="banner-profile-code" id="profileCode">IS-Architect</div>
+                    <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
+                </div>
                 
                 <div class="profile-header">
                     <div class="chord-diagram">
@@ -1163,7 +1173,10 @@
                     </div>
                     <div class="tendency-section">
                         <div class="tendency-title">Tendency</div>
-                        <div class="tendency-pill architect-pill" id="tendencyPill">Architect</div>
+                        <div class="tendency-pills-container">
+                            <div class="tendency-pill architect-pill" id="tendencyPill">Architect</div>
+                            <div class="tendency-pill gardener-pill secondary-tendency" id="secondaryTendencyPill">Gardener</div>
+                        </div>
                         <div class="tendency-description" id="tendencyDescription">
                             Your tendency description will appear here.
                         </div>
@@ -1178,10 +1191,6 @@
                             <button class="share-option" onclick="shareToTwitter()">
                                 <span class="share-icon">🐦</span>
                                 Share on X (Twitter)
-                            </button>
-                            <button class="share-option" onclick="shareToLinkedIn()">
-                                <span class="share-icon">💼</span>
-                                Share on LinkedIn
                             </button>
                             <button class="share-option" onclick="copyResultsLink()">
                                 <span class="share-icon">📋</span>
@@ -1255,10 +1264,6 @@
                             <button class="share-option" onclick="shareToTwitter()">
                                 <span class="share-icon">🐦</span>
                                 Share on X (Twitter)
-                            </button>
-                            <button class="share-option" onclick="shareToLinkedIn()">
-                                <span class="share-icon">💼</span>
-                                Share on LinkedIn
                             </button>
                             <button class="share-option" onclick="copyResultsLink()">
                                 <span class="share-icon">📋</span>
@@ -1828,13 +1833,6 @@
             closeAllDropdowns();
         }
 
-        function shareToLinkedIn() {
-            const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('My Sensemaking Type Results - STTI Assessment');
-            
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank');
-            closeAllDropdowns();
-        }
 
         function copyResultsLink() {
             const url = window.location.href;
