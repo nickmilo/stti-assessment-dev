@@ -834,6 +834,18 @@
             font-weight: 500;
         }
 
+        .workshop-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--lyt-pink);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
         .teaser-badge {
             position: absolute;
             top: 1rem;
@@ -1266,7 +1278,7 @@
                 <div class="results-grid">
                     <!-- Unlocked: Core Strengths -->
                     <div class="result-box unlocked">
-                        <div class="unlock-badge">Free</div>
+                        <div class="workshop-badge">Workshop</div>
                         <h4>Core Strengths</h4>
                         <ul class="result-list blurred-content" id="strengthsList">
                             <li>Lorem ipsum dolor sit amet consectetur</li>
@@ -1278,7 +1290,7 @@
 
                     <!-- Unlocked: Growth Areas -->
                     <div class="result-box unlocked">
-                        <div class="unlock-badge">Free</div>
+                        <div class="workshop-badge">Workshop</div>
                         <h4>Growth Opportunities</h4>
                         <ul class="result-list blurred-content" id="weaknessesList">
                             <li>Nostrud exercitation ullamco laboris</li>
@@ -1782,6 +1794,13 @@
             const tendencyPill = document.getElementById('tendencyPill');
             tendencyPill.textContent = profile.tendency;
             tendencyPill.className = 'tendency-pill ' + (profile.tendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
+            
+            // Update secondary tendency pill (show opposite tendency)
+            const secondaryTendencyPill = document.getElementById('secondaryTendencyPill');
+            const secondaryTendency = profile.tendency === 'Architect' ? 'Gardener' : 'Architect';
+            secondaryTendencyPill.textContent = secondaryTendency;
+            secondaryTendencyPill.className = 'tendency-pill secondary-tendency ' + (secondaryTendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
+            
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
@@ -2121,6 +2140,13 @@
             const tendencyPill = document.getElementById('tendencyPill');
             tendencyPill.textContent = profile.tendency;
             tendencyPill.className = 'tendency-pill ' + (profile.tendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
+            
+            // Update secondary tendency pill (show opposite tendency)
+            const secondaryTendencyPill = document.getElementById('secondaryTendencyPill');
+            const secondaryTendency = profile.tendency === 'Architect' ? 'Gardener' : 'Architect';
+            secondaryTendencyPill.textContent = secondaryTendency;
+            secondaryTendencyPill.className = 'tendency-pill secondary-tendency ' + (secondaryTendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
+            
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
