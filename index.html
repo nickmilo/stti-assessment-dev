@@ -1511,6 +1511,17 @@
         let currentQuestion = 0;
         let answers = {};
         let userEmail = '';
+        
+        // Immediate test to see if JavaScript is running
+        console.log('STTI Assessment JavaScript loaded successfully');
+        
+        // Test Z key immediately
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'z' || e.key === 'Z') {
+                console.log('Z KEY DETECTED - Early listener');
+                alert('Z key pressed! JavaScript is working.');
+            }
+        });
 
         // Check for email in URL params or localStorage
         (function() {
