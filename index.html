@@ -366,7 +366,15 @@
             font-size: 2.5rem;
             font-weight: 500;
             color: var(--lyt-purple-deep);
-            margin: 0 0 1rem 0;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .profile-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: var(--lyt-purple);
+            margin-bottom: 1.5rem;
+            font-style: italic;
         }
 
         .archetype-description {
@@ -388,7 +396,7 @@
             font-family: 'Canela Deck', serif;
             font-style: italic;
             color: var(--lyt-cyan);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
@@ -423,7 +431,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-style: italic;
             color: var(--lyt-cyan);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
@@ -444,7 +452,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-style: italic;
             color: var(--lyt-cyan);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
@@ -845,6 +853,7 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-code" id="profileCode">IP-Architect</div>
+                        <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
                         <div class="archetype-title">Sensemaking Archetypes</div>
                         <div class="archetype-subtitle" id="archetypeSubtitle">Inner Guide & Synthesizer</div>
                         <div class="archetype-description" id="archetypeDescription">
@@ -862,7 +871,7 @@
                         </div>
                     </div>
                     <div class="westerner-section">
-                        <div class="westerner-title" id="westernerTitle">Sensemaking Identity: Philosopher</div>
+                        <div class="westerner-title" id="westernerTitle">Sensemaking Orientation</div>
                         <div class="westerner-subtitle" id="westernerSubtitle">Westerner with a tendency to Architect</div>
                         <div class="westerner-description" id="westernerDescription">
                             Your westerner/easterner analysis will appear here.
@@ -1347,16 +1356,26 @@
             // Update identity title, subtitle and description
             const westernerSubtitle = document.getElementById('westernerSubtitle');
             
+            // Update profile subtitle (The Philosopher, The Maker, etc.)
+            const profileSubtitle = document.getElementById('profileSubtitle');
             if (isWesterner) {
-                westernerTitle.textContent = 'Sensemaking Identity: Philosopher';
+                profileSubtitle.textContent = 'The Philosopher';
+            } else if (isEasterner) {
+                profileSubtitle.textContent = 'The Maker';
+            } else {
+                profileSubtitle.textContent = 'The Explorer';
+            }
+            
+            if (isWesterner) {
+                westernerTitle.textContent = 'Sensemaking Orientation';
                 westernerSubtitle.textContent = `Westerner with a tendency to ${profile.tendency}`;
                 westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
             } else if (isEasterner) {
-                westernerTitle.textContent = 'Sensemaking Identity: Maker';
+                westernerTitle.textContent = 'Sensemaking Orientation';
                 westernerSubtitle.textContent = `Easterner with a tendency to ${profile.tendency}`;
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
-                westernerTitle.textContent = 'Sensemaking Identity: Mixed Profile';
+                westernerTitle.textContent = 'Sensemaking Orientation';
                 westernerSubtitle.textContent = 'Balanced orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
@@ -1552,16 +1571,26 @@
             // Update identity title, subtitle and description
             const westernerSubtitle = document.getElementById('westernerSubtitle');
             
+            // Update profile subtitle (The Philosopher, The Maker, etc.)
+            const profileSubtitle = document.getElementById('profileSubtitle');
             if (isWesterner) {
-                westernerTitle.textContent = 'Sensemaking Identity: Philosopher';
+                profileSubtitle.textContent = 'The Philosopher';
+            } else if (isEasterner) {
+                profileSubtitle.textContent = 'The Maker';
+            } else {
+                profileSubtitle.textContent = 'The Explorer';
+            }
+            
+            if (isWesterner) {
+                westernerTitle.textContent = 'Sensemaking Orientation';
                 westernerSubtitle.textContent = `Westerner with a tendency to ${profile.tendency}`;
                 westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
             } else if (isEasterner) {
-                westernerTitle.textContent = 'Sensemaking Identity: Maker';
+                westernerTitle.textContent = 'Sensemaking Orientation';
                 westernerSubtitle.textContent = `Easterner with a tendency to ${profile.tendency}`;
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
-                westernerTitle.textContent = 'Sensemaking Identity: Mixed Profile';
+                westernerTitle.textContent = 'Sensemaking Orientation';
                 westernerSubtitle.textContent = 'Balanced orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
