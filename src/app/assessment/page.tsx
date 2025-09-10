@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { questions } from '@/data/questions';
-import { calculateScores, determineProfile } from '@/utils/scoring';
+import { calculateScores, determineProfile, Profile } from '@/utils/scoring';
 import { FORMSPREE_ENDPOINT } from '@/config/formspree';
 import { SITE_CONFIG } from '@/config/site';
 
@@ -98,7 +98,7 @@ export default function AssessmentPage() {
   };
 
   // Submit assessment data to Formspree
-  const submitAssessmentData = async (email: string, answers: Record<number, Answer>, profile: any) => {
+  const submitAssessmentData = async (email: string, answers: Record<number, Answer>, profile: Profile) => {
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
