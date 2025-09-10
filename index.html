@@ -638,8 +638,8 @@
             font-size: 1.1rem;
             cursor: pointer;
             position: relative;
-            padding-right: 1.5rem;
             transition: color 0.2s ease;
+            display: inline-block;
         }
         
         .section-title:hover {
@@ -655,12 +655,11 @@
         }
         
         .section-title::after {
-            content: '▼';
-            position: absolute;
-            right: 0;
-            top: 0;
+            content: ' ▼';
             font-size: 0.8rem;
             transition: transform 0.2s ease;
+            display: inline;
+            margin-left: 0.5rem;
         }
         
         .section-title.collapsed::after {
@@ -808,7 +807,7 @@
         }
 
         .blurred-content {
-            filter: blur(2px);
+            filter: blur(8px);
             pointer-events: none;
             user-select: none;
         }
