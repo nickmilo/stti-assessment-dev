@@ -343,35 +343,33 @@
             background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
             border-radius: 12px;
             border-left: 4px solid var(--lyt-purple);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
-        .banner-title {
-            font-family: 'Canela Deck', sans-serif;
-            font-size: 2rem;
-            color: var(--lyt-purple-deep);
-        }
-
-        .banner-connector {
-            font-family: 'DM Mono', monospace;
-            color: var(--lyt-purple);
-            font-size: 1rem;
-        }
-
-        .banner-pill {
-            display: inline-block;
-            background-color: rgba(185, 173, 255, 0.2);
-            border: 1px solid var(--lyt-purple);
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            color: var(--lyt-purple-deep);
+        .banner-main-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 1.5rem;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .banner-profile-code {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--lyt-purple-deep);
+            margin: 0;
+        }
+
+        .banner-subtitle {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 1.8rem;
+            color: var(--lyt-purple-deep);
+            margin: 1rem 0 2rem 0;
+            font-weight: 400;
         }
 
         .results {
@@ -962,18 +960,19 @@
             }
 
             .profile-banner {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 0.5rem;
+                padding: 1.5rem;
             }
 
-            .banner-title {
-                font-size: 1.5rem;
+            .banner-main-title {
+                font-size: 1.2rem;
             }
 
-            .banner-connector {
-                display: none;
+            .banner-profile-code {
+                font-size: 2rem;
+            }
+
+            .banner-subtitle {
+                font-size: 1.4rem;
             }
         }
 
@@ -1077,14 +1076,14 @@
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
             <div class="results">
-                <div class="profile-main-title">Your Sensemaking Profile</div>
-                
-                <!-- Profile Banner with Code and Subtitle -->
+                <!-- Profile Banner with Main Title and Code -->
                 <div class="profile-banner">
-                    <div class="banner-title" id="profileCode">IS-Architect</div>
-                    <div class="banner-connector">•</div>
-                    <div class="banner-pill" id="profileSubtitle">The Philosopher</div>
+                    <div class="banner-main-title">Your Sensemaking Profile</div>
+                    <div class="banner-profile-code" id="profileCode">IS-Architect</div>
                 </div>
+                
+                <!-- Subtitle outside the banner -->
+                <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
                 
                 <div class="profile-header">
                     <div class="chord-diagram">
