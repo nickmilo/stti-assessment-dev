@@ -373,13 +373,13 @@
             display: inline-block;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1rem;
-            color: var(--lyt-yellow);
-            background-color: var(--lyt-purple);
-            border: 2px solid var(--lyt-purple-deep);
-            padding: 0.3rem 1.2rem;
-            border-radius: 20px;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            color: #2d3748;
+            background-color: rgba(185, 173, 255, 0.2);
+            border: 2px solid var(--lyt-purple);
+            padding: 0.4rem 1.5rem;
+            border-radius: 24px;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .archetype-description {
@@ -614,6 +614,12 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+        }
+
+        .chord-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .chord-diagram img {
@@ -854,11 +860,11 @@
             <div class="results">
                 <div class="profile-header">
                     <div class="chord-diagram">
+                        <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
                         <img id="chordDiagram" src="Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
                     </div>
                     <div class="profile-info">
                         <div class="profile-code" id="profileCode">IP-Architect</div>
-                        <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
                         <div class="archetype-title">Sensemaking Archetypes</div>
                         <div class="archetype-subtitle" id="archetypeSubtitle">Inner Guide & Synthesizer</div>
                         <div class="archetype-description" id="archetypeDescription">
