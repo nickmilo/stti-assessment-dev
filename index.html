@@ -512,7 +512,8 @@
         }
 
         .footer h3 {
-            font-family: 'Canela Deck', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
             font-size: 1.2rem;
             color: var(--lyt-purple);
             margin-bottom: 1rem;
@@ -521,6 +522,9 @@
         .footer p {
             margin-bottom: 1rem;
             opacity: 0.9;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .footer a {
@@ -1091,6 +1095,25 @@
             startBtn.disabled = true;
             showScreen('emailScreen');
         }
+
+        // Debug shortcut: Press 'R' to jump to results page for testing
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'r' || event.key === 'R') {
+                // Skip to results with sample data
+                userEmail = 'test@example.com';
+                
+                // Fill in some sample answers for scoring
+                for (let i = 0; i < 48; i++) {
+                    answers[i] = {
+                        questionId: questions[i].id,
+                        answer: Math.random() > 0.5 ? 'A' : 'SA',
+                        archetype: questions[i].archetype
+                    };
+                }
+                
+                showResults();
+            }
+        });
     </script>
 </body>
 </html>
