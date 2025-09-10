@@ -1319,11 +1319,13 @@
             westernerTitle.textContent = 'Your Sensemaking Identity';
             
             if (isWesterner) {
-                westernerDescription.innerHTML = 'Philosopher-Architect (Westerner)<br><br>Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
+                const tendencyText = profile.tendency === 'Architect' ? 'Architect' : 'Gardener';
+                westernerDescription.innerHTML = `<div style="font-family: 'DM Mono', monospace; font-style: italic; color: var(--lyt-cyan); margin-bottom: 1rem;">Westerner / Philosopher, with tendency to ${tendencyText}</div>Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.`;
             } else if (isEasterner) {
-                westernerDescription.innerHTML = 'Maker-Architect (Easterner)<br><br>Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+                const tendencyText = profile.tendency === 'Architect' ? 'Architect' : 'Gardener';
+                westernerDescription.innerHTML = `<div style="font-family: 'DM Mono', monospace; font-style: italic; color: var(--lyt-cyan); margin-bottom: 1rem;">Easterner / Maker, with tendency to ${tendencyText}</div>Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
             } else {
-                westernerDescription.innerHTML = 'Mixed Profile<br><br>Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+                westernerDescription.innerHTML = `<div style="font-family: 'DM Mono', monospace; font-style: italic; color: var(--lyt-cyan); margin-bottom: 1rem;">Mixed Profile</div>Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
             // Show detailed analysis for IS-Architect
@@ -1515,11 +1517,13 @@
             westernerTitle.textContent = 'Your Sensemaking Identity';
             
             if (isWesterner) {
-                westernerDescription.innerHTML = 'Philosopher-Architect (Westerner)<br><br>Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
+                const tendencyText = profile.tendency === 'Architect' ? 'Architect' : 'Gardener';
+                westernerDescription.innerHTML = `<div style="font-family: 'DM Mono', monospace; font-style: italic; color: var(--lyt-cyan); margin-bottom: 1rem;">Westerner / Philosopher, with tendency to ${tendencyText}</div>Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.`;
             } else if (isEasterner) {
-                westernerDescription.innerHTML = 'Maker-Architect (Easterner)<br><br>Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+                const tendencyText = profile.tendency === 'Architect' ? 'Architect' : 'Gardener';
+                westernerDescription.innerHTML = `<div style="font-family: 'DM Mono', monospace; font-style: italic; color: var(--lyt-cyan); margin-bottom: 1rem;">Easterner / Maker, with tendency to ${tendencyText}</div>Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
             } else {
-                westernerDescription.innerHTML = 'Mixed Profile<br><br>Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+                westernerDescription.innerHTML = `<div style="font-family: 'DM Mono', monospace; font-style: italic; color: var(--lyt-cyan); margin-bottom: 1rem;">Mixed Profile</div>Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
             // Update detailed analysis
