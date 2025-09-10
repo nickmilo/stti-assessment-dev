@@ -1656,7 +1656,7 @@
         }
 
         function determineProfile(scores) {
-            // Get top 2 archetypes
+            // Get all 4 archetypes sorted by score (highest to lowest)
             const archetypeScores = [
                 ['I', scores.I], ['S', scores.S], ['P', scores.P], ['C', scores.C]
             ].sort((a, b) => b[1] - a[1]);
@@ -1667,7 +1667,7 @@
             const dominantArchetypes = [archetypeScores[0][0], archetypeScores[1][0]];
             const code = dominantArchetypes.join('') + '-' + tendency;
             
-            return { code, dominantArchetypes, tendency, scores };
+            return { code, dominantArchetypes, tendency, scores, archetypeScores };
         }
 
         async function submitToFormspree(profile) {
@@ -1732,10 +1732,11 @@
                 'Gardener': 'prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.'
             };
             
-            const primaryArchetype = archetypeNames[profile.dominantArchetypes[0]];
-            const secondaryArchetype = archetypeNames[profile.dominantArchetypes[1]];
-            const primaryDesc = archetypeDescriptions[profile.dominantArchetypes[0]];
-            const secondaryDesc = archetypeDescriptions[profile.dominantArchetypes[1]];
+            // Use score-based rankings for all archetype positions
+            const primaryArchetype = archetypeNames[profile.archetypeScores[0][0]];
+            const secondaryArchetype = archetypeNames[profile.archetypeScores[1][0]];
+            const primaryDesc = archetypeDescriptions[profile.archetypeScores[0][0]];
+            const secondaryDesc = archetypeDescriptions[profile.archetypeScores[1][0]];
             const tendencyDesc = tendencyDescriptions[profile.tendency];
             
             // Update archetype pills
@@ -1761,11 +1762,9 @@
             else if (secondaryArchetype === 'Producer') secondaryPill.classList.add('producer-pill');
             else if (secondaryArchetype === 'Creative') secondaryPill.classList.add('creative-pill');
             
-            // Update third and fourth archetype pills (the remaining two archetypes)
-            const allArchetypes = ['I', 'S', 'P', 'C'];
-            const remainingArchetypes = allArchetypes.filter(arch => !profile.dominantArchetypes.includes(arch));
-            const thirdArchetype = archetypeNames[remainingArchetypes[0]];
-            const fourthArchetype = archetypeNames[remainingArchetypes[1]];
+            // Update third and fourth archetype pills using actual score rankings
+            const thirdArchetype = archetypeNames[profile.archetypeScores[2][0]];
+            const fourthArchetype = archetypeNames[profile.archetypeScores[3][0]];
             
             const thirdPill = document.getElementById('thirdArchetypePill');
             const fourthPill = document.getElementById('fourthArchetypePill');
@@ -2101,10 +2100,11 @@
                 'Gardener': 'prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.'
             };
             
-            const primaryArchetype = archetypeNames[profile.dominantArchetypes[0]];
-            const secondaryArchetype = archetypeNames[profile.dominantArchetypes[1]];
-            const primaryDesc = archetypeDescriptions[profile.dominantArchetypes[0]];
-            const secondaryDesc = archetypeDescriptions[profile.dominantArchetypes[1]];
+            // Use score-based rankings for all archetype positions
+            const primaryArchetype = archetypeNames[profile.archetypeScores[0][0]];
+            const secondaryArchetype = archetypeNames[profile.archetypeScores[1][0]];
+            const primaryDesc = archetypeDescriptions[profile.archetypeScores[0][0]];
+            const secondaryDesc = archetypeDescriptions[profile.archetypeScores[1][0]];
             const tendencyDesc = tendencyDescriptions[profile.tendency];
             
             // Update archetype pills
@@ -2130,11 +2130,9 @@
             else if (secondaryArchetype === 'Producer') secondaryPill.classList.add('producer-pill');
             else if (secondaryArchetype === 'Creative') secondaryPill.classList.add('creative-pill');
             
-            // Update third and fourth archetype pills (the remaining two archetypes)
-            const allArchetypes = ['I', 'S', 'P', 'C'];
-            const remainingArchetypes = allArchetypes.filter(arch => !profile.dominantArchetypes.includes(arch));
-            const thirdArchetype = archetypeNames[remainingArchetypes[0]];
-            const fourthArchetype = archetypeNames[remainingArchetypes[1]];
+            // Update third and fourth archetype pills using actual score rankings
+            const thirdArchetype = archetypeNames[profile.archetypeScores[2][0]];
+            const fourthArchetype = archetypeNames[profile.archetypeScores[3][0]];
             
             const thirdPill = document.getElementById('thirdArchetypePill');
             const fourthPill = document.getElementById('fourthArchetypePill');
