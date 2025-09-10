@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { questions } from '@/data/questions';
 import { calculateScores, determineProfile } from '@/utils/scoring';
 import { FORMSPREE_ENDPOINT } from '@/config/formspree';
+import { SITE_CONFIG } from '@/config/site';
 
 type AnswerOption = 'SD' | 'D' | 'A' | 'SA';
 
@@ -79,13 +80,13 @@ export default function AssessmentPage() {
     const scores = calculateScores(answersArray);
     const profile = determineProfile(scores);
     
-    const shareText = `I just discovered I'm a ${profile.code} on the STTI Assessment! Find out your sensemaking type at [URL]`;
+    const shareText = `I just discovered I'm a ${profile.code} on the STTI Assessment! Find out your sensemaking type at ${SITE_CONFIG.url}`;
     
     if (navigator.share) {
       navigator.share({
-        title: `I'm a ${profile.code}!`,
+        title: `I'm a ${profile.code}! - ${SITE_CONFIG.social.title}`,
         text: shareText,
-        url: window.location.href
+        url: SITE_CONFIG.url
       }).catch(err => console.log('Error sharing:', err));
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText)
