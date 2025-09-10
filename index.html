@@ -401,6 +401,44 @@
             font-size: 1.1rem;
         }
 
+        .detailed-analysis {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--lyt-purple);
+        }
+
+        .analysis-title {
+            font-family: 'DM Mono', monospace;
+            text-decoration: underline;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .analysis-section {
+            margin-bottom: 2rem;
+        }
+
+        .analysis-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-subheading {
+            font-family: 'DM Mono', monospace;
+            color: var(--lyt-purple-deep);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .analysis-content {
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -758,6 +796,16 @@
                 <div class="tendency-title">Sensemaking Tendency</div>
                 <div class="tendency-description" id="tendencyDescription">
                     Your tendency description will appear here.
+                </div>
+
+                <div class="detailed-analysis" id="detailedAnalysis" style="display: none;">
+                    <div class="analysis-title">Detailed Analysis</div>
+                    
+                    <div class="analysis-section">
+                        <div class="analysis-content" id="analysisContent">
+                            <!-- Dynamic analysis content will be inserted here -->
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="results-grid">
@@ -1214,6 +1262,26 @@
             // Second paragraph - tendency (goes in second row)
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
+            
+            // Show detailed analysis for IS-Architect
+            const detailedAnalysisSection = document.getElementById('detailedAnalysis');
+            const analysisContent = document.getElementById('analysisContent');
+            
+            if (profile.code === 'IS-Architect') {
+                detailedAnalysisSection.style.display = 'block';
+                analysisContent.innerHTML = `
+                    <p>As an <strong>IS-Architect</strong>, you have a <strong>Westerner</strong> profile (notice how the image is predominantly focused on the western side). Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.</p>
+                    
+                    <p>When you combine your Westerner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Creative</strong> archetype—yet that's exactly what you most need.</p>
+                    
+                    <p>That said, since your tendency is to architect, the easiest way to move between the west (reflection) and the east (expression) is going to be by tapping into your <strong>Producer</strong> archetype, since it aligns with your more natural structured approach.</p>
+                    
+                    <div class="analysis-subheading">Getting unstuck by going from West to East</div>
+                    <p>How can you tie your current activity or problem to a concrete outcome or goal? How can your <strong>Producer</strong> help pull your work along? Once your Producer is activated, you'll likely find it becomes easier to drop into your <strong>Creative</strong>, as you find unique ways to express your unique ideas (your <strong>IS</strong> superpower), in service of your more fully activated Producer.</p>
+                `;
+            } else {
+                detailedAnalysisSection.style.display = 'none';
+            }
             
             // Update chord diagram image
             const chordImage = document.getElementById('chordDiagram');
