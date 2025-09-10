@@ -346,6 +346,8 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(185, 173, 255, 0.1);
             border: 2px solid rgba(185, 173, 255, 0.2);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .profile-code {
@@ -367,10 +369,120 @@
             font-size: 1.1rem;
             color: #666;
             line-height: 1.6;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--lyt-purple);
+            position: relative;
+            min-height: 200px;
+        }
+
+        .result-box.unlocked {
+            border-left-color: var(--lyt-green);
+        }
+
+        .result-box.teaser {
+            border-left-color: #e2e8f0;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            opacity: 0.7;
+        }
+
+        .result-box h4 {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 1.2rem;
+            color: var(--lyt-purple-deep);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-box.teaser h4 {
+            color: #a0aec0;
+        }
+
+        .lock-icon {
+            font-size: 1rem;
+            opacity: 0.6;
+        }
+
+        .result-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .result-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(185, 173, 255, 0.1);
+            position: relative;
+            padding-left: 1.5rem;
+            color: #4a5568;
+        }
+
+        .result-box.teaser .result-list li {
+            color: #a0aec0;
+        }
+
+        .result-list li:last-child {
+            border-bottom: none;
+        }
+
+        .result-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--lyt-purple);
+            font-weight: bold;
+        }
+
+        .result-box.teaser .result-list li::before {
+            color: #cbd5e0;
+        }
+
+        .teaser-content {
+            color: #a0aec0;
+            font-style: italic;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .unlock-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--lyt-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .teaser-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #e2e8f0;
+            color: #718096;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .share-btn {
@@ -465,6 +577,15 @@
                 grid-template-columns: 1fr;
                 gap: 0.75rem;
             }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .results {
+                padding: 2rem 1rem;
+            }
         }
     </style>
 </head>
@@ -533,8 +654,127 @@
                 <div class="profile-description" id="profileDescription">
                     Your unique cognitive pattern reveals how you process information and navigate complexity.
                 </div>
-                <button class="share-btn" onclick="shareResults()">Share Results</button>
-                <button class="share-btn" onclick="restartAssessment()">Take Again</button>
+                
+                <div class="results-grid">
+                    <!-- Unlocked: Core Strengths -->
+                    <div class="result-box unlocked">
+                        <div class="unlock-badge">Free</div>
+                        <h4>Core Strengths</h4>
+                        <ul class="result-list" id="strengthsList">
+                            <li>Connects personal values to meaningful action</li>
+                            <li>Structured approach to implementing insights</li>
+                            <li>Balances reflection with productive output</li>
+                            <li>Creates systems aligned with personal principles</li>
+                        </ul>
+                    </div>
+
+                    <!-- Unlocked: Growth Areas -->
+                    <div class="result-box unlocked">
+                        <div class="unlock-badge">Free</div>
+                        <h4>Growth Opportunities</h4>
+                        <ul class="result-list" id="weaknessesList">
+                            <li>May over-analyze before taking action</li>
+                            <li>Could benefit from more spontaneous approaches</li>
+                            <li>Sometimes rigid in structured thinking</li>
+                            <li>May struggle with ambiguous situations</li>
+                        </ul>
+                    </div>
+
+                    <!-- Teaser: Moving to Producer -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> How to Access Your Producer Side</h4>
+                        <div class="teaser-content">
+                            Discover specific strategies to amplify your productive capabilities and overcome analysis paralysis...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Accessing Gardener -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Developing Your Gardener Tendencies</h4>
+                        <div class="teaser-content">
+                            Learn how to embrace flexibility and spontaneity while maintaining your structured approach...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Methods & Practices -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Personalized Methods & Practices</h4>
+                        <div class="teaser-content">
+                            Custom workflows, tools, and daily practices designed specifically for your type...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Attributes -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Deep Personality Attributes</h4>
+                        <div class="teaser-content">
+                            Comprehensive analysis of your cognitive patterns, decision-making style, and mental models...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Communication Style -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Things You Say & Communication Style</h4>
+                        <div class="teaser-content">
+                            Typical phrases, communication patterns, and how others perceive your unique perspective...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Career Insights -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Career & Role Optimization</h4>
+                        <div class="teaser-content">
+                            Ideal work environments, team roles, and career paths that align with your sensemaking style...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Stress & Recovery -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Stress Patterns & Recovery</h4>
+                        <div class="teaser-content">
+                            How your type experiences stress, early warning signs, and personalized recovery strategies...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Learning Style -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Optimal Learning Strategies</h4>
+                        <div class="teaser-content">
+                            How you naturally process information and the most effective learning approaches for your type...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Relationship Dynamics -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Relationship & Team Dynamics</h4>
+                        <div class="teaser-content">
+                            How you work with other types, potential conflicts, and strategies for better collaboration...
+                        </div>
+                    </div>
+
+                    <!-- Teaser: Advanced Strategies -->
+                    <div class="result-box teaser">
+                        <div class="teaser-badge">Premium</div>
+                        <h4><span class="lock-icon">🔒</span> Advanced Development Strategies</h4>
+                        <div class="teaser-content">
+                            Next-level techniques for leveraging your strengths and expanding your sensemaking capabilities...
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <button class="share-btn" onclick="shareResults()">Share Results</button>
+                    <button class="share-btn" onclick="restartAssessment()">Take Again</button>
+                </div>
             </div>
         </div>
     </div>
