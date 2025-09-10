@@ -5,7 +5,7 @@
 // 3. Replace YOUR_FORM_ID below with your actual form ID
 // 4. Deploy the changes
 
-export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xvgblrvw';
 
 // Data structure that will be sent to Formspree:
 // {
