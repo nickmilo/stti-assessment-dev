@@ -948,6 +948,12 @@
                     </div>
                 </div>
 
+                <!-- Action buttons (first set) -->
+                <div style="margin: 3rem 0; text-align: center;">
+                    <button class="share-btn" onclick="shareResults()">Share Results</button>
+                    <a href="https://www.linkingyourthinking.com/workshop" target="_blank" class="share-btn" style="text-decoration: none; display: inline-block;">Learn More</a>
+                </div>
+
                 <!-- Additional Analysis Sections -->
                 <div class="overwhelmed-section" id="overwhelmedSection" style="display: none;">
                     <div class="section-title">When Westerners feel overwhelmed…</div>
@@ -972,15 +978,6 @@
                     </div>
                 </div>
 
-                <div class="detailed-analysis" id="detailedAnalysis" style="display: none;">
-                    <div class="analysis-title">Detailed Analysis</div>
-                    
-                    <div class="analysis-section">
-                        <div class="analysis-content" id="analysisContent">
-                            <!-- Dynamic analysis content will be inserted here -->
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="results-grid">
                     <!-- Unlocked: Core Strengths -->
@@ -1481,53 +1478,15 @@
             const overwhelmedSection = document.getElementById('overwhelmedSection');
             const stuckUnstuckSection = document.getElementById('stuckUnstuckSection');
             const promptsSection = document.getElementById('promptsSection');
-            const detailedAnalysisSection = document.getElementById('detailedAnalysis');
-            const analysisContent = document.getElementById('analysisContent');
             
             if (profile.code === 'IS-Architect') {
                 overwhelmedSection.style.display = 'block';
                 stuckUnstuckSection.style.display = 'block';
                 promptsSection.style.display = 'block';
-                detailedAnalysisSection.style.display = 'block';
-                analysisContent.innerHTML = `
-                    <p>As an <strong>IS-Architect</strong>, you have a <strong>Westerner</strong> profile (notice how the image is predominantly focused on the western side). Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.</p>
-                    
-                    <p>When you combine your Westerner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Creative</strong> archetype—yet that's exactly what you most need.</p>
-                    
-                    <p>That said, since your tendency is to architect, the easiest way to move between the west (reflection) and the east (expression) is going to be by tapping into your <strong>Producer</strong> archetype, since it aligns with your more natural structured approach.</p>
-                    
-                    <div class="analysis-subheading">Getting unstuck by going from West to East</div>
-                    <p>How can you tie your current activity or problem to a concrete outcome or goal? How can your <strong>Producer</strong> help pull your work along? Once your Producer is activated, you'll likely find it becomes easier to drop into your <strong>Creative</strong>, as you find unique ways to express your unique ideas (your <strong>IS</strong> superpower), in service of your more fully activated Producer.</p>
-                `;
-            } else if (profile.code === 'PC-Architect') {
-                detailedAnalysisSection.style.display = 'block';
-                analysisContent.innerHTML = `
-                    <p>As a <strong>PC-Architect</strong>, you have an <strong>Easterner</strong> profile (notice how the image is predominantly focused on the eastern side). Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.</p>
-                    
-                    <p>When you combine your Easterner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Inner Guide</strong> archetype—yet that's exactly what you most need.</p>
-                    
-                    <p>That said, since your tendency is to architect, the easiest way to move between the east (expression) and the west (reflection) is going to be by tapping into your <strong>Synthesizer</strong> archetype, since it aligns with your more natural structured approach to making sense of information.</p>
-                    
-                    <div class="analysis-subheading">Getting unstuck by going from East to West</div>
-                    <p>How can you step back from your current activity or problem to gain deeper understanding? How can your <strong>Synthesizer</strong> help you see the bigger picture and connections? Once your Synthesizer is activated, you'll likely find it becomes easier to drop into your <strong>Inner Guide</strong>, as you discover the deeper meaning and personal significance of your work (your <strong>PC</strong> superpower).</p>
-                `;
-            } else if (profile.code === 'CP-Architect') {
-                detailedAnalysisSection.style.display = 'block';
-                analysisContent.innerHTML = `
-                    <p>As a <strong>CP-Architect</strong>, you have an <strong>Easterner</strong> profile (notice how the image is predominantly focused on the eastern side). Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.</p>
-                    
-                    <p>When you combine your Easterner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Inner Guide</strong> archetype—yet that's exactly what you most need.</p>
-                    
-                    <p>That said, since your tendency is to architect, the easiest way to move between the east (expression) and the west (reflection) is going to be by tapping into your <strong>Synthesizer</strong> archetype, since it aligns with your more natural structured approach to making sense of information.</p>
-                    
-                    <div class="analysis-subheading">Getting unstuck by going from East to West</div>
-                    <p>How can you step back from your current creative output to gain deeper understanding of its meaning? How can your <strong>Synthesizer</strong> help you see the connections between your unique expressions and larger patterns? Once your Synthesizer is activated, you'll likely find it becomes easier to drop into your <strong>Inner Guide</strong>, as you discover the personal significance behind your creative work (your <strong>CP</strong> superpower).</p>
-                `;
             } else {
                 overwhelmedSection.style.display = 'none';
                 stuckUnstuckSection.style.display = 'none';
                 promptsSection.style.display = 'none';
-                detailedAnalysisSection.style.display = 'none';
             }
             
             // Update chord diagram image
@@ -1711,53 +1670,15 @@
             const promptsSection = document.getElementById('promptsSection');
             
             // Update detailed analysis
-            const detailedAnalysisSection = document.getElementById('detailedAnalysis');
-            const analysisContent = document.getElementById('analysisContent');
             
             if (profile.code === 'IS-Architect') {
                 overwhelmedSection.style.display = 'block';
                 stuckUnstuckSection.style.display = 'block';
                 promptsSection.style.display = 'block';
-                detailedAnalysisSection.style.display = 'block';
-                analysisContent.innerHTML = `
-                    <p>As an <strong>IS-Architect</strong>, you have a <strong>Westerner</strong> profile (notice how the image is predominantly focused on the western side). Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.</p>
-                    
-                    <p>When you combine your Westerner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Creative</strong> archetype—yet that's exactly what you most need.</p>
-                    
-                    <p>That said, since your tendency is to architect, the easiest way to move between the west (reflection) and the east (expression) is going to be by tapping into your <strong>Producer</strong> archetype, since it aligns with your more natural structured approach.</p>
-                    
-                    <div class="analysis-subheading">Getting unstuck by going from West to East</div>
-                    <p>How can you tie your current activity or problem to a concrete outcome or goal? How can your <strong>Producer</strong> help pull your work along? Once your Producer is activated, you'll likely find it becomes easier to drop into your <strong>Creative</strong>, as you find unique ways to express your unique ideas (your <strong>IS</strong> superpower), in service of your more fully activated Producer.</p>
-                `;
-            } else if (profile.code === 'PC-Architect') {
-                detailedAnalysisSection.style.display = 'block';
-                analysisContent.innerHTML = `
-                    <p>As a <strong>PC-Architect</strong>, you have an <strong>Easterner</strong> profile (notice how the image is predominantly focused on the eastern side). Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.</p>
-                    
-                    <p>When you combine your Easterner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Inner Guide</strong> archetype—yet that's exactly what you most need.</p>
-                    
-                    <p>That said, since your tendency is to architect, the easiest way to move between the east (expression) and the west (reflection) is going to be by tapping into your <strong>Synthesizer</strong> archetype, since it aligns with your more natural structured approach to making sense of information.</p>
-                    
-                    <div class="analysis-subheading">Getting unstuck by going from East to West</div>
-                    <p>How can you step back from your current activity or problem to gain deeper understanding? How can your <strong>Synthesizer</strong> help you see the bigger picture and connections? Once your Synthesizer is activated, you'll likely find it becomes easier to drop into your <strong>Inner Guide</strong>, as you discover the deeper meaning and personal significance of your work (your <strong>PC</strong> superpower).</p>
-                `;
-            } else if (profile.code === 'CP-Architect') {
-                detailedAnalysisSection.style.display = 'block';
-                analysisContent.innerHTML = `
-                    <p>As a <strong>CP-Architect</strong>, you have an <strong>Easterner</strong> profile (notice how the image is predominantly focused on the eastern side). Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.</p>
-                    
-                    <p>When you combine your Easterner archetypes with an <strong>Architect</strong> tendency, we now can understand that it's most difficult to access your <strong>Inner Guide</strong> archetype—yet that's exactly what you most need.</p>
-                    
-                    <p>That said, since your tendency is to architect, the easiest way to move between the east (expression) and the west (reflection) is going to be by tapping into your <strong>Synthesizer</strong> archetype, since it aligns with your more natural structured approach to making sense of information.</p>
-                    
-                    <div class="analysis-subheading">Getting unstuck by going from East to West</div>
-                    <p>How can you step back from your current creative output to gain deeper understanding of its meaning? How can your <strong>Synthesizer</strong> help you see the connections between your unique expressions and larger patterns? Once your Synthesizer is activated, you'll likely find it becomes easier to drop into your <strong>Inner Guide</strong>, as you discover the personal significance behind your creative work (your <strong>CP</strong> superpower).</p>
-                `;
             } else {
                 overwhelmedSection.style.display = 'none';
                 stuckUnstuckSection.style.display = 'none';
                 promptsSection.style.display = 'none';
-                detailedAnalysisSection.style.display = 'none';
             }
             
             // Update chord diagram image
