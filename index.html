@@ -349,6 +349,15 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        
+        .profile-main-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 1.3rem;
+            color: var(--lyt-purple-deep);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
 
         .profile-header {
             display: flex;
@@ -1014,6 +1023,8 @@
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
             <div class="results">
+                <div class="profile-main-title">Your Sensemaking Profile</div>
+                
                 <div class="profile-header">
                     <div class="chord-diagram">
                         <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
@@ -1021,7 +1032,7 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-code" id="profileCode">IP-Architect</div>
-                        <div class="archetype-title">Sensemaking Archetypes</div>
+                        <div class="archetype-title">Archetypes</div>
                         <div class="archetype-pills">
                             <div class="archetype-pill inner-guide-pill" id="primaryArchetypePill">Inner Guide</div>
                             <div class="archetype-pill synthesizer-pill" id="secondaryArchetypePill">Synthesizer</div>
@@ -1034,14 +1045,14 @@
                 
                 <div class="second-row">
                     <div class="westerner-section">
-                        <div class="westerner-title" id="westernerTitle">Sensemaking Orientation</div>
+                        <div class="westerner-title" id="westernerTitle">Orientation</div>
                         <div class="orientation-pill" id="orientationPill">Westerner</div>
                         <div class="westerner-description" id="westernerDescription">
                             Your westerner/easterner analysis will appear here.
                         </div>
                     </div>
                     <div class="tendency-section">
-                        <div class="tendency-title">Sensemaking Tendency</div>
+                        <div class="tendency-title">Tendency</div>
                         <div class="tendency-pill architect-pill" id="tendencyPill">Architect</div>
                         <div class="tendency-description" id="tendencyDescription">
                             Your tendency description will appear here.
@@ -1590,13 +1601,13 @@
             }
             
             if (isWesterner) {
-                westernerTitle.textContent = 'Sensemaking Orientation';
+                westernerTitle.textContent = 'Orientation';
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
             } else if (isEasterner) {
-                westernerTitle.textContent = 'Sensemaking Orientation';
+                westernerTitle.textContent = 'Orientation';
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
-                westernerTitle.textContent = 'Sensemaking Orientation';
+                westernerTitle.textContent = 'Orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
@@ -1822,13 +1833,13 @@
             }
             
             if (isWesterner) {
-                westernerTitle.textContent = 'Sensemaking Orientation';
+                westernerTitle.textContent = 'Orientation';
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
             } else if (isEasterner) {
-                westernerTitle.textContent = 'Sensemaking Orientation';
+                westernerTitle.textContent = 'Orientation';
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
-                westernerTitle.textContent = 'Sensemaking Orientation';
+                westernerTitle.textContent = 'Orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
