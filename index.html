@@ -1816,12 +1816,24 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
-            if (isWesterner) {
+            
+            // Determine profile type based on archetype combinations
+            const archetypes = profile.dominantArchetypes.sort().join('');
+            
+            if (archetypes === 'IS' || archetypes === 'SI') {
                 profileSubtitle.textContent = 'The Philosopher';
-            } else if (isEasterner) {
+            } else if (archetypes === 'CP' || archetypes === 'PC') {
                 profileSubtitle.textContent = 'The Maker';
-            } else {
+            } else if (archetypes === 'PS' || archetypes === 'SP') {
+                profileSubtitle.textContent = 'The Builder';
+            } else if (archetypes === 'CI' || archetypes === 'IC') {
                 profileSubtitle.textContent = 'The Explorer';
+            } else if (archetypes === 'CS' || archetypes === 'SC') {
+                profileSubtitle.textContent = 'The Translator';
+            } else if (archetypes === 'IP' || archetypes === 'PI') {
+                profileSubtitle.textContent = 'The Converter';
+            } else {
+                profileSubtitle.textContent = 'The Sensemaker';
             }
             
             // Update orientation pill
@@ -2162,12 +2174,24 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
-            if (isWesterner) {
+            
+            // Determine profile type based on archetype combinations
+            const archetypes = profile.dominantArchetypes.sort().join('');
+            
+            if (archetypes === 'IS' || archetypes === 'SI') {
                 profileSubtitle.textContent = 'The Philosopher';
-            } else if (isEasterner) {
+            } else if (archetypes === 'CP' || archetypes === 'PC') {
                 profileSubtitle.textContent = 'The Maker';
-            } else {
+            } else if (archetypes === 'PS' || archetypes === 'SP') {
+                profileSubtitle.textContent = 'The Builder';
+            } else if (archetypes === 'CI' || archetypes === 'IC') {
                 profileSubtitle.textContent = 'The Explorer';
+            } else if (archetypes === 'CS' || archetypes === 'SC') {
+                profileSubtitle.textContent = 'The Translator';
+            } else if (archetypes === 'IP' || archetypes === 'PI') {
+                profileSubtitle.textContent = 'The Converter';
+            } else {
+                profileSubtitle.textContent = 'The Sensemaker';
             }
             
             // Update orientation pill
