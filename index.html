@@ -381,6 +381,19 @@
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
+        
+        .orientation-pill {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: #4a5568;
+            background-color: rgba(93, 188, 210, 0.15);
+            border: 1px solid var(--lyt-cyan);
+            padding: 0.25rem 1rem;
+            border-radius: 16px;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
 
         .archetype-description {
             font-size: 1.1rem;
@@ -906,6 +919,7 @@
                     <div class="chord-diagram">
                         <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
                         <img id="chordDiagram" src="Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
+                        <div class="orientation-pill" id="orientationPill">Westerner</div>
                     </div>
                     <div class="profile-info">
                         <div class="profile-code" id="profileCode">IP-Architect</div>
@@ -1437,12 +1451,16 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
+            const orientationPill = document.getElementById('orientationPill');
             if (isWesterner) {
                 profileSubtitle.textContent = 'The Philosopher';
+                orientationPill.textContent = 'Westerner';
             } else if (isEasterner) {
                 profileSubtitle.textContent = 'The Maker';
+                orientationPill.textContent = 'Easterner';
             } else {
                 profileSubtitle.textContent = 'The Explorer';
+                orientationPill.textContent = 'Mixed';
             }
             
             if (isWesterner) {
@@ -1661,12 +1679,16 @@
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
+            const orientationPill = document.getElementById('orientationPill');
             if (isWesterner) {
                 profileSubtitle.textContent = 'The Philosopher';
+                orientationPill.textContent = 'Westerner';
             } else if (isEasterner) {
                 profileSubtitle.textContent = 'The Maker';
+                orientationPill.textContent = 'Easterner';
             } else {
                 profileSubtitle.textContent = 'The Explorer';
+                orientationPill.textContent = 'Mixed';
             }
             
             if (isWesterner) {
