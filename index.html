@@ -339,6 +339,41 @@
             color: #ccc;
         }
 
+        .profile-banner {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--lyt-purple);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .banner-title {
+            font-family: 'Canela Deck', sans-serif;
+            font-size: 2rem;
+            color: var(--lyt-purple-deep);
+        }
+
+        .banner-connector {
+            font-family: 'DM Mono', monospace;
+            color: var(--lyt-purple);
+            font-size: 1rem;
+        }
+
+        .banner-pill {
+            display: inline-block;
+            background-color: rgba(185, 173, 255, 0.2);
+            border: 1px solid var(--lyt-purple);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            color: var(--lyt-purple-deep);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
         .results {
             text-align: left;
             padding: 3rem 2rem;
@@ -530,10 +565,6 @@
         .westerner-section {
             display: flex;
             flex-direction: column;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
-            border-radius: 12px;
-            border-left: 4px solid var(--lyt-purple);
         }
 
         .westerner-title {
@@ -928,6 +959,21 @@
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
+            .profile-banner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .banner-title {
+                font-size: 1.5rem;
+            }
+
+            .banner-connector {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1032,13 +1078,18 @@
             <div class="results">
                 <div class="profile-main-title">Your Sensemaking Profile</div>
                 
+                <!-- Profile Banner with Code and Subtitle -->
+                <div class="profile-banner">
+                    <div class="banner-title" id="profileCode">IS-Architect</div>
+                    <div class="banner-connector">•</div>
+                    <div class="banner-pill" id="profileSubtitle">The Philosopher</div>
+                </div>
+                
                 <div class="profile-header">
                     <div class="chord-diagram">
-                        <div class="profile-subtitle" id="profileSubtitle">The Philosopher</div>
                         <img id="chordDiagram" src="Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
                     </div>
                     <div class="profile-info">
-                        <div class="profile-code" id="profileCode">IP-Architect</div>
                         <div class="archetype-title">Archetypes</div>
                         <div class="archetype-pills">
                             <div class="archetype-pill inner-guide-pill" id="primaryArchetypePill">Inner Guide</div>
