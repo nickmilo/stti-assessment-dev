@@ -1147,9 +1147,27 @@
                 'P': 'Producer',
                 'C': 'Creative'
             };
+
+            const archetypeDescriptions = {
+                'I': 'naturally focus on things that you find intrinsically meaningful',
+                'S': 'having a desire to deeply make sense of those things',
+                'P': 'being energized by taking action and making progress on meaningful work',
+                'C': 'expressing your unique perspective and creating original contributions'
+            };
+
+            const tendencyDescriptions = {
+                'Architect': 'prefer and gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you gravitate towards clarity and understanding over uncertain situations and sometimes…opportunities.',
+                'Gardener': 'prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.'
+            };
+            
+            const primaryArchetype = archetypeNames[profile.dominantArchetypes[0]];
+            const secondaryArchetype = archetypeNames[profile.dominantArchetypes[1]];
+            const primaryDesc = archetypeDescriptions[profile.dominantArchetypes[0]];
+            const secondaryDesc = archetypeDescriptions[profile.dominantArchetypes[1]];
+            const tendencyDesc = tendencyDescriptions[profile.tendency];
             
             document.getElementById('profileDescription').innerHTML = 
-                `You blend the <strong>${archetypeNames[profile.dominantArchetypes[0]]}</strong> and <strong>${archetypeNames[profile.dominantArchetypes[1]]}</strong> approaches with <strong>${profile.tendency}</strong> tendencies. This unique combination shapes how you process information, make decisions, and navigate complexity in your personal and professional life.`;
+                `<strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by <strong>${secondaryArchetype}</strong>. This means you ${primaryDesc}, along with ${secondaryDesc}.<br><br><strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
             // Update chord diagram image
             const chordImage = document.getElementById('chordDiagram');
