@@ -925,6 +925,23 @@
         let answers = {};
         let userEmail = '';
 
+        // Check for email in URL params or localStorage
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const emailFromURL = urlParams.get('email');
+            const emailFromStorage = localStorage.getItem('userEmail');
+            
+            const prefilledEmail = emailFromURL || emailFromStorage || '';
+            if (prefilledEmail) {
+                document.getElementById('emailInput').value = prefilledEmail;
+                userEmail = prefilledEmail;
+                // Enable start button if email is valid
+                if (prefilledEmail.includes('@') && prefilledEmail.length > 5) {
+                    document.getElementById('startBtn').disabled = false;
+                }
+            }
+        })();
+
         // Email validation and start
         const emailInput = document.getElementById('emailInput');
         const startBtn = document.getElementById('startBtn');
@@ -933,6 +950,10 @@
             const email = this.value;
             const isValid = email.includes('@') && email.length > 5;
             startBtn.disabled = !isValid;
+            // Save to localStorage for persistence
+            if (email) {
+                localStorage.setItem('userEmail', email);
+            }
         });
 
         startBtn.addEventListener('click', function() {
@@ -1163,9 +1184,9 @@
             showScreen('emailScreen');
         }
 
-        // Debug shortcut: Press 'R' to jump to results page for testing
+        // Debug shortcut: Press Option+R (Mac) or Alt+R (Windows) to jump to results page
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'r' || event.key === 'R') {
+            if ((event.altKey || event.metaKey) && (event.key === 'r' || event.key === 'R')) {
                 // Skip to results with sample data
                 userEmail = 'test@example.com';
                 
@@ -1179,6 +1200,7 @@
                 }
                 
                 showResults();
+                event.preventDefault(); // Prevent default browser behavior
             }
         });
 
