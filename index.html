@@ -370,11 +370,16 @@
         }
         
         .profile-subtitle {
+            display: inline-block;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            color: var(--lyt-purple);
+            font-size: 1rem;
+            color: var(--lyt-yellow);
+            background-color: var(--lyt-purple);
+            border: 2px solid var(--lyt-purple-deep);
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
             margin-bottom: 1.5rem;
-            font-style: italic;
+            font-weight: 500;
         }
 
         .archetype-description {
@@ -393,7 +398,7 @@
         }
 
         .archetype-subtitle {
-            font-family: 'Canela Deck', serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-style: italic;
             color: var(--lyt-cyan);
             margin-bottom: 0.5rem;
@@ -1337,12 +1342,12 @@
             const tendencyDesc = tendencyDescriptions[profile.tendency];
             
             // Update archetype subtitle and description
-            document.getElementById('archetypeSubtitle').textContent = `${primaryArchetype} & ${secondaryArchetype}`;
+            document.getElementById('archetypeSubtitle').innerHTML = `<strong>${primaryArchetype}</strong> & <strong>${secondaryArchetype}</strong>`;
             document.getElementById('archetypeDescription').innerHTML = 
                 `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This means you ${primaryDesc}, along with ${secondaryDesc}.`;
             
             // Update tendency subtitle and description  
-            document.getElementById('tendencySubtitle').textContent = profile.tendency;
+            document.getElementById('tendencySubtitle').innerHTML = `<strong>${profile.tendency}</strong>`;
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
@@ -1368,15 +1373,15 @@
             
             if (isWesterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.textContent = `Westerner with a tendency to ${profile.tendency}`;
+                westernerSubtitle.innerHTML = `<strong>Westerner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
             } else if (isEasterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.textContent = `Easterner with a tendency to ${profile.tendency}`;
+                westernerSubtitle.innerHTML = `<strong>Easterner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.textContent = 'Balanced orientation';
+                westernerSubtitle.innerHTML = '<strong>Balanced</strong> orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
@@ -1552,12 +1557,12 @@
             const tendencyDesc = tendencyDescriptions[profile.tendency];
             
             // Update archetype subtitle and description
-            document.getElementById('archetypeSubtitle').textContent = `${primaryArchetype} & ${secondaryArchetype}`;
+            document.getElementById('archetypeSubtitle').innerHTML = `<strong>${primaryArchetype}</strong> & <strong>${secondaryArchetype}</strong>`;
             document.getElementById('archetypeDescription').innerHTML = 
                 `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This means you ${primaryDesc}, along with ${secondaryDesc}.`;
             
             // Update tendency subtitle and description  
-            document.getElementById('tendencySubtitle').textContent = profile.tendency;
+            document.getElementById('tendencySubtitle').innerHTML = `<strong>${profile.tendency}</strong>`;
             document.getElementById('tendencyDescription').innerHTML = 
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
@@ -1583,15 +1588,15 @@
             
             if (isWesterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.textContent = `Westerner with a tendency to ${profile.tendency}`;
+                westernerSubtitle.innerHTML = `<strong>Westerner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
             } else if (isEasterner) {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.textContent = `Easterner with a tendency to ${profile.tendency}`;
+                westernerSubtitle.innerHTML = `<strong>Easterner</strong> with a tendency to <strong>${profile.tendency}</strong>`;
                 westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
                 westernerTitle.textContent = 'Sensemaking Orientation';
-                westernerSubtitle.textContent = 'Balanced orientation';
+                westernerSubtitle.innerHTML = '<strong>Balanced</strong> orientation';
                 westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
