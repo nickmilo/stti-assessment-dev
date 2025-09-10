@@ -836,7 +836,7 @@
                         </div>
                     </div>
                     <div class="westerner-section">
-                        <div class="westerner-title" id="westernerTitle">You are a Westerner</div>
+                        <div class="westerner-title" id="westernerTitle">Your Sensemaking Identity</div>
                         <div class="westerner-description" id="westernerDescription">
                             Your westerner/easterner analysis will appear here.
                         </div>
@@ -1315,15 +1315,15 @@
             const westernerTitle = document.getElementById('westernerTitle');
             const westernerDescription = document.getElementById('westernerDescription');
             
+            // Title stays the same for all profiles
+            westernerTitle.textContent = 'Your Sensemaking Identity';
+            
             if (isWesterner) {
-                westernerTitle.textContent = 'You are a Westerner';
-                westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
+                westernerDescription.innerHTML = 'Philosopher-Architect (Westerner)<br><br>Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
             } else if (isEasterner) {
-                westernerTitle.textContent = 'You are an Easterner';
-                westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+                westernerDescription.innerHTML = 'Maker-Architect (Easterner)<br><br>Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
-                westernerTitle.textContent = 'Mixed Profile';
-                westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+                westernerDescription.innerHTML = 'Mixed Profile<br><br>Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
             // Show detailed analysis for IS-Architect
@@ -1511,15 +1511,15 @@
             const westernerTitle = document.getElementById('westernerTitle');
             const westernerDescription = document.getElementById('westernerDescription');
             
+            // Title stays the same for all profiles
+            westernerTitle.textContent = 'Your Sensemaking Identity';
+            
             if (isWesterner) {
-                westernerTitle.textContent = 'You are a Westerner';
-                westernerDescription.innerHTML = 'Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
+                westernerDescription.innerHTML = 'Philosopher-Architect (Westerner)<br><br>Westerners often get stuck going from reflection to expression, from inward orientation to outward, from thinking to doing. But when Westerners feel overwhelmed, the answer is usually to do less analysis and more expression.';
             } else if (isEasterner) {
-                westernerTitle.textContent = 'You are an Easterner';
-                westernerDescription.innerHTML = 'Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
+                westernerDescription.innerHTML = 'Maker-Architect (Easterner)<br><br>Easterners often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.';
             } else {
-                westernerTitle.textContent = 'Mixed Profile';
-                westernerDescription.innerHTML = 'Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
+                westernerDescription.innerHTML = 'Mixed Profile<br><br>Your profile combines both reflective and expressive tendencies, giving you flexibility to move between different modes of sensemaking as needed.';
             }
             
             // Update detailed analysis
