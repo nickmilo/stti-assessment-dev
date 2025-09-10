@@ -1335,41 +1335,45 @@
         }
 
 
-        // Profile code mappings for quick testing
+        // Profile code mappings for quick testing (4-digit codes for safety)
         const profileMappings = {
-            '01': 'IP-Architect', '02': 'IP-Gardener', '03': 'IS-Architect', '04': 'IS-Gardener', 
-            '05': 'IC-Architect', '06': 'IC-Gardener', '07': 'PI-Architect', '08': 'PI-Gardener',
-            '09': 'PS-Architect', '10': 'PS-Gardener', '11': 'PC-Architect', '12': 'PC-Gardener',
-            '13': 'SI-Architect', '14': 'SI-Gardener', '15': 'SP-Architect', '16': 'SP-Gardener',
-            '17': 'SC-Architect', '18': 'SC-Gardener', '19': 'CI-Architect', '20': 'CI-Gardener',
-            '21': 'CP-Architect', '22': 'CP-Gardener', '23': 'CS-Architect', '24': 'CS-Gardener'
+            '0001': 'IP-Architect', '0002': 'IP-Gardener', '0003': 'IS-Architect', '0004': 'IS-Gardener', 
+            '0005': 'IC-Architect', '0006': 'IC-Gardener', '0007': 'PI-Architect', '0008': 'PI-Gardener',
+            '0009': 'PS-Architect', '0010': 'PS-Gardener', '0011': 'PC-Architect', '0012': 'PC-Gardener',
+            '0013': 'SI-Architect', '0014': 'SI-Gardener', '0015': 'SP-Architect', '0016': 'SP-Gardener',
+            '0017': 'SC-Architect', '0018': 'SC-Gardener', '0019': 'CI-Architect', '0020': 'CI-Gardener',
+            '0021': 'CP-Architect', '0022': 'CP-Gardener', '0023': 'CS-Architect', '0024': 'CS-Gardener'
         };
 
         let keySequence = '';
         let keyTimer = null;
 
-        // Debug shortcuts: Press 'Z' for random or two-digit codes (01-24) for specific profiles
+        // Debug shortcuts: Press 'Z' for random or four-digit codes (0001-0024) for specific profiles
         document.addEventListener('keydown', function(event) {
             if (event.key === 'z' || event.key === 'Z') {
                 // Skip to results with random sample data
                 showTestResults();
             } else if (event.key >= '0' && event.key <= '9') {
-                // Build two-digit sequence
+                // Build four-digit sequence
                 keySequence += event.key;
                 
                 // Clear any existing timer
                 if (keyTimer) clearTimeout(keyTimer);
                 
-                // Set timer to reset sequence after 1 second
+                // Set timer to reset sequence after 2 seconds
                 keyTimer = setTimeout(() => {
                     keySequence = '';
-                }, 1000);
+                }, 2000);
                 
-                // Check if we have a valid two-digit code
-                if (keySequence.length === 2 && profileMappings[keySequence]) {
+                // Check if we have a valid four-digit code
+                if (keySequence.length === 4 && profileMappings[keySequence]) {
                     const targetProfile = profileMappings[keySequence];
                     showTestResults(targetProfile);
                     keySequence = ''; // Reset
+                    clearTimeout(keyTimer);
+                } else if (keySequence.length > 4) {
+                    // Reset if too many digits
+                    keySequence = '';
                     clearTimeout(keyTimer);
                 }
             }
