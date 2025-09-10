@@ -2069,11 +2069,19 @@
             const secondary = archetypes[1];
             
             // Create mock profile object
+            const mockScores = { I: 20, S: 15, P: 18, C: 12, A: tendency === 'Architect' ? 25 : 15, G: tendency === 'Gardener' ? 25 : 15 };
+            
+            // Create sorted archetype scores for dynamic positioning
+            const mockArchetypeScores = [
+                ['I', mockScores.I], ['S', mockScores.S], ['P', mockScores.P], ['C', mockScores.C]
+            ].sort((a, b) => b[1] - a[1]);
+            
             const mockProfile = {
                 code: targetProfile,
                 dominantArchetypes: [primary, secondary],
                 tendency: tendency,
-                scores: { I: 20, S: 15, P: 18, C: 12, A: tendency === 'Architect' ? 25 : 15, G: tendency === 'Gardener' ? 25 : 15 }
+                scores: mockScores,
+                archetypeScores: mockArchetypeScores
             };
             
             // Fill answers with sample data
