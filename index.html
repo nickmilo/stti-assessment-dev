@@ -837,7 +837,7 @@
                 <!-- Action buttons -->
                 <div style="margin: 3rem 0; text-align: center;">
                     <button class="share-btn" onclick="shareResults()">Share Results</button>
-                    <button class="share-btn" onclick="restartAssessment()">Take Again</button>
+                    <a href="https://www.linkingyourthinking.com/lyt-workshop" target="_blank" class="share-btn" style="text-decoration: none; display: inline-block;">Learn More</a>
                 </div>
 
                 <div class="results-grid">
@@ -1310,14 +1310,6 @@
             }
         }
 
-        function restartAssessment() {
-            currentQuestion = 0;
-            answers = {};
-            userEmail = '';
-            document.getElementById('emailInput').value = '';
-            startBtn.disabled = true;
-            showScreen('emailScreen');
-        }
 
         // Debug shortcut: Press 'Z' to jump to results page for testing
         document.addEventListener('keydown', function(event) {
