@@ -1803,14 +1803,15 @@
             }
         }
 
-        // Check for email in URL params or localStorage
+        // Check for email in URL params or localStorage (but exclude demo/test values)
         (function() {
             const urlParams = new URLSearchParams(window.location.search);
             const emailFromURL = urlParams.get('email');
             const emailFromStorage = localStorage.getItem('userEmail');
             
             const prefilledEmail = emailFromURL || emailFromStorage || '';
-            if (prefilledEmail) {
+            // Don't prefill with demo/test values
+            if (prefilledEmail && !prefilledEmail.toLowerCase().includes('demo') && !prefilledEmail.toLowerCase().includes('test')) {
                 document.getElementById('emailInput').value = prefilledEmail;
                 userEmail = prefilledEmail;
                 // Enable start button if email is valid
