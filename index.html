@@ -2008,7 +2008,61 @@
                     promptsTitle.textContent = 'Prompts to ground exploration with direction as a CI-Gardener';
                     promptsContent.innerHTML = 'What patterns are emerging from your creative explorations? How can your Synthesizer help you make sense of your discoveries organically? Once your Synthesizer is activated, you\'ll likely find it becomes easier to move into your Producer archetype, allowing you to manifest your insights into meaningful action.';
                 }
-                return; // Exit early, don't use generic logic
+                
+            if (code === 'IC-Architect') {
+                // Set overwhelmed content for IC-Architect
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Southerners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
+                }
+                
+                // Set stuck/unstuck content for IC-Architect
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as an IC-Architect';
+                    stuckContent.innerHTML = 'When you combine your Southerner archetypes with an Architect tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with structure is by tapping into your Creative archetype, which aligns with your structured approach to innovative expression.';
+                }
+                
+                // Set prompts content for IC-Architect
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to ground exploration with structure as an IC-Architect';
+                    promptsContent.innerHTML = 'How can you bring more structure to your creative explorations? What systems would help you manifest your innovative insights? Once your Creative is activated, you\'ll likely find it becomes easier to move into your Producer archetype, allowing you to build systematic progress from your discoveries.';
+                }
+                return; // Exit early, don\'t use generic logic
+            }
+            
+            if (code === 'IC-Gardener') {
+                // Set overwhelmed content for IC-Gardener
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Southerners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
+                }
+                
+                // Set stuck/unstuck content for IC-Gardener
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as an IC-Gardener';
+                    stuckContent.innerHTML = 'When you combine your Southerner archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with understanding is by tapping into your Inner Guide archetype, which aligns with your flexible approach to meaning-making.';
+                }
+                
+                // Set prompts content for IC-Gardener
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to ground exploration with understanding as an IC-Gardener';
+                    promptsContent.innerHTML = 'What patterns are emerging from your creative discoveries? How can your Inner Guide help you make deeper sense of your explorations organically? Once your Inner Guide is activated, you\'ll likely find it becomes easier to move into your Synthesizer archetype, allowing you to weave your insights into coherent understanding.';
+                }
+                return; // Exit early, don\'t use generic logic
+            }
+            return; // Exit early, don't use generic logic
             }
             
             // Set overwhelmed content
