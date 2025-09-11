@@ -1622,6 +1622,90 @@
             }
         });
         
+        function setTendencyPills(code) {
+            const [archetypes, tendency] = code.split('-');
+            
+            // Set primary tendency pill
+            const tendencyPill = document.getElementById('tendencyPill');
+            if (tendencyPill) {
+                tendencyPill.textContent = tendency;
+                tendencyPill.className = `tendency-pill ${tendency.toLowerCase()}-pill`;
+            }
+            
+            // Set secondary tendency pill (opposite of primary)
+            const secondaryTendencyPill = document.getElementById('secondaryTendencyPill');
+            if (secondaryTendencyPill) {
+                const secondaryTendency = tendency === 'Architect' ? 'Gardener' : 'Architect';
+                secondaryTendencyPill.textContent = secondaryTendency;
+                secondaryTendencyPill.className = `tendency-pill secondary-tendency ${secondaryTendency.toLowerCase()}-pill`;
+            }
+            
+            // Set tendency description
+            const tendencyDesc = document.getElementById('tendencyDescription');
+            if (tendencyDesc) {
+                if (tendency === 'Architect') {
+                    tendencyDesc.innerHTML = 'The <strong>Architect</strong> is your dominant sensemaking tendency. This means you gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.';
+                } else {
+                    tendencyDesc.innerHTML = 'The <strong>Gardener</strong> is your dominant sensemaking tendency. This means you gravitate towards nurturing and cultivating the things around you. You prefer organic growth and emergence over rigid structure, allowing ideas and projects to develop naturally while providing gentle guidance.';
+                }
+            }
+        }
+        
+        function setArchetypeDescription(code) {
+            const [archetypes, tendency] = code.split('-');
+            const primary = archetypes[0];
+            const secondary = archetypes[1];
+            
+            const archetypeNames = {
+                'I': 'Inner Guide',
+                'S': 'Synthesizer', 
+                'P': 'Producer',
+                'C': 'Creative'
+            };
+            
+            const archetypeDesc = document.getElementById('archetypeDescription');
+            if (archetypeDesc) {
+                const primaryName = archetypeNames[primary];
+                const secondaryName = archetypeNames[secondary];
+                archetypeDesc.innerHTML = `The <strong>${primaryName}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryName}</strong>. This combination shapes how you naturally approach understanding and creating meaning from the world around you.`;
+            }
+        }
+        
+        function setCollapsibleSections(code) {
+            const [archetypes, tendency] = code.split('-');
+            
+            // Show collapsible sections for all profiles
+            const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) section.style.display = 'block';
+            });
+            
+            // Set overwhelmed content
+            const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+            const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+            if (overwhelmedTitle && overwhelmedContent) {
+                overwhelmedTitle.textContent = `When ${code}s Feel Overwhelmed`;
+                overwhelmedContent.innerHTML = `<p>As an <strong>${code}</strong>, when you feel overwhelmed, try stepping back and focusing on your core strengths. Take time to process information in your preferred way before making decisions.</p>`;
+            }
+            
+            // Set stuck/unstuck content  
+            const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+            const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+            if (stuckTitle && stuckContent) {
+                stuckTitle.textContent = `When ${code}s Get Stuck (and Unstuck)`;
+                stuckContent.innerHTML = `<p>When you're stuck, remember that your <strong>${code}</strong> profile has unique ways of processing information. Try changing your environment or approach to align with your natural sensemaking patterns.</p>`;
+            }
+            
+            // Set prompts content
+            const promptsTitle = document.querySelector('#promptsSection .section-title');
+            const promptsContent = document.querySelector('#promptsSection .section-content');
+            if (promptsTitle && promptsContent) {
+                promptsTitle.textContent = `Prompts for ${code}s`;
+                promptsContent.innerHTML = `<p>Questions and prompts specifically designed for <strong>${code}</strong> profiles to help you leverage your unique sensemaking approach.</p>`;
+            }
+        }
+        
         function activateProfile(code, name) {
             try {
                 // Hide all screens
@@ -1775,91 +1859,13 @@
                 }
             }
 
-        function setTendencyPills(code) {
-            const [archetypes, tendency] = code.split('-');
-            
-            // Set primary tendency pill
-            const tendencyPill = document.getElementById('tendencyPill');
-            if (tendencyPill) {
-                tendencyPill.textContent = tendency;
-                tendencyPill.className = `tendency-pill ${tendency.toLowerCase()}-pill`;
-            }
-            
-            // Set secondary tendency pill (opposite of primary)
-            const secondaryTendencyPill = document.getElementById('secondaryTendencyPill');
-            if (secondaryTendencyPill) {
-                const secondaryTendency = tendency === 'Architect' ? 'Gardener' : 'Architect';
-                secondaryTendencyPill.textContent = secondaryTendency;
-                secondaryTendencyPill.className = `tendency-pill secondary-tendency ${secondaryTendency.toLowerCase()}-pill`;
-            }
-            
-            // Set tendency description
-            const tendencyDesc = document.getElementById('tendencyDescription');
-            if (tendencyDesc) {
-                if (tendency === 'Architect') {
-                    tendencyDesc.innerHTML = 'The <strong>Architect</strong> is your dominant sensemaking tendency. This means you gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.';
-                } else {
-                    tendencyDesc.innerHTML = 'The <strong>Gardener</strong> is your dominant sensemaking tendency. This means you gravitate towards nurturing and cultivating the things around you. You prefer organic growth and emergence over rigid structure, allowing ideas and projects to develop naturally while providing gentle guidance.';
-                }
-            }
-        }
+
         }
         
 
-        function setArchetypeDescription(code) {
-            const [archetypes, tendency] = code.split('-');
-            const primary = archetypes[0];
-            const secondary = archetypes[1];
-            
-            const archetypeNames = {
-                'I': 'Inner Guide',
-                'S': 'Synthesizer', 
-                'P': 'Producer',
-                'C': 'Creative'
-            };
-            
-            const archetypeDesc = document.getElementById('archetypeDescription');
-            if (archetypeDesc) {
-                const primaryName = archetypeNames[primary];
-                const secondaryName = archetypeNames[secondary];
-                archetypeDesc.innerHTML = `The <strong>${primaryName}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryName}</strong>. This combination shapes how you naturally approach understanding and creating meaning from the world around you.`;
-            }
-        }
 
-        function setCollapsibleSections(code) {
-            const [archetypes, tendency] = code.split('-');
-            
-            // Show collapsible sections for all profiles
-            const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) section.style.display = 'block';
-            });
-            
-            // Set overwhelmed content
-            const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-            const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-            if (overwhelmedTitle && overwhelmedContent) {
-                overwhelmedTitle.textContent = `When ${code}s Feel Overwhelmed`;
-                overwhelmedContent.innerHTML = `<p>As an <strong>${code}</strong>, when you feel overwhelmed, try stepping back and focusing on your core strengths. Take time to process information in your preferred way before making decisions.</p>`;
-            }
-            
-            // Set stuck/unstuck content  
-            const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-            const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-            if (stuckTitle && stuckContent) {
-                stuckTitle.textContent = `When ${code}s Get Stuck (and Unstuck)`;
-                stuckContent.innerHTML = `<p>When you're stuck, remember that your <strong>${code}</strong> profile has unique ways of processing information. Try changing your environment or approach to align with your natural sensemaking patterns.</p>`;
-            }
-            
-            // Set prompts content
-            const promptsTitle = document.querySelector('#promptsSection .section-title');
-            const promptsContent = document.querySelector('#promptsSection .section-content');
-            if (promptsTitle && promptsContent) {
-                promptsTitle.textContent = `Prompts for ${code}s`;
-                promptsContent.innerHTML = `<p>Questions and prompts specifically designed for <strong>${code}</strong> profiles to help you leverage your unique sensemaking approach.</p>`;
-            }
-        }
+
+
         function loadISArchitectContent() {
 
             
