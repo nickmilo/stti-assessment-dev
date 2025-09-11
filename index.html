@@ -2761,6 +2761,7 @@
                 answer: response,
                 archetype: questions[currentQuestion].archetype
             };
+            console.log('Q53 DEBUG: Answer selected for question', currentQuestion + 1, 'of', questions.length);
             
             // Visual feedback
             document.querySelectorAll('.answer-btn').forEach(btn => {
@@ -2780,7 +2781,8 @@
                     currentQuestion++;
                     loadQuestion();
                 }, 400);
-            } else {
+            } else {            console.log('Q53 DEBUG: On last question, calling showResults in 400ms');
+            
                 setTimeout(() => {
                     showResults();
                 }, 400);
@@ -2875,6 +2877,7 @@
         }
 
         function showResults() {
+            console.log('Q53 DEBUG: showResults() called, hasSubmitted =', hasSubmitted);
             // Prevent multiple submissions
             if (hasSubmitted) {
                 console.log('Results already submitted, skipping duplicate submission');
