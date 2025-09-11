@@ -1681,6 +1681,35 @@
                 if (section) section.style.display = 'block';
             });
             
+            
+            // Handle specific profile codes first
+            if (code === 'IS-Gardener') {
+                // Set overwhelmed content for IS-Gardener
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'As an IS-Architect, you have a Westerner profile with a tendency to architect (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck going from being oriented inward to outward, going from thinking to doing.';
+                }
+                
+                // Set stuck/unstuck content for IS-Gardener
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Gardener';
+                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from reflection to expression is by tapping into your Creative archetype, which aligns with your flexible, emergent approach.';
+                }
+                
+                // Set prompts content for IS-Gardener
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to go from West to East as an IS-Gardener';
+                    promptsContent.innerHTML = 'What wants to emerge from your current reflection? How might your Creative archetype express this organically? Once your Creative is activated, you\'ll likely find it becomes easier to move into your Producer archetype, allowing you to find natural ways to manifest your deep insights.';
+                }
+                return; // Exit early, don't use generic logic
+            }
+            
             // Set overwhelmed content
             const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
             const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
@@ -1748,9 +1777,7 @@
                     // Load full content based on profile
                     if (code === 'IS-Architect') {
                         loadISArchitectContent();
-                    } else if (code === 'IS-Gardener') {
-                        loadISGardenerContent();
-                    }
+
                     // TODO: Add other profiles here one by one
                     
                     console.log(`${code} activated successfully`);
@@ -1918,39 +1945,7 @@
                 chordDiagram.alt = 'IS-Architect Sensemaking Pattern';
             }
         }
-        function loadISGardenerContent() {
-            // Show and populate collapsible sections
-            const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) section.style.display = 'block';
-            });
-            
-            // Set overwhelmed content
-            const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-            const overwhelmedContent = document.getElementById('overwhelmedContent');
-            if (overwhelmedTitle && overwhelmedContent) {
-                overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-                overwhelmedContent.innerHTML = 'As an IS-Architect, you have a Westerner profile with a tendency to architect (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck going from being oriented inward to outward, going from thinking to doing.';
-            }
-            
-            // Set stuck/unstuck content
-            const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-            const stuckContent = document.getElementById('stuckUnstuckContent');
-            if (stuckTitle && stuckContent) {
-                stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Gardener';
-                stuckContent.innerHTML = 'When you combine your Westerner archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from reflection to expression is by tapping into your Creative archetype, which aligns with your flexible, emergent approach.';
-            }
-            
-            // Set prompts content
-            const promptsTitle = document.querySelector('#promptsSection .section-title');
-            const promptsContent = document.getElementById('promptsContent');
-            if (promptsTitle && promptsContent) {
-                promptsTitle.textContent = 'Prompts to go from West to East as an IS-Gardener';
-                promptsContent.innerHTML = 'What wants to emerge from your current reflection? How might your Creative archetype express this organically? Once your Creative is activated, you\'ll likely find it becomes easier to move into your Producer archetype, allowing you to find natural ways to manifest your deep insights.';
-            }
-        }
-
+       
         
         // Profile loader that sets all the customized content for any profile
         function loadProfileByCode(profileCode, profileName, orientation) {
