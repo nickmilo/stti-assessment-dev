@@ -1639,6 +1639,13 @@
                     const profileSubtitle = document.getElementById('profileSubtitle');
                     if (profileSubtitle) profileSubtitle.textContent = name;
                     
+                    // Set chord diagram for all profiles
+                    const chordDiagram = document.getElementById('chordDiagram');
+                    if (chordDiagram) {
+                        chordDiagram.src = `Clean_STTI_${code}_Thin.png`;
+                        chordDiagram.alt = `${code} Sensemaking Pattern`;
+                    }
+                    
                     // Load full content based on profile
                     if (code === 'IS-Architect') {
                         loadISArchitectContent();
