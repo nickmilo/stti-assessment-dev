@@ -2894,6 +2894,9 @@
             const scores = calculateScores();
             const profile = determineProfile(scores);
             
+            // Determine orientation based on archetype combinations (used throughout function)
+            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
+            
             // Submit to Formspree
             submitToFormspree(profile);
             
@@ -2902,9 +2905,6 @@
             
             // Extract archetypes from profile code for description logic
             const [archetypes, tendency] = profile.code.split('-');
-            
-            // Determine orientation based on archetype combinations (used throughout function)
-            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
             
             const archetypeNames = {
                 'I': 'Inner Guide',
