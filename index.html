@@ -2380,6 +2380,9 @@
                     // Set collapsible sections content for all profiles
                     setCollapsibleSections(code);
                     
+                    // Hide sections for broken profiles
+                    hideBrokenProfileSections(code);
+                    
                     // Load full content based on profile
 
                     // TODO: Add other profiles here one by one
@@ -2852,6 +2855,9 @@
             
             // Set collapsible sections content for this profile
             setCollapsibleSections(profile.code);
+            
+            // Hide sections for broken profiles
+            hideBrokenProfileSections(profile.code);
             
             // Determine orientation based on archetype combinations (used throughout function)
             var orientationArchetypes = profile.dominantArchetypes.sort().join('');
@@ -3569,6 +3575,21 @@
                 document.getElementById('imageModal').classList.remove('active');
             }
         });
+
+        // Hide collapsible sections for broken profiles
+        function hideBrokenProfileSections(profileCode) {
+            const brokenProfiles = ['IC-Architect', 'IC-Gardener', 'PI-Architect', 'PI-Gardener', 'PC-Architect', 'SI-Architect', 'SI-Gardener', 'SP-Architect', 'SP-Gardener', 'SC-Architect', 'SC-Gardener'];
+            
+            if (brokenProfiles.includes(profileCode)) {
+                const sectionsToHide = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
+                sectionsToHide.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>
