@@ -2895,7 +2895,7 @@
             const profile = determineProfile(scores);
             
             // Determine orientation based on archetype combinations (used throughout function)
-            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
+            var orientationArchetypes = profile.dominantArchetypes.sort().join('');
             
             // Submit to Formspree
             submitToFormspree(profile);
