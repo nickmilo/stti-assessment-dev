@@ -2894,6 +2894,9 @@
             // Update results display
             document.getElementById('profileCode').textContent = profile.code;
             
+            // Extract archetypes from profile code for description logic
+            const [archetypes, tendency] = profile.code.split('-');
+            
             const archetypeNames = {
                 'I': 'Inner Guide',
                 'S': 'Synthesizer', 
