@@ -2062,6 +2062,60 @@
                 }
                 return; // Exit early, don\'t use generic logic
             }
+            
+            if (code === 'PC-Architect') {
+                // Set overwhelmed content for PC-Architect
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
+                }
+                
+                // Set stuck/unstuck content for PC-Architect
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as a PC-Architect';
+                    stuckContent.innerHTML = 'When you combine your Easterner archetypes with an Architect tendency, it\'s most difficult to access your Inner Guide archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to balance making with meaning is by tapping into your Producer archetype, which aligns with your structured approach to systematic action.';
+                }
+                
+                // Set prompts content for PC-Architect
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to balance making with meaning as a PC-Architect';
+                    promptsContent.innerHTML = 'How can you bring more systematic structure to your creative work? What processes would help you manifest your innovations more effectively? Once your Producer is activated, you\'ll likely find it becomes easier to move into your Inner Guide archetype, allowing you to access deeper meaning in your systematic creations.';
+                }
+                return; // Exit early, don\'t use generic logic
+            }
+            
+            if (code === 'PC-Gardener') {
+                // Set overwhelmed content for PC-Gardener
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
+                }
+                
+                // Set stuck/unstuck content for PC-Gardener
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as a PC-Gardener';
+                    stuckContent.innerHTML = 'When you combine your Easterner archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to balance making with understanding is by tapping into your Creative archetype, which aligns with your flexible approach to innovative expression.';
+                }
+                
+                // Set prompts content for PC-Gardener
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to balance making with understanding as a PC-Gardener';
+                    promptsContent.innerHTML = 'What new insights are emerging from your creative work? How can your Creative help you discover unexpected connections in your making process? Once your Creative is activated, you\'ll likely find it becomes easier to move into your Synthesizer archetype, allowing you to weave deeper understanding into your innovative outputs.';
+                }
+                return; // Exit early, don\'t use generic logic
+            }
             return; // Exit early, don't use generic logic
             }
             
