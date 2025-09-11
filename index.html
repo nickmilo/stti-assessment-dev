@@ -1682,6 +1682,34 @@
             });
             
             
+            
+            if (code === 'IS-Architect') {
+                // Set overwhelmed content for IS-Architect
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression.';
+                }
+                
+                // Set stuck/unstuck content for IS-Architect
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Architect';
+                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
+                }
+                
+                // Set prompts content for IS-Architect
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to go from West to East as an IS-Architect';
+                    promptsContent.innerHTML = 'How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you\'ll likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express your deep insights.';
+                }
+                return; // Exit early, don't use generic logic
+            }
+            
             // Handle specific profile codes first
             if (code === 'IS-Gardener') {
                 // Set overwhelmed content for IS-Gardener
@@ -1829,9 +1857,7 @@
                     setCollapsibleSections(code);
                     
                     // Load full content based on profile
-                    if (code === 'IS-Architect') {
-                        loadISArchitectContent();
-                    }
+
                     // TODO: Add other profiles here one by one
                     
                     console.log(`${code} activated successfully`);
@@ -1949,60 +1975,7 @@
 
 
 
-        function loadISArchitectContent() {
-
-            
-
-            
-
-            
-
-            
-            // Show and populate collapsible sections
-            const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) section.style.display = 'block';
-            });
-            
-            // Set overwhelmed content
-            const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-            if (overwhelmedTitle) overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-            
-            const overwhelmedContent = document.getElementById('overwhelmedContent');
-            if (overwhelmedContent) {
-                overwhelmedContent.innerHTML = 'They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression.';
-            }
-            
-            // Set stuck/unstuck content
-            const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-            if (stuckTitle) stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Architect';
-            
-            const stuckContent = document.getElementById('stuckUnstuckContent');
-            if (stuckContent) {
-                stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
-            }
-            
-            // Set prompts content
-            const promptsTitle = document.querySelector('#promptsSection .section-title');
-            if (promptsTitle) promptsTitle.textContent = 'Prompts to go from West to East as an IS-Architect';
-            
-            const promptsContent = document.getElementById('promptsContent');
-            if (promptsContent) {
-                promptsContent.innerHTML = 'How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you\'ll likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express your deep insights.';
-            }
-            
-            // Set chord diagram
-            const chordDiagram = document.getElementById('chordDiagram');
-            if (chordDiagram) {
-                chordDiagram.src = 'Clean_STTI_IS-Architect_Thin.png';
-                chordDiagram.alt = 'IS-Architect Sensemaking Pattern';
-            }
-        }
-       
-        
-        // Profile loader that sets all the customized content for any profile
-        function loadProfileByCode(profileCode, profileName, orientation) {
+       function loadProfileByCode(profileCode, profileName, orientation) {
             // Basic profile info
             const codeEl = document.getElementById('profileCode');
             if (codeEl) codeEl.textContent = profileCode;
