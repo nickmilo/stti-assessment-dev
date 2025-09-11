@@ -1646,6 +1646,9 @@
                         chordDiagram.alt = `${code} Sensemaking Pattern`;
                     }
                     
+                    // Set static archetype pills for all profiles
+                    setStaticArchetypePills(code);
+                    
                     // Load full content based on profile
                     if (code === 'IS-Architect') {
                         loadISArchitectContent();
@@ -1660,35 +1663,60 @@
             }
         }
         
-        function loadISArchitectContent() {
-            // Set orientation pill
-            const orientationPill = document.getElementById('orientationPill');
-            if (orientationPill) orientationPill.textContent = 'Westerner';
+        function setStaticArchetypePills(code) {
+            // Extract archetypes from profile code
+            const archetypes = code.split('-')[0]; // Gets "IS", "CP", etc.
+            const primary = archetypes[0];
+            const secondary = archetypes[1];
             
-            // Set archetype pills with correct styling
+            // Archetype names and classes
+            const archetypeNames = {
+                'I': 'Inner Guide',
+                'S': 'Synthesizer', 
+                'P': 'Producer',
+                'C': 'Creative'
+            };
+            
+            const archetypePillClasses = {
+                'I': 'inner-guide-pill',
+                'S': 'synthesizer-pill',
+                'P': 'producer-pill',
+                'C': 'creative-pill'
+            };
+            
+            // Set primary and secondary pills
             const primaryPill = document.getElementById('primaryArchetypePill');
             if (primaryPill) {
-                primaryPill.textContent = 'Inner Guide';
-                primaryPill.className = 'archetype-pill inner-guide-pill';
+                primaryPill.textContent = archetypeNames[primary];
+                primaryPill.className = `archetype-pill ${archetypePillClasses[primary]}`;
             }
             
             const secondaryPill = document.getElementById('secondaryArchetypePill');
             if (secondaryPill) {
-                secondaryPill.textContent = 'Synthesizer';
-                secondaryPill.className = 'archetype-pill synthesizer-pill';
+                secondaryPill.textContent = archetypeNames[secondary];
+                secondaryPill.className = `archetype-pill ${archetypePillClasses[secondary]}`;
             }
             
+            // Set third and fourth pills (remaining archetypes, faded)
+            const remainingArchetypes = ['I', 'S', 'P', 'C'].filter(a => a !== primary && a !== secondary);
+            
             const thirdPill = document.getElementById('thirdArchetypePill');
-            if (thirdPill) {
-                thirdPill.textContent = 'Producer';
-                thirdPill.className = 'archetype-pill secondary-archetype producer-pill';
+            if (thirdPill && remainingArchetypes[0]) {
+                thirdPill.textContent = archetypeNames[remainingArchetypes[0]];
+                thirdPill.className = `archetype-pill secondary-archetype ${archetypePillClasses[remainingArchetypes[0]]}`;
             }
             
             const fourthPill = document.getElementById('fourthArchetypePill');
-            if (fourthPill) {
-                fourthPill.textContent = 'Creative';
-                fourthPill.className = 'archetype-pill secondary-archetype creative-pill';
+            if (fourthPill && remainingArchetypes[1]) {
+                fourthPill.textContent = archetypeNames[remainingArchetypes[1]];
+                fourthPill.className = `archetype-pill secondary-archetype ${archetypePillClasses[remainingArchetypes[1]]}`;
             }
+        }
+        
+        function loadISArchitectContent() {
+            // Set orientation pill
+            const orientationPill = document.getElementById('orientationPill');
+            if (orientationPill) orientationPill.textContent = 'Westerner';
             
             // Set archetype description
             const archetypeDesc = document.getElementById('archetypeDescription');
