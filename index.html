@@ -1710,6 +1710,60 @@
                 return; // Exit early, don't use generic logic
             }
             
+            if (code === 'IP-Architect') {
+                // Set overwhelmed content for IP-Architect
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
+                }
+                
+                // Set stuck/unstuck content for IP-Architect
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as an IP-Architect';
+                    stuckContent.innerHTML = 'When you combine your Converter archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from meaning to execution is by tapping into your Synthesizer archetype, which aligns with your structured approach to understanding.';
+                }
+                
+                // Set prompts content for IP-Architect
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to sustain your conversion rhythm as an IP-Architect';
+                    promptsContent.innerHTML = 'How can you create systematic pathways from insight to action? What would a sustainable process look like for converting your deep understanding into concrete outcomes? Once your Synthesizer is activated, you\'ll likely find it becomes easier to move into your Creative archetype, allowing you to find innovative ways to bridge meaning and execution.';
+                }
+                return; // Exit early, don't use generic logic
+            }
+            
+            if (code === 'IP-Gardener') {
+                // Set overwhelmed content for IP-Gardener
+                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
+                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
+                if (overwhelmedTitle && overwhelmedContent) {
+                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
+                }
+                
+                // Set stuck/unstuck content for IP-Gardener
+                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
+                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
+                if (stuckTitle && stuckContent) {
+                    stuckTitle.textContent = 'Getting stuck and unstuck as an IP-Gardener';
+                    stuckContent.innerHTML = 'When you combine your Converter archetypes with a Gardener tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from meaning to execution is by tapping into your Synthesizer archetype, which aligns with your flexible approach to making sense of insights.';
+                }
+                
+                // Set prompts content for IP-Gardener
+                const promptsTitle = document.querySelector('#promptsSection .section-title');
+                const promptsContent = document.querySelector('#promptsSection .section-content');
+                if (promptsTitle && promptsContent) {
+                    promptsTitle.textContent = 'Prompts to sustain your conversion rhythm as an IP-Gardener';
+                    promptsContent.innerHTML = 'What rhythm naturally emerges between your inner knowing and outer creating? How can your Synthesizer help you recognize when to reflect and when to act? Once your Synthesizer is activated, you\'ll likely find it becomes easier to move into your Creative archetype, allowing you to find organic ways to manifest your understanding.';
+                }
+                return; // Exit early, don't use generic logic
+            }
+            
             // Set overwhelmed content
             const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
             const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
