@@ -1514,6 +1514,7 @@
         let currentQuestion = 0;
         let answers = {};
         let userEmail = '';
+        let hasSubmitted = false; // Prevent multiple form submissions
         
         
         // Simple secret code system - exact copy of what worked with Z key
@@ -2874,6 +2875,13 @@
         }
 
         function showResults() {
+            // Prevent multiple submissions
+            if (hasSubmitted) {
+                console.log('Results already submitted, skipping duplicate submission');
+                return;
+            }
+            hasSubmitted = true;
+
             const scores = calculateScores();
             const profile = determineProfile(scores);
             
