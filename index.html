@@ -2897,6 +2897,9 @@
             // Extract archetypes from profile code for description logic
             const [archetypes, tendency] = profile.code.split('-');
             
+            // Determine orientation based on archetype combinations (used throughout function)
+            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
+            
             const archetypeNames = {
                 'I': 'Inner Guide',
                 'S': 'Synthesizer', 
@@ -3006,7 +3009,6 @@
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
             // Determine orientation based on archetype combinations
-            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
             let orientation = '';
             
             if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
@@ -3378,7 +3380,6 @@
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
             // Determine orientation based on archetype combinations
-            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
             let orientation = '';
             
             if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
