@@ -73,7 +73,7 @@ Each profile is coded as `XX-Tendency`:
 
 ---
 
-## The Four Sacred Tenets
+## The Five Sacred Tenets
 
 **These tenets exist because I repeatedly made careless mistakes that broke working code. FOLLOW THEM RELIGIOUSLY.**
 
@@ -112,7 +112,17 @@ Each profile is coded as `XX-Tendency`:
 - Only proceed to the next change after confirming the current one works
 - Use git commits to create restore points
 
-### Tenet #5: You have permission to download any Python library or script that will make your job more accurate, efficient, or faster. Note to my future self: Please also complete this tenet number five with additional descriptive details and its own "How to follow" subsection. 
+### Tenet #5: You have permission to download any Python library or script that will make your job more accurate, efficient, or faster
+**Why this matters**: Complex data analysis, file processing, and code manipulation tasks often require specialized libraries that aren't available by default. Fighting with basic tools when powerful libraries exist leads to inefficient solutions, more errors, and wasted time. The user explicitly grants permission to use whatever tools are needed to deliver quality results.
+
+**How to follow**:
+- Identify tasks that would benefit from specialized libraries (data processing, text analysis, validation, etc.)
+- Research and install appropriate Python libraries without asking permission first
+- Use libraries like pandas for CSV/data work, beautifulsoup for HTML parsing, requests for API calls, etc.
+- Create reusable scripts with proper imports that can be used throughout the project
+- Document any new libraries used in commit messages for future reference
+- Prioritize well-established, stable libraries over experimental ones
+- Remember: efficiency and accuracy matter more than using only basic tools 
 
 ---
 
@@ -561,7 +571,7 @@ For each new profile batch:
 3. **Write overwhelmed content** based on orientation  
 4. **Write stuck/unstuck content** based on tendency logic
 5. **Write prompts content** based on pathway activation
-6. **Implement systematically** following the four tenets
+6. **Implement systematically** following the five tenets
 
 ### Long-term Vision
 - All 24 profiles implemented with consistent, high-quality content
@@ -613,7 +623,7 @@ For each new profile batch:
 
 ### Before You Start Working
 - [ ] Read this SOP completely
-- [ ] Understand the four tenets deeply  
+- [ ] Understand the five tenets deeply  
 - [ ] Create analysis scripts first
 - [ ] Plan your approach systematically
 - [ ] Set up validation tools
@@ -626,7 +636,7 @@ For each new profile batch:
 - ✅ Happy user feedback
 
 ### Remember: Excellence is Built on Process
-This project's success depends not on cleverness, but on disciplined adherence to proven processes. The four tenets exist because they prevent the specific mistakes that have derailed progress multiple times. Follow them religiously, and you'll deliver consistent, high-quality results.
+This project's success depends not on cleverness, but on disciplined adherence to proven processes. The five tenets exist because they prevent the specific mistakes that have derailed progress multiple times. Follow them religiously, and you'll deliver consistent, high-quality results.
 
 **Good luck, future self. You've got this.**
 
