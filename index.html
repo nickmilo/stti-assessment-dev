@@ -2894,6 +2894,9 @@
             const scores = calculateScores();
             const profile = determineProfile(scores);
             
+            // Set collapsible sections content for this profile
+            setCollapsibleSections(profile.code);
+            
             // Determine orientation based on archetype combinations (used throughout function)
             var orientationArchetypes = profile.dominantArchetypes.sort().join('');
             
