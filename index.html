@@ -2615,32 +2615,8 @@
                 if (section) section.style.display = 'block';
             });
             
-            // Set overwhelmed content
-            const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-            if (overwhelmedTitle) overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-            
-            const overwhelmedContent = document.getElementById('overwhelmedContent');
-            if (overwhelmedContent) {
-                overwhelmedContent.innerHTML = 'They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression.';
-            }
-            
-            // Set stuck/unstuck content
-            const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-            if (stuckTitle) stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Architect';
-            
-            const stuckContent = document.getElementById('stuckUnstuckContent');
-            if (stuckContent) {
-                stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
-            }
-            
-            // Set prompts content
-            const promptsTitle = document.querySelector('#promptsSection .section-title');
-            if (promptsTitle) promptsTitle.textContent = 'Prompts to go from West to East as an IS-Architect';
-            
-            const promptsContent = document.getElementById('promptsContent');
-            if (promptsContent) {
-                promptsContent.innerHTML = 'How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you\'ll likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express your deep insights.';
-            }
+            // Removed hardcoded IS-Architect content that was overriding profile-specific content
+            // setCollapsibleSections() already sets the correct content for each profile
             
             // Set chord diagram
             const chordDiagram = document.getElementById('chordDiagram');
