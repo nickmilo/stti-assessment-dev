@@ -3226,12 +3226,12 @@
             }
             
             // Show specific profile
-            const [archetypes, tendency] = targetProfile.split('-');
-            const primary = archetypes[0];
-            const secondary = archetypes[1];
+            const [targetArchetypes, targetTendency] = targetProfile.split('-');
+            const primary = targetArchetypes[0];
+            const secondary = targetArchetypes[1];
             
             // Create mock profile object
-            const mockScores = { I: 20, S: 15, P: 18, C: 12, A: tendency === 'Architect' ? 25 : 15, G: tendency === 'Gardener' ? 25 : 15 };
+            const mockScores = { I: 20, S: 15, P: 18, C: 12, A: targetTendency === 'Architect' ? 25 : 15, G: targetTendency === 'Gardener' ? 25 : 15 };
             
             // Create sorted archetype scores for dynamic positioning
             const mockArchetypeScores = [
@@ -3241,7 +3241,7 @@
             const mockProfile = {
                 code: targetProfile,
                 dominantArchetypes: [primary, secondary],
-                tendency: tendency,
+                tendency: targetTendency,
                 scores: mockScores,
                 archetypeScores: mockArchetypeScores
             };
