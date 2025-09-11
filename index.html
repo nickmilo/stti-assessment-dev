@@ -2756,6 +2756,12 @@
         }
 
         function selectAnswer(response) {
+            // Bounds check to prevent accessing undefined question
+            if (currentQuestion >= questions.length) {
+                console.error('selectAnswer called with currentQuestion out of bounds:', currentQuestion);
+                return;
+            }
+            
             answers[currentQuestion] = {
                 questionId: questions[currentQuestion].id,
                 answer: response,
