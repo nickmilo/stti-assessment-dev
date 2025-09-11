@@ -2336,29 +2336,9 @@
             return; // Exit early, don't use generic logic
             }
             
-            // Set overwhelmed content
-            const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-            const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-            if (overwhelmedTitle && overwhelmedContent) {
-                overwhelmedTitle.textContent = `When ${code}s Feel Overwhelmed`;
-                overwhelmedContent.innerHTML = `<p>As an <strong>${code}</strong>, when you feel overwhelmed, try stepping back and focusing on your core strengths. Take time to process information in your preferred way before making decisions.</p>`;
-            }
-            
-            // Set stuck/unstuck content  
-            const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-            const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-            if (stuckTitle && stuckContent) {
-                stuckTitle.textContent = `When ${code}s Get Stuck (and Unstuck)`;
-                stuckContent.innerHTML = `<p>When you're stuck, remember that your <strong>${code}</strong> profile has unique ways of processing information. Try changing your environment or approach to align with your natural sensemaking patterns.</p>`;
-            }
-            
-            // Set prompts content
-            const promptsTitle = document.querySelector('#promptsSection .section-title');
-            const promptsContent = document.querySelector('#promptsSection .section-content');
-            if (promptsTitle && promptsContent) {
-                promptsTitle.textContent = `Prompts for ${code}s`;
-                promptsContent.innerHTML = `<p>Questions and prompts specifically designed for <strong>${code}</strong> profiles to help you leverage your unique sensemaking approach.</p>`;
-            }
+            // All 24 profiles have specific implementations above
+            // No generic fallback needed - if we reach here, it's an error
+            console.error('setCollapsibleSections: Unknown profile code:', code);
         }
         
         function activateProfile(code, name) {
