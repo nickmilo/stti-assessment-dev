@@ -3089,20 +3089,15 @@
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
-            // Show additional sections for IS-Architect
+            // Show additional sections for all profiles
             const overwhelmedSection = document.getElementById('overwhelmedSection');
             const stuckUnstuckSection = document.getElementById('stuckUnstuckSection');
             const promptsSection = document.getElementById('promptsSection');
             
-            if (profile.code === 'IS-Architect') {
-                overwhelmedSection.style.display = 'block';
-                stuckUnstuckSection.style.display = 'block';
-                promptsSection.style.display = 'block';
-            } else {
-                overwhelmedSection.style.display = 'none';
-                stuckUnstuckSection.style.display = 'none';
-                promptsSection.style.display = 'none';
-            }
+            // Always show the collapsible sections - they contain profile-specific content
+            overwhelmedSection.style.display = 'block';
+            stuckUnstuckSection.style.display = 'block';
+            promptsSection.style.display = 'block';
             
             // Update chord diagram image
             const chordImage = document.getElementById('chordDiagram');
