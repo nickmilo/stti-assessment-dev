@@ -1535,12 +1535,79 @@
                     keySequence = '';
                 }, 3000);
                 
-                // Check for exact match
-                if (keySequence === '0003') {
-                    console.log('0003 MATCH! Activating...');
+                // Check for exact matches
+                if (keySequence === '0001') {
+                    activateProfile('IP-Architect', 'The Converter');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0002') {
+                    activateProfile('IP-Gardener', 'The Converter');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0003') {
                     activateProfile('IS-Architect', 'The Philosopher');
-                    keySequence = '';
-                    clearTimeout(keyTimer);
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0004') {
+                    activateProfile('IS-Gardener', 'The Philosopher');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0005') {
+                    activateProfile('IC-Architect', 'The Explorer');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0006') {
+                    activateProfile('IC-Gardener', 'The Explorer');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0007') {
+                    activateProfile('PI-Architect', 'The Converter');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0008') {
+                    activateProfile('PI-Gardener', 'The Converter');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0009') {
+                    activateProfile('PS-Architect', 'The Builder');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0010') {
+                    activateProfile('PS-Gardener', 'The Builder');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0011') {
+                    activateProfile('PC-Architect', 'The Maker');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0012') {
+                    activateProfile('PC-Gardener', 'The Maker');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0013') {
+                    activateProfile('SI-Architect', 'The Philosopher');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0014') {
+                    activateProfile('SI-Gardener', 'The Philosopher');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0015') {
+                    activateProfile('SP-Architect', 'The Builder');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0016') {
+                    activateProfile('SP-Gardener', 'The Builder');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0017') {
+                    activateProfile('SC-Architect', 'The Translator');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0018') {
+                    activateProfile('SC-Gardener', 'The Translator');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0019') {
+                    activateProfile('CI-Architect', 'The Explorer');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0020') {
+                    activateProfile('CI-Gardener', 'The Explorer');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0021') {
+                    activateProfile('CP-Architect', 'The Maker');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0022') {
+                    activateProfile('CP-Gardener', 'The Maker');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0023') {
+                    activateProfile('CS-Architect', 'The Translator');
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0024') {
+                    activateProfile('CS-Gardener', 'The Translator');
+                    keySequence = ''; clearTimeout(keyTimer);
                 } else if (keySequence.length >= 4) {
                     console.log('4+ digits, resetting');
                     keySequence = '';
