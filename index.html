@@ -3278,6 +3278,9 @@
                 'C': 'Creative'
             };
 
+            // Determine orientation based on archetype combinations (used throughout function)
+            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
+
             const archetypeDescriptions = {
                 'I': 'naturally focus on things that you find intrinsically meaningful',
                 'S': 'having a desire to deeply make sense of those things',
