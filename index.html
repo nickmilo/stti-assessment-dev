@@ -2973,17 +2973,17 @@
             // Create specific archetype combination descriptions
             let archetypeDescription = '';
             
-            if (archetypes === 'IS' || archetypes === 'SI') {
+            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a philosophical approach to sensemaking. You naturally seek deep understanding and meaning, often spending significant time in reflection and analysis. Your strength lies in your ability to synthesize complex ideas and find underlying patterns, though you may sometimes struggle with moving from contemplation to action.`;
-            } else if (archetypes === 'CP' || archetypes === 'PC') {
+            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a maker's approach to sensemaking. You thrive on creative expression and productive output, naturally translating ideas into tangible results. Your strength lies in your ability to innovate and execute, though you may sometimes need to balance your action-oriented nature with deeper reflection.`;
-            } else if (archetypes === 'PS' || archetypes === 'SP') {
+            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a builder's approach to sensemaking. You excel at systematic creation and structured progress, combining practical action with comprehensive understanding. Your strength lies in your ability to construct robust frameworks and methodologies, making complex projects manageable and sustainable.`;
-            } else if (archetypes === 'CI' || archetypes === 'IC') {
+            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates an explorer's approach to sensemaking. You thrive on creative discovery and meaningful investigation, naturally seeking novel perspectives and innovative solutions. Your strength lies in your ability to venture into uncharted territory and find unique insights that others might miss.`;
-            } else if (archetypes === 'CS' || archetypes === 'SC') {
+            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a translator's approach to sensemaking. You excel at bridging different worlds of understanding, making complex or abstract concepts accessible to others. Your strength lies in your ability to synthesize diverse perspectives and communicate insights across different contexts and audiences.`;
-            } else if (archetypes === 'IP' || archetypes === 'PI') {
+            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a converter's approach to sensemaking. You excel at transforming deep insights into practical applications, bridging the gap between meaning and action. Your strength lies in your ability to take abstract understanding and convert it into concrete, productive outcomes.`;
             } else {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This combination creates a unique approach to understanding and engaging with the world around you.`;
@@ -3006,20 +3006,20 @@
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
             // Determine orientation based on archetype combinations
-            const archetypes = profile.dominantArchetypes.sort().join('');
+            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
             let orientation = '';
             
-            if (archetypes === 'IS' || archetypes === 'SI') {
+            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
                 orientation = 'Westerner';
-            } else if (archetypes === 'CP' || archetypes === 'PC') {
+            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
                 orientation = 'Easterner';
-            } else if (archetypes === 'PS' || archetypes === 'SP') {
+            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
                 orientation = 'Northerner';
-            } else if (archetypes === 'CI' || archetypes === 'IC') {
+            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
                 orientation = 'Southerner';
-            } else if (archetypes === 'CS' || archetypes === 'SC') {
+            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                 orientation = 'Diagonal';
-            } else if (archetypes === 'IP' || archetypes === 'PI') {
+            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
                 orientation = 'Diagonal';
             } else {
                 orientation = 'Mixed';
@@ -3038,17 +3038,17 @@
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
             
-            if (archetypes === 'IS' || archetypes === 'SI') {
+            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
                 profileSubtitle.textContent = 'The Philosopher';
-            } else if (archetypes === 'CP' || archetypes === 'PC') {
+            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
                 profileSubtitle.textContent = 'The Maker';
-            } else if (archetypes === 'PS' || archetypes === 'SP') {
+            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
                 profileSubtitle.textContent = 'The Builder';
-            } else if (archetypes === 'CI' || archetypes === 'IC') {
+            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
                 profileSubtitle.textContent = 'The Explorer';
-            } else if (archetypes === 'CS' || archetypes === 'SC') {
+            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                 profileSubtitle.textContent = 'The Translator';
-            } else if (archetypes === 'IP' || archetypes === 'PI') {
+            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
                 profileSubtitle.textContent = 'The Converter';
             } else {
                 profileSubtitle.textContent = 'The Sensemaker';
@@ -3069,7 +3069,7 @@
             } else if (orientation === 'Southerner') {
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
             } else if (orientation === 'Diagonal') {
-                if (archetypes === 'CS' || archetypes === 'SC') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                     westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
                 } else {
                     westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
@@ -3345,17 +3345,17 @@
             // Create specific archetype combination descriptions
             let archetypeDescription = '';
             
-            if (archetypes === 'IS' || archetypes === 'SI') {
+            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a philosophical approach to sensemaking. You naturally seek deep understanding and meaning, often spending significant time in reflection and analysis. Your strength lies in your ability to synthesize complex ideas and find underlying patterns, though you may sometimes struggle with moving from contemplation to action.`;
-            } else if (archetypes === 'CP' || archetypes === 'PC') {
+            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a maker's approach to sensemaking. You thrive on creative expression and productive output, naturally translating ideas into tangible results. Your strength lies in your ability to innovate and execute, though you may sometimes need to balance your action-oriented nature with deeper reflection.`;
-            } else if (archetypes === 'PS' || archetypes === 'SP') {
+            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a builder's approach to sensemaking. You excel at systematic creation and structured progress, combining practical action with comprehensive understanding. Your strength lies in your ability to construct robust frameworks and methodologies, making complex projects manageable and sustainable.`;
-            } else if (archetypes === 'CI' || archetypes === 'IC') {
+            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates an explorer's approach to sensemaking. You thrive on creative discovery and meaningful investigation, naturally seeking novel perspectives and innovative solutions. Your strength lies in your ability to venture into uncharted territory and find unique insights that others might miss.`;
-            } else if (archetypes === 'CS' || archetypes === 'SC') {
+            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a translator's approach to sensemaking. You excel at bridging different worlds of understanding, making complex or abstract concepts accessible to others. Your strength lies in your ability to synthesize diverse perspectives and communicate insights across different contexts and audiences.`;
-            } else if (archetypes === 'IP' || archetypes === 'PI') {
+            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a converter's approach to sensemaking. You excel at transforming deep insights into practical applications, bridging the gap between meaning and action. Your strength lies in your ability to take abstract understanding and convert it into concrete, productive outcomes.`;
             } else {
                 archetypeDescription = `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This combination creates a unique approach to understanding and engaging with the world around you.`;
@@ -3378,20 +3378,20 @@
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
             
             // Determine orientation based on archetype combinations
-            const archetypes = profile.dominantArchetypes.sort().join('');
+            const orientationArchetypes = profile.dominantArchetypes.sort().join('');
             let orientation = '';
             
-            if (archetypes === 'IS' || archetypes === 'SI') {
+            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
                 orientation = 'Westerner';
-            } else if (archetypes === 'CP' || archetypes === 'PC') {
+            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
                 orientation = 'Easterner';
-            } else if (archetypes === 'PS' || archetypes === 'SP') {
+            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
                 orientation = 'Northerner';
-            } else if (archetypes === 'CI' || archetypes === 'IC') {
+            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
                 orientation = 'Southerner';
-            } else if (archetypes === 'CS' || archetypes === 'SC') {
+            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                 orientation = 'Diagonal';
-            } else if (archetypes === 'IP' || archetypes === 'PI') {
+            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
                 orientation = 'Diagonal';
             } else {
                 orientation = 'Mixed';
@@ -3410,17 +3410,17 @@
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
             
-            if (archetypes === 'IS' || archetypes === 'SI') {
+            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
                 profileSubtitle.textContent = 'The Philosopher';
-            } else if (archetypes === 'CP' || archetypes === 'PC') {
+            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
                 profileSubtitle.textContent = 'The Maker';
-            } else if (archetypes === 'PS' || archetypes === 'SP') {
+            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
                 profileSubtitle.textContent = 'The Builder';
-            } else if (archetypes === 'CI' || archetypes === 'IC') {
+            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
                 profileSubtitle.textContent = 'The Explorer';
-            } else if (archetypes === 'CS' || archetypes === 'SC') {
+            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                 profileSubtitle.textContent = 'The Translator';
-            } else if (archetypes === 'IP' || archetypes === 'PI') {
+            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
                 profileSubtitle.textContent = 'The Converter';
             } else {
                 profileSubtitle.textContent = 'The Sensemaker';
@@ -3441,7 +3441,7 @@
             } else if (orientation === 'Southerner') {
                 westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
             } else if (orientation === 'Diagonal') {
-                if (archetypes === 'CS' || archetypes === 'SC') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                     westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
                 } else {
                     westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
@@ -3477,7 +3477,7 @@
                 overwhelmedTitle.textContent = 'When Southerners feel overwhelmed…';
                 overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
             } else if (orientation === 'Diagonal') {
-                if (archetypes === 'CS' || archetypes === 'SC') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                     overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
                     overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
                 } else {
@@ -3517,7 +3517,7 @@
                     stuckContent.innerHTML = 'As a Southerner with a Gardener tendency, you naturally flow between creativity and introspection. When stuck, you may be exploring without direction. Your Synthesizer archetype can help you make sense of your discoveries and identify meaningful patterns to pursue.';
                 }
             } else if (orientation === 'Diagonal') {
-                if (archetypes === 'CS' || archetypes === 'SC') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                     if (profile.tendency === 'Architect') {
                         stuckContent.innerHTML = 'As a Translator with an Architect tendency, you naturally bridge creative expression with systematic synthesis. When stuck, you may be over-structuring your translations. Lean into your Inner Guide to access the deeper meaning that needs to be communicated.';
                     } else {
@@ -3565,7 +3565,7 @@
                     promptsContent.innerHTML = 'What patterns are emerging from your creative explorations? How can your Synthesizer help you make sense of your discoveries? Look for the underlying themes that can guide your next phase of meaningful investigation.';
                 }
             } else if (orientation === 'Diagonal') {
-                if (archetypes === 'CS' || archetypes === 'SC') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
                     promptsTitle.textContent = `Prompts to focus your translation work as a ${profile.code}`;
                     if (profile.tendency === 'Architect') {
                         promptsContent.innerHTML = 'What is the one key insight that most needs to be communicated? How can your Inner Guide help you access the deeper meaning behind this translation? Focus on structuring one clear bridge between complex concepts and accessible understanding.';
