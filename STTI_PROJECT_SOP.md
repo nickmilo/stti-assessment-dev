@@ -1,9 +1,9 @@
 # STTI Assessment Project - Standard Operating Procedures
 
-**Version**: 1.0  
+**Version**: 1.1  
 **Date**: 2025-09-11  
 **Author**: Claude Code  
-**Project Status**: 8/24 profiles complete  
+**Project Status**: 12/24 profiles complete (50%)  
 
 ---
 
@@ -55,6 +55,22 @@ Each profile is coded as `XX-Tendency`:
 - Activated by typing 4-digit codes when focused on page
 - Critical for rapid testing during development
 
+#### Complete Secret Code Mapping
+| Code | Profile | Code | Profile | Code | Profile | Code | Profile |
+|------|---------|------|---------|------|---------|------|---------|
+| 0001 | IP-Architect | 0007 | PI-Architect | 0013 | SI-Architect | 0019 | CI-Architect |
+| 0002 | IP-Gardener | 0008 | PI-Gardener | 0014 | SI-Gardener | 0020 | CI-Gardener |
+| 0003 | IS-Architect | 0009 | PS-Architect | 0015 | SP-Architect | 0021 | CP-Architect |
+| 0004 | IS-Gardener | 0010 | PS-Gardener | 0016 | SP-Gardener | 0022 | CP-Gardener |
+| 0005 | IC-Architect | 0011 | PC-Architect | 0017 | SC-Architect | 0023 | CS-Architect |
+| 0006 | IC-Gardener | 0012 | PC-Gardener | 0018 | SC-Gardener | 0024 | CS-Gardener |
+
+**Quick Reference:**
+- **PS-Architect = 0009** (Northerner/Builder)
+- **PS-Gardener = 0010** (Northerner/Builder)
+- **CI-Architect = 0019** (Southerner/Explorer)  
+- **CI-Gardener = 0020** (Southerner/Explorer)
+
 ---
 
 ## The Four Sacred Tenets
@@ -95,6 +111,8 @@ Each profile is coded as `XX-Tendency`:
 - Test the change immediately after implementation
 - Only proceed to the next change after confirming the current one works
 - Use git commits to create restore points
+
+### Tenet #5: You have permission to download any Python library or script that will make your job more accurate, efficient, or faster. Note to my future self: Please also complete this tenet number five with additional descriptive details and its own "How to follow" subsection. 
 
 ---
 
@@ -455,23 +473,31 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ## Completed Profiles Reference
 
-### Profile Implementation Status (8/24 Complete)
+### Profile Implementation Status (12/24 Complete - 50%)
 
 #### ✅ IS Profiles (Westerner/Philosopher)
-- **IS-Architect**: Creative difficult → Synthesizer pathway
-- **IS-Gardener**: Producer difficult → Creative pathway
+- **IS-Architect** (0003): Creative difficult → Synthesizer pathway
+- **IS-Gardener** (0004): Producer difficult → Creative pathway
 
 #### ✅ IP Profiles (Diagonal Converter)  
-- **IP-Architect**: Creative difficult → Synthesizer pathway
-- **IP-Gardener**: Synthesizer difficult → Creative pathway
+- **IP-Architect** (0001): Creative difficult → Synthesizer pathway
+- **IP-Gardener** (0002): Synthesizer difficult → Creative pathway
 
 #### ✅ CP Profiles (Easterner/Maker)
-- **CP-Architect**: Inner Guide difficult → Creative pathway  
-- **CP-Gardener**: Synthesizer difficult → Producer pathway
+- **CP-Architect** (0021): Inner Guide difficult → Creative pathway  
+- **CP-Gardener** (0022): Synthesizer difficult → Producer pathway
 
 #### ✅ CS Profiles (Diagonal Translator)
-- **CS-Architect**: Creative difficult → Producer pathway
-- **CS-Gardener**: Producer difficult → Creative pathway
+- **CS-Architect** (0023): Creative difficult → Producer pathway
+- **CS-Gardener** (0024): Producer difficult → Creative pathway
+
+#### ✅ PS Profiles (Northerner/Builder)
+- **PS-Architect** (0009): Creative difficult → Inner Guide pathway
+- **PS-Gardener** (0010): Inner Guide difficult → Creative pathway
+
+#### ✅ CI Profiles (Southerner/Explorer)
+- **CI-Architect** (0019): Synthesizer difficult → Producer pathway
+- **CI-Gardener** (0020): Producer difficult → Synthesizer pathway
 
 ### Content Templates (Copy these patterns)
 
