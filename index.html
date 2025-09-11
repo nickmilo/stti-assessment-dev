@@ -588,12 +588,12 @@
             font-size: 1rem;
         }
 
-        .orientation-section {
+        .westerner-section {
             display: flex;
             flex-direction: column;
         }
 
-        .orientation-title {
+        .westerner-title {
             font-family: 'DM Mono', monospace;
             text-decoration: underline;
             color: var(--lyt-purple-deep);
@@ -601,7 +601,7 @@
             font-size: 1.1rem;
         }
 
-        .orientation-subtitle {
+        .westerner-subtitle {
             font-family: 'Space Grotesk', sans-serif;
             font-style: italic;
             color: var(--lyt-cyan);
@@ -609,7 +609,7 @@
             font-size: 1rem;
         }
 
-        .orientation-description {
+        .westerner-description {
             font-size: 1.1rem;
             color: #666;
             line-height: 1.6;
@@ -1218,10 +1218,10 @@
                 </div>
                 
                 <div class="second-row">
-                    <div class="orientation-section">
-                        <div class="orientation-title" id="orientationTitle">Orientation</div>
+                    <div class="westerner-section">
+                        <div class="westerner-title" id="westernerTitle">Orientation</div>
                         <div class="orientation-pill" id="orientationPill">Westerner</div>
-                        <div class="orientation-description" id="orientationDescription">
+                        <div class="westerner-description" id="westernerDescription">
                             Your westerner/easterner analysis will appear here.
                         </div>
                     </div>
@@ -1619,6 +1619,11 @@
                 }
             }
             
+            // Keep 9 key as backup
+            if (e.key === '9' && keySequence === '') {
+                console.log('9 key backup');
+                activateProfile('IS-Architect', 'The Philosopher');
+            }
         });
         
         function setTendencyPills(code) {
@@ -1672,24 +1677,6 @@
         
         function setCollapsibleSections(code) {
             const [archetypes, tendency] = code.split('-');
-            // DEBUG: Log exactly what profile code we received
-            console.log('=== setCollapsibleSections DEBUG ===');
-            console.log('Received code:', JSON.stringify(code));
-            console.log('Code type:', typeof code);
-            console.log('Code length:', code ? code.length : 'null/undefined');
-            console.log('Code charCodes:', code ? Array.from(code).map(c => c.charCodeAt(0)) : 'null/undefined');
-            console.log('Expected: SP-Architect');
-            console.log('Match test:', code === 'SP-Architect');
-            console.log('=====================================');
-            // DEBUG: Log exactly what profile code we received
-            console.log('=== setCollapsibleSections DEBUG ===');
-            console.log('Received code:', JSON.stringify(code));
-            console.log('Code type:', typeof code);
-            console.log('Code length:', code ? code.length : 'null/undefined');
-            console.log('Code charCodes:', code ? Array.from(code).map(c => c.charCodeAt(0)) : 'null/undefined');
-            console.log('Expected: SP-Architect');
-            console.log('Match test:', code === 'SP-Architect');
-            console.log('=====================================');
             
             // Show collapsible sections for all profiles
             const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
@@ -2218,7 +2205,7 @@
                 const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
                 if (overwhelmedTitle && overwhelmedContent) {
                     overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
+                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isnt perfectly planned.';
                 }
                 
                 // Set stuck/unstuck content for SP-Gardener
@@ -2346,14 +2333,12 @@
                 }
                 return; // Exit early, don\'t use generic logic
             }
-            return; // Exit early, dont use generic logic
+            return; // Exit early, don't use generic logic
             }
             
             // All 24 profiles have specific implementations above
             // No generic fallback needed - if we reach here, it's an error
             console.error('setCollapsibleSections: Unknown profile code:', code);
-            console.error('Code details - type:', typeof code, 'length:', code?.length, 'value:', JSON.stringify(code));
-            console.error('Available profiles should include: SP-Architect, SP-Gardener, etc.');
         }
         
         function activateProfile(code, name) {
@@ -2467,27 +2452,15 @@
             
             if (sortedArchetypes === 'IS') {
                 orientation = 'Westerner';
-            } else if (sortedArchetypes === 'SI') {
-                orientation = 'Westerner';
             } else if (sortedArchetypes === 'CP') {
-                orientation = 'Easterner';
-            } else if (sortedArchetypes === 'PC') {
                 orientation = 'Easterner';
             } else if (sortedArchetypes === 'PS') {
                 orientation = 'Northerner';
-            } else if (sortedArchetypes === 'SP') {
-                orientation = 'Northerner';
             } else if (sortedArchetypes === 'CI') {
-                orientation = 'Southerner';
-            } else if (sortedArchetypes === 'IC') {
                 orientation = 'Southerner';
             } else if (sortedArchetypes === 'CS') {
                 orientation = 'Diagonal';
-            } else if (sortedArchetypes === 'SC') {
-                orientation = 'Diagonal';
             } else if (sortedArchetypes === 'IP') {
-                orientation = 'Diagonal';
-            } else if (sortedArchetypes === 'PI') {
                 orientation = 'Diagonal';
             } else {
                 orientation = 'Mixed';
@@ -2498,24 +2471,24 @@
             if (orientationPill) orientationPill.textContent = orientation;
             
             // Set orientation description
-            const orientationDesc = document.getElementById('orientationDescription');
-            if (orientationDesc) {
+            const westernerDesc = document.getElementById('westernerDescription');
+            if (westernerDesc) {
                 if (orientation === 'Westerner') {
-                    orientationDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
+                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
                 } else if (orientation === 'Easterner') {
-                    orientationDesc.innerHTML = `As an <strong>${code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
+                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
                 } else if (orientation === 'Northerner') {
-                    orientationDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
+                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
                 } else if (orientation === 'Southerner') {
-                    orientationDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
+                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
                 } else if (orientation === 'Diagonal') {
                     if (sortedArchetypes === 'CS') {
-                        orientationDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
+                        westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
                     } else {
-                        orientationDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging the gap between meaning and execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
+                        westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging the gap between meaning and execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
                     }
                 } else {
-                    orientationDesc.innerHTML = `As an <strong>${code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
+                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
                 }
             }
 
@@ -3023,11 +2996,11 @@
             const isWesterner = (orientation === 'Westerner');
             const isEasterner = (orientation === 'Easterner');
             
-            const orientationTitle = document.getElementById('orientationTitle');
-            const orientationDescription = document.getElementById('orientationDescription');
+            const westernerTitle = document.getElementById('westernerTitle');
+            const westernerDescription = document.getElementById('westernerDescription');
             
             // Update identity title, subtitle and description
-            const orientationSubtitle = document.getElementById('orientationSubtitle');
+            const westernerSubtitle = document.getElementById('westernerSubtitle');
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
@@ -3052,24 +3025,24 @@
             const orientationPill = document.getElementById('orientationPill');
             orientationPill.textContent = orientation;
             
-            orientationTitle.textContent = 'Orientation';
+            westernerTitle.textContent = 'Orientation';
             
             if (orientation === 'Westerner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
             } else if (orientation === 'Easterner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
             } else if (orientation === 'Northerner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
             } else if (orientation === 'Southerner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
             } else if (orientation === 'Diagonal') {
                 if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                    orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
                 } else {
-                    orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
                 }
             } else {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
             // Show additional sections for all profiles
@@ -3392,11 +3365,11 @@
             const isWesterner = (orientation === 'Westerner');
             const isEasterner = (orientation === 'Easterner');
             
-            const orientationTitle = document.getElementById('orientationTitle');
-            const orientationDescription = document.getElementById('orientationDescription');
+            const westernerTitle = document.getElementById('westernerTitle');
+            const westernerDescription = document.getElementById('westernerDescription');
             
             // Update identity title, subtitle and description
-            const orientationSubtitle = document.getElementById('orientationSubtitle');
+            const westernerSubtitle = document.getElementById('westernerSubtitle');
             
             // Update profile subtitle (The Philosopher, The Maker, etc.)
             const profileSubtitle = document.getElementById('profileSubtitle');
@@ -3421,24 +3394,24 @@
             const orientationPill = document.getElementById('orientationPill');
             orientationPill.textContent = orientation;
             
-            orientationTitle.textContent = 'Orientation';
+            westernerTitle.textContent = 'Orientation';
             
             if (orientation === 'Westerner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
             } else if (orientation === 'Easterner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
             } else if (orientation === 'Northerner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
             } else if (orientation === 'Southerner') {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southerners are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southerners need space for both reflection and creative experimentation.`;
             } else if (orientation === 'Diagonal') {
                 if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                    orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
                 } else {
-                    orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
+                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
                 }
             } else {
-                orientationDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
+                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
             }
             
             // Show additional sections for IS-Architect
@@ -3451,7 +3424,127 @@
             stuckUnstuckSection.style.display = 'block';
             promptsSection.style.display = 'block';
             
-            // Note: Collapsible sections content is set by setCollapsibleSections() function above
+            // Update overwhelmed section content based on orientation
+            const overwhelmedTitle = overwhelmedSection.querySelector('.section-title');
+            const overwhelmedContent = document.getElementById('overwhelmedContent');
+            
+            if (orientation === 'Westerner') {
+                overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
+                overwhelmedContent.innerHTML = 'They tend to double-down on reflection and analysis, when what they actually need is to move into expression and action, allowing their insights to manifest in the world.';
+            } else if (orientation === 'Easterner') {
+                overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
+                overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
+            } else if (orientation === 'Northerner') {
+                overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
+                overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
+            } else if (orientation === 'Southerner') {
+                overwhelmedTitle.textContent = 'When Southerners feel overwhelmed…';
+                overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
+            } else if (orientation === 'Diagonal') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
+                    overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
+                } else {
+                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
+                }
+            }
+            
+            // Update stuck/unstuck section content based on profile
+            const stuckTitle = stuckUnstuckSection.querySelector('.section-title');
+            const stuckContent = document.getElementById('stuckUnstuckContent');
+            
+            stuckTitle.textContent = `Getting stuck and unstuck as a ${profile.code}`;
+            
+            if (orientation === 'Westerner') {
+                if (profile.tendency === 'Architect') {
+                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
+                } else {
+                    stuckContent.innerHTML = 'As a Westerner with a Gardener tendency, you have natural flexibility in your approach but may get stuck in endless reflection. Your path to expression often flows through your Creative archetype, allowing organic emergence of ideas. Trust the process and let insights unfold naturally into creative output.';
+                }
+            } else if (orientation === 'Easterner') {
+                if (profile.tendency === 'Architect') {
+                    stuckContent.innerHTML = 'As an Easterner with an Architect tendency, you naturally move from expression to structure. When stuck, you may over-produce without reflection. Your path to balance is through your Synthesizer archetype, which helps you step back and make sense of your creative output before moving forward.';
+                } else {
+                    stuckContent.innerHTML = 'As an Easterner with a Gardener tendency, you thrive on creative flow and production. When stuck, it\'s usually because you\'ve been too active without Inner Guide reflection. Allow space for meaning-making and introspection to inform your creative expression.';
+                }
+            } else if (orientation === 'Northerner') {
+                if (profile.tendency === 'Architect') {
+                    stuckContent.innerHTML = 'As a Northerner with an Architect tendency, you excel at systematic building but may get stuck in over-planning. Your Creative archetype is your bridge to breakthrough—use it to inject innovation into your structured processes and find novel approaches to execution.';
+                } else {
+                    stuckContent.innerHTML = 'As a Northerner with a Gardener tendency, you balance structure with flexibility. When stuck, you may need to choose between systematic progress and organic exploration. Trust your Inner Guide to help you discern when to build methodically and when to explore new directions.';
+                }
+            } else if (orientation === 'Southerner') {
+                if (profile.tendency === 'Architect') {
+                    stuckContent.innerHTML = 'As a Southerner with an Architect tendency, you blend creative exploration with structured approach. When stuck, it\'s often because you\'re trying to structure the unstructurable. Lean into your Producer archetype to create concrete outcomes from your creative insights.';
+                } else {
+                    stuckContent.innerHTML = 'As a Southerner with a Gardener tendency, you naturally flow between creativity and introspection. When stuck, you may be exploring without direction. Your Synthesizer archetype can help you make sense of your discoveries and identify meaningful patterns to pursue.';
+                }
+            } else if (orientation === 'Diagonal') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
+                    if (profile.tendency === 'Architect') {
+                        stuckContent.innerHTML = 'As a Translator with an Architect tendency, you naturally bridge creative expression with systematic synthesis. When stuck, you may be over-structuring your translations. Lean into your Inner Guide to access the deeper meaning that needs to be communicated.';
+                    } else {
+                        stuckContent.innerHTML = 'As a Translator with a Gardener tendency, you fluidly move between creative and analytical modes. When stuck, it\'s often because you\'re trying to translate too much at once. Focus on one key insight and let your Producer help you communicate it clearly.';
+                    }
+                } else {
+                    if (profile.tendency === 'Architect') {
+                        stuckContent.innerHTML = 'As a Converter with an Architect tendency, you excel at transforming insights into structured action. When stuck, you may be trying to systematize everything. Trust your Creative archetype to find innovative ways to bridge meaning and execution.';
+                    } else {
+                        stuckContent.innerHTML = 'As a Converter with a Gardener tendency, you naturally flow between reflection and action. When stuck, you may be moving too quickly between modes. Use your Synthesizer to pause and make sense of your insights before converting them to action.';
+                    }
+                }
+            }
+            
+            // Update prompts section content based on profile
+            const promptsTitle = promptsSection.querySelector('.section-title');
+            const promptsContent = document.getElementById('promptsContent');
+            
+            if (orientation === 'Westerner') {
+                promptsTitle.textContent = `Prompts to go from West to East as a ${profile.code}`;
+                if (profile.tendency === 'Architect') {
+                    promptsContent.innerHTML = 'How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you\'ll likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express your deep insights.';
+                } else {
+                    promptsContent.innerHTML = 'What wants to emerge from your current reflection? How might your Creative archetype express this organically? Trust the natural flow from inner knowing to creative expression, allowing your insights to find their own unique form of manifestation.';
+                }
+            } else if (orientation === 'Easterner') {
+                promptsTitle.textContent = `Prompts to go from East to West as a ${profile.code}`;
+                if (profile.tendency === 'Architect') {
+                    promptsContent.innerHTML = 'What patterns are emerging from your creative output? How can your Synthesizer help you step back and make sense of what you\'ve created? Take time to analyze and structure your insights before diving into the next creative cycle.';
+                } else {
+                    promptsContent.innerHTML = 'What deeper meaning is your creative work pointing toward? How can your Inner Guide help you understand the significance of what you\'re creating? Allow space for reflection to inform and enrich your ongoing creative expression.';
+                }
+            } else if (orientation === 'Northerner') {
+                promptsTitle.textContent = `Prompts to balance building with breakthrough as a ${profile.code}`;
+                if (profile.tendency === 'Architect') {
+                    promptsContent.innerHTML = 'What would happen if you approached this systematically but with creative flair? How can your Creative archetype inject innovation into your structured process? Look for opportunities to build something uniquely yours while maintaining your methodical approach.';
+                } else {
+                    promptsContent.innerHTML = 'When does your systematic approach serve you, and when might exploration be more valuable? How can your Inner Guide help you discern the right balance? Trust your intuition about when to build methodically and when to explore new possibilities.';
+                }
+            } else if (orientation === 'Southerner') {
+                promptsTitle.textContent = `Prompts to ground exploration with direction as a ${profile.code}`;
+                if (profile.tendency === 'Architect') {
+                    promptsContent.innerHTML = 'Which of your creative insights are ready to become concrete outcomes? How can your Producer archetype help you build something tangible from your explorations? Focus on translating one key discovery into structured, actionable steps.';
+                } else {
+                    promptsContent.innerHTML = 'What patterns are emerging from your creative explorations? How can your Synthesizer help you make sense of your discoveries? Look for the underlying themes that can guide your next phase of meaningful investigation.';
+                }
+            } else if (orientation === 'Diagonal') {
+                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
+                    promptsTitle.textContent = `Prompts to focus your translation work as a ${profile.code}`;
+                    if (profile.tendency === 'Architect') {
+                        promptsContent.innerHTML = 'What is the one key insight that most needs to be communicated? How can your Inner Guide help you access the deeper meaning behind this translation? Focus on structuring one clear bridge between complex concepts and accessible understanding.';
+                    } else {
+                        promptsContent.innerHTML = 'Which perspectives are asking to be bridged right now? How can your Producer help you communicate this synthesis clearly? Trust the organic flow of translation while ensuring your insights reach their intended audience effectively.';
+                    }
+                } else {
+                    promptsTitle.textContent = `Prompts to sustain your conversion rhythm as a ${profile.code}`;
+                    if (profile.tendency === 'Architect') {
+                        promptsContent.innerHTML = 'How can you create systematic pathways from insight to action? What would a sustainable process look like for converting your deep understanding into concrete outcomes? Design structures that honor both reflection and execution.';
+                    } else {
+                        promptsContent.innerHTML = 'What rhythm naturally emerges between your inner knowing and outer creating? How can your Synthesizer help you recognize when to reflect and when to act? Trust the organic flow between meaning-making and manifestation.';
+                    }
+                }
+            }
             
             // Update chord diagram image
             const chordImage = document.getElementById('chordDiagram');
