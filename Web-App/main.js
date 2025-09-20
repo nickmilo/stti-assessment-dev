@@ -904,7 +904,7 @@
                     // Set chord diagram for all profiles
                     const chordDiagram = document.getElementById('chordDiagram');
                     if (chordDiagram) {
-                        chordDiagram.src = `../Assets/Images/Clean_STTI_${\1}_Thin.png`;
+                        chordDiagram.src = `../Assets/Images/Clean_STTI_${code}_Thin.png`;
                         chordDiagram.alt = `${code} Sensemaking Pattern`;
                     }
                     
@@ -1606,7 +1606,7 @@
             
             // Update chord diagram image
             const chordImage = document.getElementById('chordDiagram');
-            chordImage.src = `../Assets/Images/Clean_STTI_${\1}_Thin.png`;
+            chordImage.src = `../Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
             
             showScreen('resultsScreen');
@@ -1972,44 +1972,49 @@
             overwhelmedSection.style.display = 'block';
             stuckUnstuckSection.style.display = 'block';
             promptsSection.style.display = 'block';
-            
-            // Update overwhelmed section content based on orientation
-            const overwhelmedTitle = overwhelmedSection.querySelector('.section-title');
-            const overwhelmedContent = document.getElementById('overwhelmedContent');
-            
-            if (orientation === 'Westerner') {
-                overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-                overwhelmedContent.innerHTML = 'They tend to double-down on reflection and analysis, when what they actually need is to move into expression and action, allowing their insights to manifest in the world.';
-            } else if (orientation === 'Easterner') {
-                overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
-                overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
-            } else if (orientation === 'Northerner') {
-                overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
-                overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
-            } else if (orientation === 'Southern') {
-                overwhelmedTitle.textContent = 'When Southern feel overwhelmed…';
-                overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
-            } else if (orientation === 'Diagonal') {
-                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                    overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
-                } else {
-                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
+
+            // Use ProfileRenderer to populate sections
+            if (window.profileRenderer && window.profileRenderer.hasProfile(profile.code)) {
+                window.profileRenderer.renderProfile(profile.code);
+            } else {
+                // Fallback to hardcoded content for profiles not in JSON
+                // Update overwhelmed section content based on orientation
+                const overwhelmedTitle = overwhelmedSection.querySelector('.section-title');
+                const overwhelmedContent = document.getElementById('overwhelmedContent');
+
+                if (orientation === 'Westerner') {
+                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They tend to double-down on reflection and analysis, when what they actually need is to move into expression and action, allowing their insights to manifest in the world.';
+                } else if (orientation === 'Easterner') {
+                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
+                } else if (orientation === 'Northerner') {
+                    overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
+                } else if (orientation === 'Southern') {
+                    overwhelmedTitle.textContent = 'When Southern feel overwhelmed…';
+                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
+                } else if (orientation === 'Diagonal') {
+                    if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
+                        overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
+                        overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
+                    } else {
+                        overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
+                        overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
+                    }
                 }
-            }
+
+                // Update stuck/unstuck section content based on profile (fallback only)
+                const stuckTitle = stuckUnstuckSection.querySelector('.section-title');
+                const stuckContent = document.getElementById('stuckUnstuckContent');
             
-            // Update stuck/unstuck section content based on profile
-            const stuckTitle = stuckUnstuckSection.querySelector('.section-title');
-            const stuckContent = document.getElementById('stuckUnstuckContent');
-            
-            stuckTitle.textContent = `Getting stuck and unstuck as a ${profile.code}`;
-            
-            if (orientation === 'Westerner') {
-                if (profile.tendency === 'Architect') {
-                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
-                } else {
-                    stuckContent.innerHTML = 'As a Westerner with a Gardener tendency, you have natural flexibility in your approach but may get stuck in endless reflection. Your path to expression often flows through your Creative archetype, allowing organic emergence of ideas. Trust the process and let insights unfold naturally into creative output.';
+                stuckTitle.textContent = `Getting stuck and unstuck as a ${profile.code}`;
+
+                if (orientation === 'Westerner') {
+                    if (profile.tendency === 'Architect') {
+                        stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
+                    } else {
+                        stuckContent.innerHTML = 'As a Westerner with a Gardener tendency, you have natural flexibility in your approach but may get stuck in endless reflection. Your path to expression often flows through your Creative archetype, allowing organic emergence of ideas. Trust the process and let insights unfold naturally into creative output.';
                 }
             } else if (orientation === 'Easterner') {
                 if (profile.tendency === 'Architect') {
@@ -2094,12 +2099,13 @@
                     }
                 }
             }
-            
+            }
+
             // Update chord diagram image
             const chordImage = document.getElementById('chordDiagram');
-            chordImage.src = `../Assets/Images/Clean_STTI_${\1}_Thin.png`;
+            chordImage.src = `../Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
-            
+
             showScreen('resultsScreen');
         }
 
