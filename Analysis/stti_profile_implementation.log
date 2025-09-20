@@ -120,3 +120,100 @@
 2025-09-20 11:14:42,880 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
 2025-09-20 11:14:42,880 - utils - INFO - ✅ Successfully replaced 11 occurrences
 2025-09-20 11:14:42,880 - utils - INFO - ✅ Changed 'Southerns' → 'Southern'
+2025-09-20 11:20:40,752 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:20:40,753 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:20:40,753 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,753 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,753 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:20:40,754 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:20:40,754 - utils - INFO - 🔎 Found 1 occurrences of 'CanelaDeck-Medium-Trial.otf'
+2025-09-20 11:20:40,754 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:20:40,754 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,754 - utils - INFO - Line 22: src: url('→Assets/Fonts/CanelaDeck-Medium-Trial.otf←') format('opentype');
+2025-09-20 11:20:40,754 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,754 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:20:40,755 - utils - ERROR - ❌ Still found 1 occurrences of 'CanelaDeck-Medium-Trial.otf'
+2025-09-20 11:20:40,755 - utils - ERROR - ❌ Change validation failed
+2025-09-20 11:20:40,803 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:20:40,803 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:20:40,804 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,804 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,804 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:20:40,804 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:20:40,804 - utils - INFO - 🔎 Found 1 occurrences of 'CanelaDeck-Regular-Trial.otf'
+2025-09-20 11:20:40,805 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:20:40,805 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,805 - utils - INFO - Line 14: src: url('→Assets/Fonts/CanelaDeck-Regular-Trial.otf←') format('opentype');
+2025-09-20 11:20:40,805 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,805 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:20:40,805 - utils - ERROR - ❌ Still found 1 occurrences of 'CanelaDeck-Regular-Trial.otf'
+2025-09-20 11:20:40,805 - utils - ERROR - ❌ Change validation failed
+2025-09-20 11:20:40,854 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:20:40,854 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:20:40,855 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,855 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,855 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:20:40,855 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:20:40,855 - utils - INFO - 🔎 Found 1 occurrences of 'lyt-logo.png'
+2025-09-20 11:20:40,855 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:20:40,855 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,855 - utils - INFO - Line 1133: <img src="../Assets/Images/→Assets/Images/lyt-logo.png←" alt="Linking Your Thinking" class="logo">
+2025-09-20 11:20:40,856 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,856 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:20:40,856 - utils - ERROR - ❌ Still found 1 occurrences of 'lyt-logo.png'
+2025-09-20 11:20:40,856 - utils - ERROR - ❌ Change validation failed
+2025-09-20 11:21:08,987 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:21:20,573 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:21:20,573 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:21:20,573 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,573 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,573 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:21:20,574 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:21:20,574 - utils - INFO - 🔎 Found 1 occurrences of 'url('CanelaDeck-Regular-Trial.otf')'
+2025-09-20 11:21:20,574 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:21:20,574 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,574 - utils - INFO - Line 14: src: →url('Assets/Fonts/CanelaDeck-Regular-Trial.otf')← format('opentype');
+2025-09-20 11:21:20,575 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,575 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:21:20,575 - utils - INFO - ✅ Validation passed: 1 replacements made, 1 total 'url('Assets/Fonts/CanelaDeck-Regular-Trial.otf')'
+2025-09-20 11:21:20,575 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:21:20,575 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:21:20,576 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:21:20,576 - utils - INFO - ✅ Successfully replaced 1 occurrences
+2025-09-20 11:21:20,576 - utils - INFO - ✅ Changed 'url('CanelaDeck-Regular-Trial.otf')' → 'url('Assets/Fonts/CanelaDeck-Regular-Trial.otf')'
+2025-09-20 11:21:20,633 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:21:20,633 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:21:20,634 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,634 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,634 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:21:20,634 - utils - INFO - HTML loaded successfully: 208446 characters
+2025-09-20 11:21:20,638 - utils - INFO - 🔎 Found 1 occurrences of 'url('CanelaDeck-Medium-Trial.otf')'
+2025-09-20 11:21:20,638 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:21:20,638 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,638 - utils - INFO - Line 22: src: →url('Assets/Fonts/CanelaDeck-Medium-Trial.otf')← format('opentype');
+2025-09-20 11:21:20,638 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,639 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:21:20,639 - utils - INFO - ✅ Validation passed: 1 replacements made, 1 total 'url('Assets/Fonts/CanelaDeck-Medium-Trial.otf')'
+2025-09-20 11:21:20,639 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:21:20,639 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:21:20,640 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:21:20,640 - utils - INFO - ✅ Successfully replaced 1 occurrences
+2025-09-20 11:21:20,640 - utils - INFO - ✅ Changed 'url('CanelaDeck-Medium-Trial.otf')' → 'url('Assets/Fonts/CanelaDeck-Medium-Trial.otf')'
+2025-09-20 11:21:20,688 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:21:20,688 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:21:20,689 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,689 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,689 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:21:20,689 - utils - INFO - HTML loaded successfully: 208459 characters
+2025-09-20 11:21:20,689 - utils - INFO - 🔎 Found 1 occurrences of '../Assets/Images/lyt-logo.png'
+2025-09-20 11:21:20,689 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:21:20,689 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,690 - utils - INFO - Line 1133: <img src="→Assets/Images/lyt-logo.png←" alt="Linking Your Thinking" class="logo">
+2025-09-20 11:21:20,690 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,690 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:21:20,690 - utils - INFO - ✅ Validation passed: 1 replacements made, 1 total 'Assets/Images/lyt-logo.png'
+2025-09-20 11:21:20,690 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:21:20,690 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:21:20,691 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:21:20,691 - utils - INFO - ✅ Successfully replaced 1 occurrences
+2025-09-20 11:21:20,691 - utils - INFO - ✅ Changed '../Assets/Images/lyt-logo.png' → 'Assets/Images/lyt-logo.png'
