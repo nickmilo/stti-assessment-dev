@@ -58,6 +58,9 @@ class ProfileRenderer {
             // Render prompts section
             this.renderSection('prompts', profile.prompts);
 
+            // Render archetypes synergy section
+            this.renderSection('archetypesSynergy', profile.archetypesSynergy);
+
             console.log(`✅ Rendered profile: ${profileCode}`);
             return true;
 
@@ -83,6 +86,9 @@ class ProfileRenderer {
                 break;
             case 'prompts':
                 sectionId = 'promptsSection';
+                break;
+            case 'archetypesSynergy':
+                sectionId = 'archetypesSynergySection';
                 break;
             default:
                 console.warn(`Unknown section type: ${sectionType}`);

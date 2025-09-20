@@ -1967,11 +1967,13 @@
             const overwhelmedSection = document.getElementById('overwhelmedSection');
             const stuckUnstuckSection = document.getElementById('stuckUnstuckSection');
             const promptsSection = document.getElementById('promptsSection');
-            
+            const archetypesSynergySection = document.getElementById('archetypesSynergySection');
+
             // Show additional sections for all profiles and update content
             overwhelmedSection.style.display = 'block';
             stuckUnstuckSection.style.display = 'block';
             promptsSection.style.display = 'block';
+            archetypesSynergySection.style.display = 'block';
 
             // Use ProfileRenderer to populate sections
             if (window.profileRenderer && window.profileRenderer.hasProfile(profile.code)) {
@@ -2130,7 +2132,7 @@
             const brokenProfiles = ['IC-Architect', 'IC-Gardener', 'PI-Architect', 'PI-Gardener', 'PC-Architect', 'SI-Architect', 'SI-Gardener', 'SP-Architect', 'SP-Gardener', 'SC-Architect', 'SC-Gardener'];
             
             if (brokenProfiles.includes(profileCode)) {
-                const sectionsToHide = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
+                const sectionsToHide = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection', 'archetypesSynergySection'];
                 sectionsToHide.forEach(sectionId => {
                     const section = document.getElementById(sectionId);
                     if (section) {

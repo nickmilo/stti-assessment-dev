@@ -11,6 +11,10 @@
     "prompts": {
       "title": "Prompts to go from West to East as an IS-Architect",
       "content": "How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you will likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express your deep insights."
+    },
+    "archetypesSynergy": {
+      "title": "When your two dominant archetypes are working well together...",
+      "content": "Your Inner Guide and Synthesizer create a powerful philosophical engine. The Inner Guide provides deep meaning and purpose, while the Synthesizer weaves complex ideas into coherent frameworks. When these archetypes are aligned, you become a master of profound insight—able to find meaningful patterns in complexity and articulate wisdom that others struggle to express. This combination allows you to architect not just systems, but entire worldviews."
     }
   },
   "IS-Gardener": {
@@ -25,6 +29,10 @@
     "prompts": {
       "title": "Prompts to go from West to East as an IS-Gardener",
       "content": "What would it look like for you to do something creative with this idea? How can your Creative help you express your insights in a tangible way? Once your Creative is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to bring your ideas into systematic implementation."
+    },
+    "archetypesSynergy": {
+      "title": "When your two dominant archetypes are working well together...",
+      "content": "Your Inner Guide and Synthesizer create a flexible wisdom system. The Inner Guide grounds you in what's truly meaningful, while the Synthesizer helps you see connections across diverse domains. When these archetypes are in harmony, you become a natural philosopher-gardener—someone who can nurture ideas organically while maintaining deep purposefulness. This combination allows you to cultivate insights that grow naturally from authentic understanding rather than forced analysis."
     }
   }
 }
