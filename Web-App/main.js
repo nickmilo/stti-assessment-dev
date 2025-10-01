@@ -400,6 +400,35 @@
             // ProfileRenderer should always be available - log error if not
             console.error(`❌ setOrientation: ProfileRenderer missing for ${code}`);
         }
+
+        function setProfileSubtitle(code) {
+            // Extract archetypes from profile code
+            const [archetypes] = code.split('-');
+            const sortedArchetypes = archetypes.split('').sort().join('');
+
+            // Determine subtitle based on orientation
+            let subtitle = '';
+
+            if (sortedArchetypes === 'IS') {
+                subtitle = 'The Philosopher';
+            } else if (sortedArchetypes === 'CP') {
+                subtitle = 'The Maker';
+            } else if (sortedArchetypes === 'PS') {
+                subtitle = 'The Builder';
+            } else if (sortedArchetypes === 'CI') {
+                subtitle = 'The Explorer';
+            } else if (sortedArchetypes === 'CS') {
+                subtitle = 'The Translator';
+            } else if (sortedArchetypes === 'IP') {
+                subtitle = 'The Converter';
+            } else {
+                subtitle = 'The Sensemaker';
+            }
+
+            // Set profile subtitle
+            const profileSubtitle = document.getElementById('profileSubtitle');
+            if (profileSubtitle) profileSubtitle.textContent = subtitle;
+        }
         
 
 
@@ -635,10 +664,7 @@
             
             // Hide sections for broken profiles
             hideBrokenProfileSections(profile.code);
-            
-            // Determine orientation based on archetype combinations (used throughout function)
-            var orientationArchetypes = profile.dominantArchetypes.sort().join('');
-            
+
             // Submit to Formspree
             submitToFormspree(profile);
             
@@ -716,80 +742,16 @@
             secondaryTendencyPill.textContent = secondaryTendency;
             secondaryTendencyPill.className = 'tendency-pill secondary-tendency ' + (secondaryTendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
             
-            document.getElementById('tendencyDescription').innerHTML = 
+            document.getElementById('tendencyDescription').innerHTML =
                 `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
-            
-            // Determine orientation based on archetype combinations
-            let orientation = '';
-            
-            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
-                orientation = 'Westerner';
-            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
-                orientation = 'Easterner';
-            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
-                orientation = 'Northerner';
-            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
-                orientation = 'Southern';
-            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                orientation = 'Diagonal';
-            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
-                orientation = 'Diagonal';
-            } else {
-                orientation = 'Mixed';
-            }
-            
-            // Legacy variables for backward compatibility
-            const isWesterner = (orientation === 'Westerner');
-            const isEasterner = (orientation === 'Easterner');
-            
+
+            // Set orientation title
             const westernerTitle = document.getElementById('westernerTitle');
-            const westernerDescription = document.getElementById('westernerDescription');
-            
-            // Update identity title, subtitle and description
-            const westernerSubtitle = document.getElementById('westernerSubtitle');
-            
-            // Update profile subtitle (The Philosopher, The Maker, etc.)
-            const profileSubtitle = document.getElementById('profileSubtitle');
-            
-            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
-                profileSubtitle.textContent = 'The Philosopher';
-            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
-                profileSubtitle.textContent = 'The Maker';
-            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
-                profileSubtitle.textContent = 'The Builder';
-            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
-                profileSubtitle.textContent = 'The Explorer';
-            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                profileSubtitle.textContent = 'The Translator';
-            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
-                profileSubtitle.textContent = 'The Converter';
-            } else {
-                profileSubtitle.textContent = 'The Sensemaker';
-            }
-            
-            // Update orientation pill
-            const orientationPill = document.getElementById('orientationPill');
-            orientationPill.textContent = orientation;
-            
             westernerTitle.textContent = 'Orientation';
-            
-            if (orientation === 'Westerner') {
-                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
-            } else if (orientation === 'Easterner') {
-                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
-            } else if (orientation === 'Northerner') {
-                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
-            } else if (orientation === 'Southern') {
-                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Southern</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image is predominantly focused on the southern side). Southern are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southern need space for both reflection and creative experimentation.`;
-            } else if (orientation === 'Diagonal') {
-                if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
-                } else {
-                    westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${profile.tendency.toLowerCase()}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging meaning with execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
-                }
-            } else {
-                westernerDescription.innerHTML = `As an <strong>${profile.code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
-            }
+
+            // Set profile subtitle and orientation using helper functions
+            setProfileSubtitle(profile.code);
+            setOrientation(profile.code);
             
             // Show additional sections for all profiles
             const overwhelmedSection = document.getElementById('overwhelmedSection');
