@@ -701,28 +701,10 @@
             else if (fourthArchetype === 'Synthesizer') fourthPill.classList.add('synthesizer-pill');
             else if (fourthArchetype === 'Producer') fourthPill.classList.add('producer-pill');
             else if (fourthArchetype === 'Creative') fourthPill.classList.add('creative-pill');
-            
-            // Create specific archetype combination descriptions
-            let archetypeDescription = '';
-            
-            if (orientationArchetypes === 'IS' || orientationArchetypes === 'SI') {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a philosophical approach to sensemaking. You naturally seek deep understanding and meaning, often spending significant time in reflection and analysis. Your strength lies in your ability to synthesize complex ideas and find underlying patterns, though you may sometimes struggle with moving from contemplation to action.`;
-            } else if (orientationArchetypes === 'CP' || orientationArchetypes === 'PC') {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a maker's approach to sensemaking. You thrive on creative expression and productive output, naturally translating ideas into tangible results. Your strength lies in your ability to innovate and execute, though you may sometimes need to balance your action-oriented nature with deeper reflection.`;
-            } else if (orientationArchetypes === 'PS' || orientationArchetypes === 'SP') {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a builder's approach to sensemaking. You excel at systematic creation and structured progress, combining practical action with comprehensive understanding. Your strength lies in your ability to construct robust frameworks and methodologies, making complex projects manageable and sustainable.`;
-            } else if (orientationArchetypes === 'CI' || orientationArchetypes === 'IC') {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates an explorer's approach to sensemaking. You thrive on creative discovery and meaningful investigation, naturally seeking novel perspectives and innovative solutions. Your strength lies in your ability to venture into uncharted territory and find unique insights that others might miss.`;
-            } else if (orientationArchetypes === 'CS' || orientationArchetypes === 'SC') {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a translator's approach to sensemaking. You excel at bridging different worlds of understanding, making complex or abstract concepts accessible to others. Your strength lies in your ability to synthesize diverse perspectives and communicate insights across different contexts and audiences.`;
-            } else if (orientationArchetypes === 'IP' || orientationArchetypes === 'PI') {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> and <strong>${secondaryArchetype}</strong> combination creates a converter's approach to sensemaking. You excel at transforming deep insights into practical applications, bridging the gap between meaning and action. Your strength lies in your ability to take abstract understanding and convert it into concrete, productive outcomes.`;
-            } else {
-                archetypeDescription = `The <strong>${primaryArchetype}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryArchetype}</strong>. This combination creates a unique approach to understanding and engaging with the world around you.`;
-            }
-            
-            document.getElementById('archetypeDescription').innerHTML = archetypeDescription;
-            
+
+            // Set archetype description using ProfileRenderer
+            setArchetypeDescription(profile.code);
+
             // Update tendency pill
             const tendencyPill = document.getElementById('tendencyPill');
             tendencyPill.textContent = profile.tendency;
