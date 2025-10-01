@@ -649,15 +649,18 @@
 
         function showResults() {
             console.log('Q53 DEBUG: showResults() called, hasSubmitted =', hasSubmitted);
-            // Prevent multiple submissions
-            if (hasSubmitted) {
-                console.log('Results already submitted, skipping duplicate submission');
-                return;
-            }
-            hasSubmitted = true;
 
             const scores = calculateScores();
             const profile = determineProfile(scores);
+
+            // Prevent multiple submissions to Formspree
+            if (hasSubmitted) {
+                console.log('Results already submitted, skipping duplicate Formspree submission');
+                // Still show the results screen even if it's a duplicate
+                showScreen('resultsScreen');
+                return;
+            }
+            hasSubmitted = true;
             
             // Set collapsible sections content for this profile
             setCollapsibleSections(profile.code);
