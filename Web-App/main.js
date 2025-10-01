@@ -214,57 +214,37 @@
                 secondaryTendencyPill.className = `tendency-pill secondary-tendency ${secondaryTendency === "Architect" ? "architect" : "gardener"}-pill`;
             }
 
-            // Set tendency description using ProfileRenderer if available
+            // Set tendency description using ProfileRenderer
             if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
                 const profile = window.profileRenderer.profiles[code];
                 if (profile && profile.tendencyDescription) {
                     const tendencyDesc = document.getElementById('tendencyDescription');
                     if (tendencyDesc) {
                         tendencyDesc.innerHTML = profile.tendencyDescription.content;
-                        console.log(`✅ setTendencyPills: Used ProfileRenderer for ${code}`);
                         return;
                     }
                 }
             }
 
-            // Fallback to generic description
-            const tendencyDesc = document.getElementById('tendencyDescription');
-            if (tendencyDesc) {
-                if (tendency === 'Architect') {
-                    tendencyDesc.innerHTML = 'The <strong>Architect</strong> is your dominant sensemaking tendency. This means you gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.';
-                } else {
-                    tendencyDesc.innerHTML = 'The <strong>Gardener</strong> is your dominant sensemaking tendency. This means you gravitate towards nurturing and cultivating the things around you. You prefer organic growth and emergence over rigid structure, allowing ideas and projects to develop naturally while providing gentle guidance.';
-                }
-                console.warn(`⚠️ setTendencyPills: Using fallback for ${code}`);
-            }
+            // ProfileRenderer should always be available - log error if not
+            console.error(`❌ setTendencyPills: ProfileRenderer missing for ${code}`);
         }
         
         function setArchetypeDescription(code) {
-            // Use ProfileRenderer if available (it has profile-specific descriptions)
+            // Use ProfileRenderer for profile-specific descriptions
             if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
                 const profile = window.profileRenderer.profiles[code];
                 if (profile && profile.archetypeDescription) {
                     const archetypeDesc = document.getElementById('archetypeDescription');
                     if (archetypeDesc) {
                         archetypeDesc.innerHTML = profile.archetypeDescription.content;
-                        console.log(`✅ setArchetypeDescription: Used ProfileRenderer for ${code}`);
                         return;
                     }
                 }
             }
 
-            // Fallback to generic description
-            const [archetypes, tendency] = code.split('-');
-            const primary = archetypes[0];
-            const secondary = archetypes[1];
-
-            const archetypeDesc = document.getElementById('archetypeDescription');
-            if (archetypeDesc) {
-                const primaryName = ARCHETYPE_NAMES[primary];
-                const secondaryName = ARCHETYPE_NAMES[secondary];
-                archetypeDesc.innerHTML = `The <strong>${primaryName}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryName}</strong>. This combination shapes how you naturally approach understanding and creating meaning from the world around you.`;
-                console.warn(`⚠️ setArchetypeDescription: Using fallback for ${code}`);
-            }
+            // ProfileRenderer should always be available - log error if not
+            console.error(`❌ setArchetypeDescription: ProfileRenderer missing for ${code}`);
         }
         
         function setCollapsibleSections(code) {
@@ -405,41 +385,20 @@
             const orientationPill = document.getElementById('orientationPill');
             if (orientationPill) orientationPill.textContent = orientation;
 
-            // Use ProfileRenderer for orientation description if available
+            // Use ProfileRenderer for orientation description
             if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
                 const profile = window.profileRenderer.profiles[code];
                 if (profile && profile.orientationDescription) {
                     const westernerDesc = document.getElementById('westernerDescription');
                     if (westernerDesc) {
                         westernerDesc.innerHTML = profile.orientationDescription.content;
-                        console.log(`✅ setOrientation: Used ProfileRenderer for ${code}`);
                         return;
                     }
                 }
             }
 
-            // Fallback to generic orientation descriptions
-            const westernerDesc = document.getElementById('westernerDescription');
-            if (westernerDesc) {
-                if (orientation === 'Westerner') {
-                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Westerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the western side). Westerners are known as "philosophers." They often get stuck reflecting and ruminating, and have difficulty moving from thinking to doing.`;
-                } else if (orientation === 'Easterner') {
-                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have an <strong>Easterner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the eastern side). Easterners are known as "makers." They often get stuck going from expression to reflection, from outward orientation to inward, from doing to thinking. But when Easterners feel overwhelmed, the answer is usually to do less action and more reflection.`;
-                } else if (orientation === 'Northerner') {
-                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Northerner</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the northern side). Northerners are known as "builders." They excel at structured creation and systematic progress, combining productive action with synthesized understanding. When overwhelmed, Northerners benefit from stepping back to gain perspective before diving into execution.`;
-                } else if (orientation === 'Southern') {
-                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Southern</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the southern side). Southern are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, Southern need space for both reflection and creative experimentation.`;
-                } else if (orientation === 'Diagonal') {
-                    if (sortedArchetypes === 'CS') {
-                        westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image spans diagonally across quadrants). You are known as "translators." You bridge creative expression with systematic synthesis, helping others understand complex ideas. Your diagonal nature gives you unique perspective-shifting abilities.`;
-                    } else {
-                        westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Diagonal</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image spans diagonally across quadrants). You are known as "converters." You excel at transforming inner insights into productive action, bridging the gap between meaning and execution. Your diagonal nature allows you to move fluidly between reflection and creation.`;
-                    }
-                } else {
-                    westernerDesc.innerHTML = `As an <strong>${code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
-                }
-                console.warn(`⚠️ setOrientation: Using fallback for ${code}`);
-            }
+            // ProfileRenderer should always be available - log error if not
+            console.error(`❌ setOrientation: ProfileRenderer missing for ${code}`);
         }
         
 
