@@ -6,6 +6,7 @@ class ProfileRenderer {
     constructor() {
         this.profiles = null;
         this.domCache = new Map();
+        this.isReady = false;
         this.loadProfiles();
     }
 
@@ -19,11 +20,13 @@ class ProfileRenderer {
                 throw new Error(`Failed to load profiles: ${response.status}`);
             }
             this.profiles = await response.json();
+            this.isReady = true;
             console.log('✅ Profile configuration loaded:', Object.keys(this.profiles).length, 'profiles');
         } catch (error) {
             console.error('❌ Failed to load profile configuration:', error);
             // Fallback to hardcoded profiles if JSON fails
             this.profiles = this.getFallbackProfiles();
+            this.isReady = true;
         }
     }
 

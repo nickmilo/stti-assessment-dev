@@ -215,7 +215,7 @@
             }
 
             // Set tendency description using ProfileRenderer
-            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+            if (window.profileRenderer && window.profileRenderer.isReady && window.profileRenderer.hasProfile(code)) {
                 const profile = window.profileRenderer.profiles[code];
                 if (profile && profile.tendencyDescription) {
                     const tendencyDesc = document.getElementById('tendencyDescription');
@@ -227,12 +227,12 @@
             }
 
             // ProfileRenderer should always be available - log error if not
-            console.error(`❌ setTendencyPills: ProfileRenderer missing for ${code}`);
+            console.error(`❌ setTendencyPills: ProfileRenderer not ready or missing for ${code}`);
         }
         
         function setArchetypeDescription(code) {
             // Use ProfileRenderer for profile-specific descriptions
-            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+            if (window.profileRenderer && window.profileRenderer.isReady && window.profileRenderer.hasProfile(code)) {
                 const profile = window.profileRenderer.profiles[code];
                 if (profile && profile.archetypeDescription) {
                     const archetypeDesc = document.getElementById('archetypeDescription');
@@ -256,7 +256,7 @@
             });
 
             // Use ProfileRenderer for all profile content
-            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+            if (window.profileRenderer && window.profileRenderer.isReady && window.profileRenderer.hasProfile(code)) {
                 const success = window.profileRenderer.renderProfile(code);
                 if (success) {
                     console.log(`✅ setCollapsibleSections: Rendered ${code} using ProfileRenderer`);
@@ -386,7 +386,7 @@
             if (orientationPill) orientationPill.textContent = orientation;
 
             // Use ProfileRenderer for orientation description
-            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+            if (window.profileRenderer && window.profileRenderer.isReady && window.profileRenderer.hasProfile(code)) {
                 const profile = window.profileRenderer.profiles[code];
                 if (profile && profile.orientationDescription) {
                     const westernerDesc = document.getElementById('westernerDescription');
