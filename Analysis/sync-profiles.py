@@ -189,13 +189,13 @@ def parse_titled_section(text):
 
 def clean_content(text):
     """
-    Clean and normalize content text
+    Clean and normalize content text, converting markdown to HTML
 
     Args:
-        text: Raw content text
+        text: Raw content text (may contain markdown)
 
     Returns:
-        str: Cleaned content
+        str: Cleaned content with HTML formatting
     """
     # Strip leading/trailing whitespace
     text = text.strip()
@@ -205,6 +205,13 @@ def clean_content(text):
 
     # Remove excessive blank lines (max 2 consecutive newlines)
     text = re.sub(r'\n{3,}', '\n\n', text)
+
+    # Convert markdown bold (**text**) to HTML (<strong>text</strong>)
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+
+    # Convert markdown italic (*text* or _text_) to HTML (<em>text</em>)
+    text = re.sub(r'(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)', r'<em>\1</em>', text)
+    text = re.sub(r'_(.+?)_', r'<em>\1</em>', text)
 
     return text
 
