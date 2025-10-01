@@ -1,26 +1,27 @@
 # STTI Assessment Project - Standard Operating Procedures
 
-**Version**: 1.2  
-**Date**: 2025-09-11 (Updated)  
-**Author**: Claude Code  
-**Project Status**: 12/24 profiles complete (50%)  
+**Version**: 2.0
+**Date**: 2025-10-01 (Updated)
+**Author**: Claude Code
+**Project Status**: 24/24 profiles complete (100%) - AUTOMATED SYNC ENABLED
 
 ---
 
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [The Four Sacred Tenets](#the-four-sacred-tenets)
-3. [Architecture & Code Structure](#architecture--code-structure)
-4. [Profile Implementation System](#profile-implementation-system)
-5. [Tendency Logic Patterns](#tendency-logic-patterns)
-6. [Working Process & Methodology](#working-process--methodology)
-7. [Common Pitfalls & Landmines](#common-pitfalls--landmines)
-8. [Technical Implementation Details](#technical-implementation-details)
-9. [Testing & Validation](#testing--validation)
-10. [Git Workflow & Deployment](#git-workflow--deployment)
-11. [Completed Profiles Reference](#completed-profiles-reference)
-12. [Future Work & Scaling](#future-work--scaling)
+2. [Content Management (NEW!)](#content-management)
+3. [The Four Sacred Tenets](#the-four-sacred-tenets)
+4. [Architecture & Code Structure](#architecture--code-structure)
+5. [Profile Implementation System](#profile-implementation-system)
+6. [Tendency Logic Patterns](#tendency-logic-patterns)
+7. [Working Process & Methodology](#working-process--methodology)
+8. [Common Pitfalls & Landmines](#common-pitfalls--landmines)
+9. [Technical Implementation Details](#technical-implementation-details)
+10. [Testing & Validation](#testing--validation)
+11. [Git Workflow & Deployment](#git-workflow--deployment)
+12. [Completed Profiles Reference](#completed-profiles-reference)
+13. [Future Work & Scaling](#future-work--scaling)
 
 ---
 
@@ -70,6 +71,81 @@ Each profile is coded as `XX-Tendency`:
 - **PS-Gardener = 0010** (Northerner/Builder)
 - **CI-Architect = 0019** (Southerner/Explorer)  
 - **CI-Gardener = 0020** (Southerner/Explorer)
+
+---
+
+## Content Management
+
+**🎉 NEW: Automated Markdown-to-JSON Sync System**
+
+All profile content is now managed through a single human-editable Markdown file with automatic synchronization to the application code.
+
+### How It Works
+
+```
+STTI Profiles Master Content.md (edit this)
+           ↓
+    python3 Analysis/sync-profiles.py
+           ↓
+    Web-App/profiles.json (auto-generated)
+           ↓
+    ProfileRenderer.js (renders content)
+           ↓
+    User sees updated content
+```
+
+### Updating Content Workflow
+
+```bash
+# 1. Edit the Master Content file
+vim "STTI Profiles Master Content.md"
+# Change line 21 or any other content
+
+# 2. Run sync script (with automatic validation)
+python3 Analysis/sync-profiles.py
+
+# 3. Output shows validation results
+# ✅ Parsed 24 profiles successfully
+# ✅ All validation checks passed
+
+# 4. Test locally (optional but recommended)
+open Web-App/index.html
+# Test secret codes: 0001, 0002, etc.
+
+# 5. Commit changes
+git add "STTI Profiles Master Content.md" Web-App/profiles.json
+git commit -m "Update profile content"
+git push
+```
+
+### Content Sections (7 per profile)
+
+Each of the 24 profiles has:
+1. **Archetype Description** - Dominant/secondary archetype combination
+2. **Orientation Description** - Profile orientation (Westerner, Easterner, etc.)
+3. **Tendency Description** - Architect vs Gardener approach
+4. **Overwhelmed** - How this orientation handles overwhelm
+5. **Stuck/Unstuck** - Guidance for getting unstuck
+6. **Prompts** - Questions to activate archetypes
+7. **Archetype Synergy** (optional) - How archetypes work together
+
+### Validation & Safety Features
+
+- **Automatic validation** prevents corrupted data
+- **Dry-run mode**: `python3 Analysis/sync-profiles.py --dry-run`
+- **Clear error messages** if content is malformed
+- **Git-based rollback**: `git checkout Web-App/profiles.json`
+
+### Validation Script
+
+To manually validate profiles.json:
+```bash
+python3 Analysis/validate-profiles.py
+```
+
+### Architecture Documentation
+
+Full details in [Documentation/Content-Sync-System.md](Content-Sync-System.md)
 
 ---
 
