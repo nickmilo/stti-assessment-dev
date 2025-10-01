@@ -92,7 +92,7 @@ class ProfileRenderer {
                 elementId = 'archetypeDescription';
                 break;
             case 'orientationDescription':
-                elementId = 'orientationDescription';
+                elementId = 'westernerDescription';  // HTML uses 'westernerDescription' ID
                 break;
             case 'tendencyDescription':
                 elementId = 'tendencyDescription';

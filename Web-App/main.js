@@ -171,14 +171,14 @@
         
         function setTendencyPills(code) {
             const [archetypes, tendency] = code.split('-');
-            
+
             // Set primary tendency pill
             const tendencyPill = document.getElementById('tendencyPill');
             if (tendencyPill) {
                 tendencyPill.textContent = tendency;
                 tendencyPill.className = `tendency-pill ${tendency === "Architect" ? "architect" : "gardener"}-pill`;
             }
-            
+
             // Set secondary tendency pill (opposite of primary)
             const secondaryTendencyPill = document.getElementById('secondaryTendencyPill');
             if (secondaryTendencyPill) {
@@ -186,8 +186,21 @@
                 secondaryTendencyPill.textContent = secondaryTendency;
                 secondaryTendencyPill.className = `tendency-pill secondary-tendency ${secondaryTendency === "Architect" ? "architect" : "gardener"}-pill`;
             }
-            
-            // Set tendency description
+
+            // Set tendency description using ProfileRenderer if available
+            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+                const profile = window.profileRenderer.profiles[code];
+                if (profile && profile.tendencyDescription) {
+                    const tendencyDesc = document.getElementById('tendencyDescription');
+                    if (tendencyDesc) {
+                        tendencyDesc.innerHTML = profile.tendencyDescription.content;
+                        console.log(`✅ setTendencyPills: Used ProfileRenderer for ${code}`);
+                        return;
+                    }
+                }
+            }
+
+            // Fallback to generic description
             const tendencyDesc = document.getElementById('tendencyDescription');
             if (tendencyDesc) {
                 if (tendency === 'Architect') {
@@ -195,695 +208,66 @@
                 } else {
                     tendencyDesc.innerHTML = 'The <strong>Gardener</strong> is your dominant sensemaking tendency. This means you gravitate towards nurturing and cultivating the things around you. You prefer organic growth and emergence over rigid structure, allowing ideas and projects to develop naturally while providing gentle guidance.';
                 }
+                console.warn(`⚠️ setTendencyPills: Using fallback for ${code}`);
             }
         }
         
         function setArchetypeDescription(code) {
+            // Use ProfileRenderer if available (it has profile-specific descriptions)
+            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+                const profile = window.profileRenderer.profiles[code];
+                if (profile && profile.archetypeDescription) {
+                    const archetypeDesc = document.getElementById('archetypeDescription');
+                    if (archetypeDesc) {
+                        archetypeDesc.innerHTML = profile.archetypeDescription.content;
+                        console.log(`✅ setArchetypeDescription: Used ProfileRenderer for ${code}`);
+                        return;
+                    }
+                }
+            }
+
+            // Fallback to generic description
             const [archetypes, tendency] = code.split('-');
             const primary = archetypes[0];
             const secondary = archetypes[1];
-            
+
             const archetypeNames = {
                 'I': 'Inner Guide',
-                'S': 'Synthesizer', 
+                'S': 'Synthesizer',
                 'P': 'Producer',
                 'C': 'Creative'
             };
-            
+
             const archetypeDesc = document.getElementById('archetypeDescription');
             if (archetypeDesc) {
                 const primaryName = archetypeNames[primary];
                 const secondaryName = archetypeNames[secondary];
                 archetypeDesc.innerHTML = `The <strong>${primaryName}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryName}</strong>. This combination shapes how you naturally approach understanding and creating meaning from the world around you.`;
+                console.warn(`⚠️ setArchetypeDescription: Using fallback for ${code}`);
             }
         }
         
         function setCollapsibleSections(code) {
-            const [archetypes, tendency] = code.split('-');
-            
             // Show collapsible sections for all profiles
-            const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection'];
+            const sections = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection', 'archetypesSynergySection'];
             sections.forEach(sectionId => {
                 const section = document.getElementById(sectionId);
                 if (section) section.style.display = 'block';
             });
-            
-            
-            
-            if (code === 'IS-Architect') {
-                // Set overwhelmed content for IS-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression.';
+
+            // Use ProfileRenderer for all profile content
+            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+                const success = window.profileRenderer.renderProfile(code);
+                if (success) {
+                    console.log(`✅ setCollapsibleSections: Rendered ${code} using ProfileRenderer`);
+                    return;
                 }
-                
-                // Set stuck/unstuck content for IS-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Architect';
-                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from reflection to expression is by tapping into your Producer archetype, which aligns with your structured approach.';
-                }
-                
-                // Set prompts content for IS-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to go from West to East as an IS-Architect';
-                    promptsContent.innerHTML = 'How can you tie your current activity or problem to a concrete outcome or goal? How can your Producer help pull your work along? Once your Producer is activated, you will likely find it becomes easier to drop into your Creative archetype, allowing you to find unique ways to express your deep insights.';
-                }
-                return; // Exit early, dont use generic logic
             }
-            
-            // Handle specific profile codes first
-            if (code === 'IS-Gardener') {
-                // Set overwhelmed content for IS-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to double-down on reflection and analysis, when what they actually need is to move into expression and action, allowing their insights to manifest in the world.';
-                }
-                
-                // Set stuck/unstuck content for IS-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an IS-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from reflection to expression is by tapping into your Creative archetype, which aligns with your flexible, emergent approach.';
-                }
-                
-                // Set prompts content for IS-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to go from West to East as an IS-Gardener';
-                    promptsContent.innerHTML = 'What wants to emerge from your current reflection? How might your Creative archetype express this organically? Once your Creative is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to find natural ways to manifest your deep insights.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'IP-Architect') {
-                // Set overwhelmed content for IP-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
-                }
-                
-                // Set stuck/unstuck content for IP-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an IP-Architect';
-                    stuckContent.innerHTML = 'When you combine your Converter archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from meaning to execution is by tapping into your Synthesizer archetype, which aligns with your structured approach to understanding.';
-                }
-                
-                // Set prompts content for IP-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to sustain your conversion rhythm as an IP-Architect';
-                    promptsContent.innerHTML = 'How can you create systematic pathways from insight to action? What would a sustainable process look like for converting your deep understanding into concrete outcomes? Once your Synthesizer is activated, you will likely find it becomes easier to move into your Creative archetype, allowing you to find innovative ways to bridge meaning and execution.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'IP-Gardener') {
-                // Set overwhelmed content for IP-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can oscillate between deep reflection and intense action, when what they need is to find a sustainable rhythm that honors both their inner wisdom and their drive to create tangible outcomes.';
-                }
-                
-                // Set stuck/unstuck content for IP-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an IP-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Converter archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from meaning to execution is by tapping into your Creative archetype, which aligns with your flexible, emergent approach.';
-                }
-                
-                // Set prompts content for IP-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to sustain your conversion rhythm as an IP-Gardener';
-                    promptsContent.innerHTML = 'What rhythm naturally emerges between your inner knowing and outer creating? How can your Creative help you express insights organically? Once your Creative is activated, you will likely find it becomes easier to move into your Synthesizer archetype, allowing you to make sense of your creative expressions.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'CP-Architect') {
-                // Set overwhelmed content for CP-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
-                }
-                
-                // Set stuck/unstuck content for CP-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a CP-Architect';
-                    stuckContent.innerHTML = 'When you combine your Easterner archetypes with an Architect tendency, it\'s most difficult to access your Inner Guide archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from expression to reflection is by tapping into your Creative archetype, which aligns with your structured approach to innovation.';
-                }
-                
-                // Set prompts content for CP-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to go from East to West as a CP-Architect';
-                    promptsContent.innerHTML = 'What patterns are emerging from your creative output? How can your Creative help you innovate within your structured approach? Once your Creative is activated, you will likely find it becomes easier to move into your Inner Guide archetype, allowing you to access deeper meaning in your work.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'CP-Gardener') {
-                // Set overwhelmed content for CP-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
-                }
-                
-                // Set stuck/unstuck content for CP-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a CP-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Easterner archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from expression to reflection is by tapping into your Producer archetype, which aligns with your flexible approach to getting things done.';
-                }
-                
-                // Set prompts content for CP-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to go from East to West as a CP-Gardener';
-                    promptsContent.innerHTML = 'What deeper meaning is your creative work pointing toward? How can your Producer help you organize your creative insights organically? Once your Producer is activated, you will likely find it becomes easier to move into your Synthesizer archetype, allowing you to make sense of your creative expressions.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'CS-Architect') {
-                // Set overwhelmed content for CS-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
-                }
-                
-                // Set stuck/unstuck content for CS-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a CS-Architect';
-                    stuckContent.innerHTML = 'When you combine your Translator archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to focus your translation work is by tapping into your Producer archetype, which aligns with your structured approach to getting things done.';
-                }
-                
-                // Set prompts content for CS-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to focus your translation work as a CS-Architect';
-                    promptsContent.innerHTML = 'What is the one key insight that most needs to be communicated? How can your Producer help you structure this translation systematically? Once your Producer is activated, you will likely find it becomes easier to move into your Creative archetype, allowing you to find innovative ways to bridge complex concepts.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'CS-Gardener') {
-                // Set overwhelmed content for CS-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
-                }
-                
-                // Set stuck/unstuck content for CS-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a CS-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Translator archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to focus your translation work is by tapping into your Creative archetype, which aligns with your flexible approach to innovation.';
-                }
-                
-                // Set prompts content for CS-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to focus your translation work as a CS-Gardener';
-                    promptsContent.innerHTML = 'Which perspectives are asking to be bridged right now? How can your Creative help you find innovative ways to connect ideas? Once your Creative is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to manifest your translations into concrete outcomes.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'PS-Architect') {
-                // Set overwhelmed content for PS-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
-                }
-                
-                // Set stuck/unstuck content for PS-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a PS-Architect';
-                    stuckContent.innerHTML = 'When you combine your Northerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to balance building with breakthrough is by tapping into your Inner Guide archetype, which aligns with your structured approach to meaning-making.';
-                }
-                
-                // Set prompts content for PS-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance building with breakthrough as a PS-Architect';
-                    promptsContent.innerHTML = 'What would happen if you approached this systematically but with creative flair? How can your Inner Guide help you access deeper meaning in your structured process? Once your Inner Guide is activated, you will likely find it becomes easier to move into your Creative archetype, allowing you to inject innovation into your methodical approach.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'PS-Gardener') {
-                // Set overwhelmed content for PS-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
-                }
-                
-                // Set stuck/unstuck content for PS-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a PS-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Northerner archetypes with a Gardener tendency, it\'s most difficult to access your Inner Guide archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to balance building with breakthrough is by tapping into your Creative archetype, which aligns with your flexible approach to innovation.';
-                }
-                
-                // Set prompts content for PS-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance building with breakthrough as a PS-Gardener';
-                    promptsContent.innerHTML = 'When does your systematic approach serve you, and when might exploration be more valuable? How can your Creative help you find innovative approaches to building? Once your Creative is activated, you will likely find it becomes easier to move into your Inner Guide archetype, allowing you to access the deeper meaning behind your systematic work.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'CI-Architect') {
-                // Set overwhelmed content for CI-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Southern feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
-                }
-                
-                // Set stuck/unstuck content for CI-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a CI-Architect';
-                    stuckContent.innerHTML = 'When you combine your Southern archetypes with an Architect tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with direction is by tapping into your Producer archetype, which aligns with your structured approach to creating tangible outcomes.';
-                }
-                
-                // Set prompts content for CI-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to ground exploration with direction as a CI-Architect';
-                    promptsContent.innerHTML = 'Which of your creative insights are ready to become concrete outcomes? How can your Producer help you build something tangible from your explorations? Once your Producer is activated, you will likely find it becomes easier to move into your Synthesizer archetype, allowing you to make systematic sense of your discoveries.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'CI-Gardener') {
-                // Set overwhelmed content for CI-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Southern feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
-                }
-                
-                // Set stuck/unstuck content for CI-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a CI-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Southern archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with direction is by tapping into your Synthesizer archetype, which aligns with your flexible approach to making sense of discoveries.';
-                }
-                
-                // Set prompts content for CI-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to ground exploration with direction as a CI-Gardener';
-                    promptsContent.innerHTML = 'What patterns are emerging from your creative explorations? How can your Synthesizer help you make sense of your discoveries organically? Once your Synthesizer is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to manifest your insights into meaningful action.';
-                }
-                
-            if (code === 'IC-Architect') {
-                // Set overwhelmed content for IC-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Southern feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
-                }
-                
-                // Set stuck/unstuck content for IC-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an IC-Architect';
-                    stuckContent.innerHTML = 'When you combine your Southern archetypes with an Architect tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with structure is by tapping into your Creative archetype, which aligns with your structured approach to innovative expression.';
-                }
-                
-                // Set prompts content for IC-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to ground exploration with structure as an IC-Architect';
-                    promptsContent.innerHTML = 'How can you bring more structure to your creative explorations? What systems would help you manifest your innovative insights? Once your Creative is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to build systematic progress from your discoveries.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'IC-Gardener') {
-                // Set overwhelmed content for IC-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Southern feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They can get lost in exploration and creative tangents, when what they need is to ground their insights with practical structure and focused direction.';
-                }
-                
-                // Set stuck/unstuck content for IC-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an IC-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Southern archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with understanding is by tapping into your Inner Guide archetype, which aligns with your flexible approach to meaning-making.';
-                }
-                
-                // Set prompts content for IC-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to ground exploration with understanding as an IC-Gardener';
-                    promptsContent.innerHTML = 'What patterns are emerging from your creative discoveries? How can your Inner Guide help you make deeper sense of your explorations organically? Once your Inner Guide is activated, you will likely find it becomes easier to move into your Synthesizer archetype, allowing you to weave your insights into coherent understanding.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'PC-Architect') {
-                // Set overwhelmed content for PC-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
-                }
-                
-                // Set stuck/unstuck content for PC-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a PC-Architect';
-                    stuckContent.innerHTML = 'When you combine your Easterner archetypes with an Architect tendency, it\'s most difficult to access your Inner Guide archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to balance making with meaning is by tapping into your Producer archetype, which aligns with your structured approach to systematic action.';
-                }
-                
-                // Set prompts content for PC-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance making with meaning as a PC-Architect';
-                    promptsContent.innerHTML = 'How can you bring more systematic structure to your creative work? What processes would help you manifest your innovations more effectively? Once your Producer is activated, you will likely find it becomes easier to move into your Inner Guide archetype, allowing you to access deeper meaning in your systematic creations.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'PC-Gardener') {
-                // Set overwhelmed content for PC-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Easterners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to increase their activity and output, when what they actually need is to step back, slow down, and engage in deeper reflection and analysis.';
-                }
-                
-                // Set stuck/unstuck content for PC-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a PC-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Easterner archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to balance making with understanding is by tapping into your Creative archetype, which aligns with your flexible approach to innovative expression.';
-                }
-                
-                // Set prompts content for PC-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance making with understanding as a PC-Gardener';
-                    promptsContent.innerHTML = 'What new insights are emerging from your creative work? How can your Creative help you discover unexpected connections in your making process? Once your Creative is activated, you will likely find it becomes easier to move into your Synthesizer archetype, allowing you to weave deeper understanding into your innovative outputs.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'SC-Architect') {
-                // Set overwhelmed content for SC-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
-                }
-                
-                // Set stuck/unstuck content for SC-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an SC-Architect';
-                    stuckContent.innerHTML = 'When you combine your Translator archetypes with an Architect tendency, it\'s most difficult to access your Inner Guide archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to bridge perspectives with meaning is by tapping into your Synthesizer archetype, which aligns with your structured approach to making sense.';
-                }
-                
-                // Set prompts content for SC-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to bridge perspectives with meaning as an SC-Architect';
-                    promptsContent.innerHTML = 'What deeper meaning connects the perspectives you\'re translating? How can your Synthesizer help you structure these connections systematically? Once your Synthesizer is activated, you will likely find it becomes easier to move into your Inner Guide archetype, allowing you to access the intrinsic meaning behind your translations.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'SC-Gardener') {
-                // Set overwhelmed content for SC-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Translators feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may try to bridge too many perspectives at once, when what they need is to focus on one key translation or synthesis at a time, allowing clarity to emerge before expanding.';
-                }
-                
-                // Set stuck/unstuck content for SC-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an SC-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Translator archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to bridge perspectives with action is by tapping into your Creative archetype, which aligns with your flexible approach to innovative expression.';
-                }
-                
-                // Set prompts content for SC-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to bridge perspectives with action as an SC-Gardener';
-                    promptsContent.innerHTML = 'What creative expressions could emerge from the perspectives you\'re bridging? How can your Creative help you manifest your translations in innovative ways? Once your Creative is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to take systematic action on your synthesized insights.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'SP-Architect') {
-                // Set overwhelmed content for SP-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isn\'t perfectly planned.';
-                }
-                
-                // Set stuck/unstuck content for SP-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an SP-Architect';
-                    stuckContent.innerHTML = 'When you combine your Northerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to balance building with innovation is by tapping into your Synthesizer archetype, which aligns with your structured approach to making sense.';
-                }
-                
-                // Set prompts content for SP-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance building with innovation as an SP-Architect';
-                    promptsContent.innerHTML = 'How can you systematically analyze what you\'re building for creative opportunities? What patterns in your work suggest new innovative directions? Once your Synthesizer is activated, you will likely find it becomes easier to move into your Creative archetype, allowing you to inject fresh innovation into your systematic building process.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'SP-Gardener') {
-                // Set overwhelmed content for SP-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Northerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may get caught in endless planning and structuring, when what they need is to trust their process and move forward with decisive action, even if everything isnt perfectly planned.';
-                }
-                
-                // Set stuck/unstuck content for SP-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an SP-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Northerner archetypes with a Gardener tendency, it\'s most difficult to access your Inner Guide archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to balance building with meaning is by tapping into your Producer archetype, which aligns with your flexible approach to systematic action.';
-                }
-                
-                // Set prompts content for SP-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance building with meaning as an SP-Gardener';
-                    promptsContent.innerHTML = 'What meaningful action could emerge organically from your building process? How can your Producer help you manifest progress in ways that feel naturally flowing? Once your Producer is activated, you will likely find it becomes easier to move into your Inner Guide archetype, allowing you to access deeper meaning in your systematic work.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'SI-Architect') {
-                // Set overwhelmed content for SI-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to double-down on reflection and analysis, when what they actually need is to move into expression and action, allowing their insights to manifest in the world.';
-                }
-                
-                // Set stuck/unstuck content for SI-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an SI-Architect';
-                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to move from understanding to expression is by tapping into your Synthesizer archetype, which aligns with your structured approach to making sense.';
-                }
-                
-                // Set prompts content for SI-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to move from understanding to expression as an SI-Architect';
-                    promptsContent.innerHTML = 'How can you structure your insights for systematic creative expression? What frameworks would help you manifest your understanding in innovative ways? Once your Synthesizer is activated, you will likely find it becomes easier to move into your Creative archetype, allowing you to express your deep understanding through original contributions.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'SI-Gardener') {
-                // Set overwhelmed content for SI-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Westerners feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They tend to double-down on reflection and analysis, when what they actually need is to move into expression and action, allowing their insights to manifest in the world.';
-                }
-                
-                // Set stuck/unstuck content for SI-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as an SI-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Westerner archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to move from understanding to action is by tapping into your Inner Guide archetype, which aligns with your flexible approach to meaning-making.';
-                }
-                
-                // Set prompts content for SI-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to move from understanding to action as an SI-Gardener';
-                    promptsContent.innerHTML = 'What meaningful action could emerge organically from your understanding? How can your Inner Guide help you sense what wants to be manifested? Once your Inner Guide is activated, you will likely find it becomes easier to move into your Producer archetype, allowing you to take systematic action on your deepest insights.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'PI-Architect') {
-                // Set overwhelmed content for PI-Architect
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may oscillate too rapidly between reflection and action, when what they need is to find a sustainable rhythm that honors both their need for meaning and their drive to make progress.';
-                }
-                
-                // Set stuck/unstuck content for PI-Architect
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a PI-Architect';
-                    stuckContent.innerHTML = 'When you combine your Converter archetypes with an Architect tendency, it\'s most difficult to access your Creative archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to balance meaning with execution is by tapping into your Producer archetype, which aligns with your structured approach to systematic action.';
-                }
-                
-                // Set prompts content for PI-Architect
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance meaning with execution as a PI-Architect';
-                    promptsContent.innerHTML = 'How can you systematically structure your meaningful work for consistent progress? What processes would help you maintain momentum while honoring depth? Once your Producer is activated, you will likely find it becomes easier to move into your Creative archetype, allowing you to innovate within your systematic approach to meaningful action.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            
-            if (code === 'PI-Gardener') {
-                // Set overwhelmed content for PI-Gardener
-                const overwhelmedTitle = document.querySelector('#overwhelmedSection .section-title');
-                const overwhelmedContent = document.querySelector('#overwhelmedSection .section-content');
-                if (overwhelmedTitle && overwhelmedContent) {
-                    overwhelmedTitle.textContent = 'When Converters feel overwhelmed…';
-                    overwhelmedContent.innerHTML = 'They may oscillate too rapidly between reflection and action, when what they need is to find a sustainable rhythm that honors both their need for meaning and their drive to make progress.';
-                }
-                
-                // Set stuck/unstuck content for PI-Gardener
-                const stuckTitle = document.querySelector('#stuckUnstuckSection .section-title');
-                const stuckContent = document.querySelector('#stuckUnstuckSection .section-content');
-                if (stuckTitle && stuckContent) {
-                    stuckTitle.textContent = 'Getting stuck and unstuck as a PI-Gardener';
-                    stuckContent.innerHTML = 'When you combine your Converter archetypes with a Gardener tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to balance meaning with execution is by tapping into your Inner Guide archetype, which aligns with your flexible approach to meaning-making.';
-                }
-                
-                // Set prompts content for PI-Gardener
-                const promptsTitle = document.querySelector('#promptsSection .section-title');
-                const promptsContent = document.querySelector('#promptsSection .section-content');
-                if (promptsTitle && promptsContent) {
-                    promptsTitle.textContent = 'Prompts to balance meaning with execution as a PI-Gardener';
-                    promptsContent.innerHTML = 'What natural rhythm emerges between meaningful reflection and purposeful action? How can your Inner Guide help you sense when to move between meaning and execution? Once your Inner Guide is activated, you will likely find it becomes easier to move into your Synthesizer archetype, allowing you to weave understanding into your action-oriented approach.';
-                }
-                return; // Exit early, dont use generic logic
-            }
-            return; // Exit early, dont use generic logic
-            }
-            
-            // All 24 profiles have specific implementations above
-            // No generic fallback needed - if we reach here, it's an error
-            console.error('setCollapsibleSections: Unknown profile code:', code);
+
+            // Fallback error if ProfileRenderer fails
+            console.error(`❌ setCollapsibleSections: ProfileRenderer failed for ${code} - no fallback available`);
         }
-        
+
         function activateProfile(code, name) {
             try {
                 // Hide all screens
@@ -992,10 +376,10 @@
             // Extract archetypes from profile code
             const [archetypes, tendency] = code.split('-');
             const sortedArchetypes = archetypes.split('').sort().join('');
-            
+
             // Determine orientation based on archetype combination
             let orientation = '';
-            
+
             if (sortedArchetypes === 'IS') {
                 orientation = 'Westerner';
             } else if (sortedArchetypes === 'CP') {
@@ -1011,12 +395,25 @@
             } else {
                 orientation = 'Mixed';
             }
-            
+
             // Set orientation pill
             const orientationPill = document.getElementById('orientationPill');
             if (orientationPill) orientationPill.textContent = orientation;
-            
-            // Set orientation description
+
+            // Use ProfileRenderer for orientation description if available
+            if (window.profileRenderer && window.profileRenderer.hasProfile(code)) {
+                const profile = window.profileRenderer.profiles[code];
+                if (profile && profile.orientationDescription) {
+                    const westernerDesc = document.getElementById('westernerDescription');
+                    if (westernerDesc) {
+                        westernerDesc.innerHTML = profile.orientationDescription.content;
+                        console.log(`✅ setOrientation: Used ProfileRenderer for ${code}`);
+                        return;
+                    }
+                }
+            }
+
+            // Fallback to generic orientation descriptions
             const westernerDesc = document.getElementById('westernerDescription');
             if (westernerDesc) {
                 if (orientation === 'Westerner') {
@@ -1036,9 +433,8 @@
                 } else {
                     westernerDesc.innerHTML = `As an <strong>${code}</strong>, your profile combines multiple orientations, giving you flexibility to move between different modes of sensemaking as needed.`;
                 }
+                console.warn(`⚠️ setOrientation: Using fallback for ${code}`);
             }
-
-
         }
         
 
