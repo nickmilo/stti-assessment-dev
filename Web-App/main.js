@@ -54,6 +54,33 @@
             { id: 53, text: "I don't feel the need to exhaustively explore an idea.", archetype: 'S-' }
         ];
 
+        // Global constants for archetype configuration
+        const ARCHETYPE_NAMES = {
+            'I': 'Inner Guide',
+            'S': 'Synthesizer',
+            'P': 'Producer',
+            'C': 'Creative'
+        };
+
+        const ARCHETYPE_PILL_CLASSES = {
+            'I': 'inner-guide-pill',
+            'S': 'synthesizer-pill',
+            'P': 'producer-pill',
+            'C': 'creative-pill'
+        };
+
+        const ARCHETYPE_DESCRIPTIONS = {
+            'I': 'naturally focus on things that you find intrinsically meaningful',
+            'S': 'having a desire to deeply make sense of those things',
+            'P': 'being energized by taking action and making progress on meaningful work',
+            'C': 'expressing your unique perspective and creating original contributions'
+        };
+
+        const TENDENCY_DESCRIPTIONS = {
+            'Architect': 'gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.',
+            'Gardener': 'prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.'
+        };
+
         let currentQuestion = 0;
         let answers = {};
         let userEmail = '';
@@ -231,17 +258,10 @@
             const primary = archetypes[0];
             const secondary = archetypes[1];
 
-            const archetypeNames = {
-                'I': 'Inner Guide',
-                'S': 'Synthesizer',
-                'P': 'Producer',
-                'C': 'Creative'
-            };
-
             const archetypeDesc = document.getElementById('archetypeDescription');
             if (archetypeDesc) {
-                const primaryName = archetypeNames[primary];
-                const secondaryName = archetypeNames[secondary];
+                const primaryName = ARCHETYPE_NAMES[primary];
+                const secondaryName = ARCHETYPE_NAMES[secondary];
                 archetypeDesc.innerHTML = `The <strong>${primaryName}</strong> is your dominant sensemaking archetype, followed by the <strong>${secondaryName}</strong>. This combination shapes how you naturally approach understanding and creating meaning from the world around you.`;
                 console.warn(`⚠️ setArchetypeDescription: Using fallback for ${code}`);
             }
@@ -327,48 +347,33 @@
             const archetypes = code.split('-')[0]; // Gets "IS", "CP", etc.
             const primary = archetypes[0];
             const secondary = archetypes[1];
-            
-            // Archetype names and classes
-            const archetypeNames = {
-                'I': 'Inner Guide',
-                'S': 'Synthesizer', 
-                'P': 'Producer',
-                'C': 'Creative'
-            };
-            
-            const archetypePillClasses = {
-                'I': 'inner-guide-pill',
-                'S': 'synthesizer-pill',
-                'P': 'producer-pill',
-                'C': 'creative-pill'
-            };
-            
+
             // Set primary and secondary pills
             const primaryPill = document.getElementById('primaryArchetypePill');
             if (primaryPill) {
-                primaryPill.textContent = archetypeNames[primary];
-                primaryPill.className = `archetype-pill ${archetypePillClasses[primary]}`;
+                primaryPill.textContent = ARCHETYPE_NAMES[primary];
+                primaryPill.className = `archetype-pill ${ARCHETYPE_PILL_CLASSES[primary]}`;
             }
-            
+
             const secondaryPill = document.getElementById('secondaryArchetypePill');
             if (secondaryPill) {
-                secondaryPill.textContent = archetypeNames[secondary];
-                secondaryPill.className = `archetype-pill ${archetypePillClasses[secondary]}`;
+                secondaryPill.textContent = ARCHETYPE_NAMES[secondary];
+                secondaryPill.className = `archetype-pill ${ARCHETYPE_PILL_CLASSES[secondary]}`;
             }
-            
+
             // Set third and fourth pills (remaining archetypes, faded)
             const remainingArchetypes = ['I', 'S', 'P', 'C'].filter(a => a !== primary && a !== secondary);
-            
+
             const thirdPill = document.getElementById('thirdArchetypePill');
             if (thirdPill && remainingArchetypes[0]) {
-                thirdPill.textContent = archetypeNames[remainingArchetypes[0]];
-                thirdPill.className = `archetype-pill secondary-archetype ${archetypePillClasses[remainingArchetypes[0]]}`;
+                thirdPill.textContent = ARCHETYPE_NAMES[remainingArchetypes[0]];
+                thirdPill.className = `archetype-pill secondary-archetype ${ARCHETYPE_PILL_CLASSES[remainingArchetypes[0]]}`;
             }
-            
+
             const fourthPill = document.getElementById('fourthArchetypePill');
             if (fourthPill && remainingArchetypes[1]) {
-                fourthPill.textContent = archetypeNames[remainingArchetypes[1]];
-                fourthPill.className = `archetype-pill secondary-archetype ${archetypePillClasses[remainingArchetypes[1]]}`;
+                fourthPill.textContent = ARCHETYPE_NAMES[remainingArchetypes[1]];
+                fourthPill.className = `archetype-pill secondary-archetype ${ARCHETYPE_PILL_CLASSES[remainingArchetypes[1]]}`;
             }
         }
         
@@ -683,32 +688,13 @@
             
             // Extract archetypes from profile code for description logic
             const [archetypes, tendency] = profile.code.split('-');
-            
-            const archetypeNames = {
-                'I': 'Inner Guide',
-                'S': 'Synthesizer', 
-                'P': 'Producer',
-                'C': 'Creative'
-            };
 
-            const archetypeDescriptions = {
-                'I': 'naturally focus on things that you find intrinsically meaningful',
-                'S': 'having a desire to deeply make sense of those things',
-                'P': 'being energized by taking action and making progress on meaningful work',
-                'C': 'expressing your unique perspective and creating original contributions'
-            };
-
-            const tendencyDescriptions = {
-                'Architect': 'gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.',
-                'Gardener': 'prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.'
-            };
-            
             // Use score-based rankings for all archetype positions
-            const primaryArchetype = archetypeNames[profile.archetypeScores[0][0]];
-            const secondaryArchetype = archetypeNames[profile.archetypeScores[1][0]];
-            const primaryDesc = archetypeDescriptions[profile.archetypeScores[0][0]];
-            const secondaryDesc = archetypeDescriptions[profile.archetypeScores[1][0]];
-            const tendencyDesc = tendencyDescriptions[profile.tendency];
+            const primaryArchetype = ARCHETYPE_NAMES[profile.archetypeScores[0][0]];
+            const secondaryArchetype = ARCHETYPE_NAMES[profile.archetypeScores[1][0]];
+            const primaryDesc = ARCHETYPE_DESCRIPTIONS[profile.archetypeScores[0][0]];
+            const secondaryDesc = ARCHETYPE_DESCRIPTIONS[profile.archetypeScores[1][0]];
+            const tendencyDesc = TENDENCY_DESCRIPTIONS[profile.tendency];
             
             // Update archetype pills
             document.getElementById('primaryArchetypePill').textContent = primaryArchetype;
