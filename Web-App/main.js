@@ -1000,45 +1000,6 @@
 
 
 
-        function showTestResults(targetProfile) {
-            // Ensure we have userEmail set for the secret codes to work
-            if (!userEmail) {
-                userEmail = 'test@example.com';
-            }
-            
-            // Show specific profile
-            const [targetArchetypes, targetTendency] = targetProfile.split('-');
-            const primary = targetArchetypes[0];
-            const secondary = targetArchetypes[1];
-            
-            // Create mock profile object
-            const mockScores = { I: 20, S: 15, P: 18, C: 12, A: targetTendency === 'Architect' ? 25 : 15, G: targetTendency === 'Gardener' ? 25 : 15 };
-            
-            // Create sorted archetype scores for dynamic positioning
-            const mockArchetypeScores = [
-                ['I', mockScores.I], ['S', mockScores.S], ['P', mockScores.P], ['C', mockScores.C]
-            ].sort((a, b) => b[1] - a[1]);
-            
-            const mockProfile = {
-                code: targetProfile,
-                dominantArchetypes: [primary, secondary],
-                tendency: targetTendency,
-                scores: mockScores,
-                archetypeScores: mockArchetypeScores
-            };
-            
-            // Fill answers with sample data
-            for (let i = 0; i < 48; i++) {
-                answers[i] = {
-                    questionId: questions[i].id,
-                    answer: 'A',
-                    archetype: questions[i].archetype
-                };
-            }
-            
-            // Directly show the specific profile
-            activateProfile(mockProfile.code, 'Test Profile');
-        }
 
 
         // Image modal functionality
