@@ -49,6 +49,15 @@ class ProfileRenderer {
         const profile = this.profiles[profileCode];
 
         try {
+            // Render archetype description (new)
+            this.renderDescriptionSection('archetypeDescription', profile.archetypeDescription);
+
+            // Render orientation description (new)
+            this.renderDescriptionSection('orientationDescription', profile.orientationDescription);
+
+            // Render tendency description (new)
+            this.renderDescriptionSection('tendencyDescription', profile.tendencyDescription);
+
             // Render overwhelmed section
             this.renderSection('overwhelmed', profile.overwhelmed);
 
@@ -71,7 +80,41 @@ class ProfileRenderer {
     }
 
     /**
-     * Render a specific section
+     * Render description sections (archetype, orientation, tendency)
+     * These sections only have content, no title
+     */
+    renderDescriptionSection(sectionType, sectionData) {
+        if (!sectionData) return;
+
+        let elementId;
+        switch (sectionType) {
+            case 'archetypeDescription':
+                elementId = 'archetypeDescription';
+                break;
+            case 'orientationDescription':
+                elementId = 'orientationDescription';
+                break;
+            case 'tendencyDescription':
+                elementId = 'tendencyDescription';
+                break;
+            default:
+                console.warn(`Unknown description section type: ${sectionType}`);
+                return;
+        }
+
+        // Get cached DOM element
+        const element = this.getElement(`#${elementId}`);
+
+        if (element) {
+            element.innerHTML = sectionData.content;
+        } else {
+            console.warn(`Missing DOM element for: ${elementId}`);
+        }
+    }
+
+    /**
+     * Render collapsible sections (overwhelmed, stuckUnstuck, prompts, archetypesSynergy)
+     * These sections have both title and content
      */
     renderSection(sectionType, sectionData) {
         if (!sectionData) return;
