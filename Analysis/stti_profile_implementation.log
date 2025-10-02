@@ -1,0 +1,220 @@
+2025-09-20 10:06:14,593 - utils - INFO - ✅ Environment validation passed
+2025-09-20 10:06:14,593 - utils - INFO - Validation-only mode - exiting
+2025-09-20 10:07:53,941 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_100753.html
+2025-09-20 10:09:37,009 - utils - INFO - HTML loaded successfully: 208502 characters
+2025-09-20 10:19:42,511 - utils - INFO - 🔍 Validating environment...
+2025-09-20 10:19:42,511 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 10:19:42,511 - utils - INFO - HTML loaded successfully: 208502 characters
+2025-09-20 10:19:42,512 - utils - INFO - 🔎 Found 29 occurrences of 'Southerner'
+2025-09-20 10:19:42,512 - utils - INFO - 👀 Preview of changes:
+2025-09-20 10:19:42,512 - utils - INFO - --------------------------------------------------
+2025-09-20 10:19:42,512 - utils - INFO - Line 1966: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:19:42,512 - utils - INFO - Line 1975: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with an Architect tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with direction is by tapping into your Producer archetype, which aligns with your structured approach to creating tangible outcomes.';
+2025-09-20 10:19:42,512 - utils - INFO - Line 1993: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:19:42,512 - utils - INFO - Line 2002: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with direction is by tapping into your Synthesizer archetype, which aligns with your flexible approach to making sense of discoveries.';
+2025-09-20 10:19:42,512 - utils - INFO - Line 2018: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:19:42,512 - utils - INFO - ... (additional changes not shown)
+2025-09-20 10:19:42,512 - utils - INFO - --------------------------------------------------
+2025-09-20 10:19:42,512 - utils - INFO - 👁️  Preview mode - no changes made
+2025-09-20 10:19:46,615 - utils - INFO - 🔍 Validating environment...
+2025-09-20 10:19:46,616 - utils - INFO - 💾 Creating backup...
+2025-09-20 10:19:46,616 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_101946.html
+2025-09-20 10:19:46,616 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_101946.html
+2025-09-20 10:19:46,616 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 10:19:46,616 - utils - INFO - HTML loaded successfully: 208502 characters
+2025-09-20 10:19:46,616 - utils - INFO - 🔎 Found 29 occurrences of 'Southerner'
+2025-09-20 10:19:46,617 - utils - INFO - 👀 Preview of changes:
+2025-09-20 10:19:46,617 - utils - INFO - --------------------------------------------------
+2025-09-20 10:19:46,617 - utils - INFO - Line 1966: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:19:46,617 - utils - INFO - Line 1975: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with an Architect tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with direction is by tapping into your Producer archetype, which aligns with your structured approach to creating tangible outcomes.';
+2025-09-20 10:19:46,617 - utils - INFO - Line 1993: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:19:46,617 - utils - INFO - Line 2002: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with direction is by tapping into your Synthesizer archetype, which aligns with your flexible approach to making sense of discoveries.';
+2025-09-20 10:19:46,617 - utils - INFO - Line 2018: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:19:46,617 - utils - INFO - ... (additional changes not shown)
+2025-09-20 10:19:46,617 - utils - INFO - --------------------------------------------------
+2025-09-20 10:19:46,617 - utils - INFO - ✏️  Making replacements...
+2025-09-20 10:19:46,618 - utils - ERROR - ❌ Expected 29 new 'Southern' but found 0
+2025-09-20 10:19:46,618 - utils - ERROR - ❌ Change validation failed
+2025-09-20 10:20:55,101 - utils - INFO - 🔍 Validating environment...
+2025-09-20 10:20:55,102 - utils - INFO - 💾 Creating backup...
+2025-09-20 10:20:55,102 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_102055.html
+2025-09-20 10:20:55,102 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_102055.html
+2025-09-20 10:20:55,102 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 10:20:55,102 - utils - INFO - HTML loaded successfully: 208502 characters
+2025-09-20 10:20:55,102 - utils - INFO - 🔎 Found 29 occurrences of 'Southerner'
+2025-09-20 10:20:55,103 - utils - INFO - 👀 Preview of changes:
+2025-09-20 10:20:55,103 - utils - INFO - --------------------------------------------------
+2025-09-20 10:20:55,103 - utils - INFO - Line 1966: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:20:55,103 - utils - INFO - Line 1975: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with an Architect tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with direction is by tapping into your Producer archetype, which aligns with your structured approach to creating tangible outcomes.';
+2025-09-20 10:20:55,103 - utils - INFO - Line 1993: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:20:55,103 - utils - INFO - Line 2002: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with direction is by tapping into your Synthesizer archetype, which aligns with your flexible approach to making sense of discoveries.';
+2025-09-20 10:20:55,103 - utils - INFO - Line 2018: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:20:55,103 - utils - INFO - ... (additional changes not shown)
+2025-09-20 10:20:55,103 - utils - INFO - --------------------------------------------------
+2025-09-20 10:20:55,103 - utils - INFO - ✏️  Making replacements...
+2025-09-20 10:20:55,104 - utils - ERROR - ❌ Expected 58 total 'Southern' but found 29
+2025-09-20 10:20:55,104 - utils - ERROR - ❌ Change validation failed
+2025-09-20 10:21:01,383 - utils - INFO - HTML loaded successfully: 208502 characters
+2025-09-20 10:21:31,203 - utils - INFO - 🔍 Validating environment...
+2025-09-20 10:21:31,203 - utils - INFO - 💾 Creating backup...
+2025-09-20 10:21:31,203 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_102131.html
+2025-09-20 10:21:31,203 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Analysis/backups/index_backup_20250920_102131.html
+2025-09-20 10:21:31,203 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 10:21:31,204 - utils - INFO - HTML loaded successfully: 208502 characters
+2025-09-20 10:21:31,204 - utils - INFO - 🔎 Found 29 occurrences of 'Southerner'
+2025-09-20 10:21:31,204 - utils - INFO - 👀 Preview of changes:
+2025-09-20 10:21:31,204 - utils - INFO - --------------------------------------------------
+2025-09-20 10:21:31,204 - utils - INFO - Line 1966: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:21:31,204 - utils - INFO - Line 1975: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with an Architect tendency, it\'s most difficult to access your Synthesizer archetype—yet that\'s exactly what you most need. Since your tendency is to architect, the easiest way to ground exploration with direction is by tapping into your Producer archetype, which aligns with your structured approach to creating tangible outcomes.';
+2025-09-20 10:21:31,204 - utils - INFO - Line 1993: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:21:31,204 - utils - INFO - Line 2002: stuckContent.innerHTML = 'When you combine your →Southern← archetypes with a Gardener tendency, it\'s most difficult to access your Producer archetype—yet that\'s exactly what you most need. Since your tendency is to garden, the easiest way to ground exploration with direction is by tapping into your Synthesizer archetype, which aligns with your flexible approach to making sense of discoveries.';
+2025-09-20 10:21:31,205 - utils - INFO - Line 2018: overwhelmedTitle.textContent = 'When →Southern←s feel overwhelmed…';
+2025-09-20 10:21:31,205 - utils - INFO - ... (additional changes not shown)
+2025-09-20 10:21:31,205 - utils - INFO - --------------------------------------------------
+2025-09-20 10:21:31,205 - utils - INFO - ✏️  Making replacements...
+2025-09-20 10:21:31,206 - utils - INFO - ✅ Validation passed: 29 replacements made, 29 total 'Southern'
+2025-09-20 10:21:31,206 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 10:21:31,206 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 10:21:31,207 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment/Web-App/index.html
+2025-09-20 10:21:31,207 - utils - INFO - ✅ Successfully replaced 29 occurrences
+2025-09-20 10:21:31,207 - utils - INFO - ✅ Changed 'Southerner' → 'Southern'
+2025-09-20 11:14:28,051 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:14:28,051 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:14:28,052 - utils - INFO - HTML loaded successfully: 208444 characters
+2025-09-20 11:14:28,052 - utils - WARNING - ⚠️  No occurrences of 'Southerners' found
+2025-09-20 11:14:35,395 - utils - INFO - HTML loaded successfully: 208444 characters
+2025-09-20 11:14:39,233 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:14:39,233 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:14:39,234 - utils - INFO - HTML loaded successfully: 208444 characters
+2025-09-20 11:14:39,234 - utils - INFO - 🔎 Found 11 occurrences of 'Southerns'
+2025-09-20 11:14:39,234 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:14:39,234 - utils - INFO - --------------------------------------------------
+2025-09-20 11:14:39,235 - utils - INFO - Line 1966: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:39,235 - utils - INFO - Line 1993: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:39,235 - utils - INFO - Line 2018: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:39,235 - utils - INFO - Line 2045: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:39,235 - utils - INFO - Line 2486: westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Southern</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the southern side). →Southern← are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, →Southern← need space for both reflection and creative experimentation.`;
+2025-09-20 11:14:39,235 - utils - INFO - ... (additional changes not shown)
+2025-09-20 11:14:39,235 - utils - INFO - --------------------------------------------------
+2025-09-20 11:14:39,235 - utils - INFO - 👁️  Preview mode - no changes made
+2025-09-20 11:14:42,876 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:14:42,876 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:14:42,877 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_111442.html
+2025-09-20 11:14:42,877 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_111442.html
+2025-09-20 11:14:42,877 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:14:42,877 - utils - INFO - HTML loaded successfully: 208444 characters
+2025-09-20 11:14:42,877 - utils - INFO - 🔎 Found 11 occurrences of 'Southerns'
+2025-09-20 11:14:42,877 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:14:42,877 - utils - INFO - --------------------------------------------------
+2025-09-20 11:14:42,878 - utils - INFO - Line 1966: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:42,878 - utils - INFO - Line 1993: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:42,878 - utils - INFO - Line 2018: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:42,878 - utils - INFO - Line 2045: overwhelmedTitle.textContent = 'When →Southern← feel overwhelmed…';
+2025-09-20 11:14:42,878 - utils - INFO - Line 2486: westernerDesc.innerHTML = `As an <strong>${code}</strong>, you have a <strong>Southern</strong> profile with a tendency to <strong>${tendency === "Architect" ? "architect" : "garden"}</strong> (notice how the image is predominantly focused on the southern side). →Southern← are known as "explorers." They thrive on creative introspection and meaningful discovery, combining inner guidance with creative expression. When stuck, →Southern← need space for both reflection and creative experimentation.`;
+2025-09-20 11:14:42,878 - utils - INFO - ... (additional changes not shown)
+2025-09-20 11:14:42,878 - utils - INFO - --------------------------------------------------
+2025-09-20 11:14:42,878 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:14:42,879 - utils - INFO - ✅ Validation passed: 11 replacements made, 29 total 'Southern'
+2025-09-20 11:14:42,879 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:14:42,879 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:14:42,880 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:14:42,880 - utils - INFO - ✅ Successfully replaced 11 occurrences
+2025-09-20 11:14:42,880 - utils - INFO - ✅ Changed 'Southerns' → 'Southern'
+2025-09-20 11:20:40,752 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:20:40,753 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:20:40,753 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,753 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,753 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:20:40,754 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:20:40,754 - utils - INFO - 🔎 Found 1 occurrences of 'CanelaDeck-Medium-Trial.otf'
+2025-09-20 11:20:40,754 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:20:40,754 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,754 - utils - INFO - Line 22: src: url('→Assets/Fonts/CanelaDeck-Medium-Trial.otf←') format('opentype');
+2025-09-20 11:20:40,754 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,754 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:20:40,755 - utils - ERROR - ❌ Still found 1 occurrences of 'CanelaDeck-Medium-Trial.otf'
+2025-09-20 11:20:40,755 - utils - ERROR - ❌ Change validation failed
+2025-09-20 11:20:40,803 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:20:40,803 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:20:40,804 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,804 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,804 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:20:40,804 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:20:40,804 - utils - INFO - 🔎 Found 1 occurrences of 'CanelaDeck-Regular-Trial.otf'
+2025-09-20 11:20:40,805 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:20:40,805 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,805 - utils - INFO - Line 14: src: url('→Assets/Fonts/CanelaDeck-Regular-Trial.otf←') format('opentype');
+2025-09-20 11:20:40,805 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,805 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:20:40,805 - utils - ERROR - ❌ Still found 1 occurrences of 'CanelaDeck-Regular-Trial.otf'
+2025-09-20 11:20:40,805 - utils - ERROR - ❌ Change validation failed
+2025-09-20 11:20:40,854 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:20:40,854 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:20:40,855 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,855 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112040.html
+2025-09-20 11:20:40,855 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:20:40,855 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:20:40,855 - utils - INFO - 🔎 Found 1 occurrences of 'lyt-logo.png'
+2025-09-20 11:20:40,855 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:20:40,855 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,855 - utils - INFO - Line 1133: <img src="../Assets/Images/→Assets/Images/lyt-logo.png←" alt="Linking Your Thinking" class="logo">
+2025-09-20 11:20:40,856 - utils - INFO - --------------------------------------------------
+2025-09-20 11:20:40,856 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:20:40,856 - utils - ERROR - ❌ Still found 1 occurrences of 'lyt-logo.png'
+2025-09-20 11:20:40,856 - utils - ERROR - ❌ Change validation failed
+2025-09-20 11:21:08,987 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:21:20,573 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:21:20,573 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:21:20,573 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,573 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,573 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:21:20,574 - utils - INFO - HTML loaded successfully: 208433 characters
+2025-09-20 11:21:20,574 - utils - INFO - 🔎 Found 1 occurrences of 'url('CanelaDeck-Regular-Trial.otf')'
+2025-09-20 11:21:20,574 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:21:20,574 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,574 - utils - INFO - Line 14: src: →url('Assets/Fonts/CanelaDeck-Regular-Trial.otf')← format('opentype');
+2025-09-20 11:21:20,575 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,575 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:21:20,575 - utils - INFO - ✅ Validation passed: 1 replacements made, 1 total 'url('Assets/Fonts/CanelaDeck-Regular-Trial.otf')'
+2025-09-20 11:21:20,575 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:21:20,575 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:21:20,576 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:21:20,576 - utils - INFO - ✅ Successfully replaced 1 occurrences
+2025-09-20 11:21:20,576 - utils - INFO - ✅ Changed 'url('CanelaDeck-Regular-Trial.otf')' → 'url('Assets/Fonts/CanelaDeck-Regular-Trial.otf')'
+2025-09-20 11:21:20,633 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:21:20,633 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:21:20,634 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,634 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,634 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:21:20,634 - utils - INFO - HTML loaded successfully: 208446 characters
+2025-09-20 11:21:20,638 - utils - INFO - 🔎 Found 1 occurrences of 'url('CanelaDeck-Medium-Trial.otf')'
+2025-09-20 11:21:20,638 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:21:20,638 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,638 - utils - INFO - Line 22: src: →url('Assets/Fonts/CanelaDeck-Medium-Trial.otf')← format('opentype');
+2025-09-20 11:21:20,638 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,639 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:21:20,639 - utils - INFO - ✅ Validation passed: 1 replacements made, 1 total 'url('Assets/Fonts/CanelaDeck-Medium-Trial.otf')'
+2025-09-20 11:21:20,639 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:21:20,639 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:21:20,640 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:21:20,640 - utils - INFO - ✅ Successfully replaced 1 occurrences
+2025-09-20 11:21:20,640 - utils - INFO - ✅ Changed 'url('CanelaDeck-Medium-Trial.otf')' → 'url('Assets/Fonts/CanelaDeck-Medium-Trial.otf')'
+2025-09-20 11:21:20,688 - utils - INFO - 🔍 Validating environment...
+2025-09-20 11:21:20,688 - utils - INFO - 💾 Creating backup...
+2025-09-20 11:21:20,689 - utils - INFO - Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,689 - utils - INFO - ✅ Backup created: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Analysis/backups/index_backup_20250920_112120.html
+2025-09-20 11:21:20,689 - utils - INFO - 📖 Loading HTML content...
+2025-09-20 11:21:20,689 - utils - INFO - HTML loaded successfully: 208459 characters
+2025-09-20 11:21:20,689 - utils - INFO - 🔎 Found 1 occurrences of '../Assets/Images/lyt-logo.png'
+2025-09-20 11:21:20,689 - utils - INFO - 👀 Preview of changes:
+2025-09-20 11:21:20,689 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,690 - utils - INFO - Line 1133: <img src="→Assets/Images/lyt-logo.png←" alt="Linking Your Thinking" class="logo">
+2025-09-20 11:21:20,690 - utils - INFO - --------------------------------------------------
+2025-09-20 11:21:20,690 - utils - INFO - ✏️  Making replacements...
+2025-09-20 11:21:20,690 - utils - INFO - ✅ Validation passed: 1 replacements made, 1 total 'Assets/Images/lyt-logo.png'
+2025-09-20 11:21:20,690 - utils - WARNING - Unbalanced HTML tags detected
+2025-09-20 11:21:20,690 - utils - WARNING - HTML validation failed, but proceeding with save
+2025-09-20 11:21:20,691 - utils - INFO - HTML saved successfully: /Users/nick/Dropbox/+/AI/Efforts/Active/STTI Assessment Dev/Web-App/index.html
+2025-09-20 11:21:20,691 - utils - INFO - ✅ Successfully replaced 1 occurrences
+2025-09-20 11:21:20,691 - utils - INFO - ✅ Changed '../Assets/Images/lyt-logo.png' → 'Assets/Images/lyt-logo.png'
+2025-09-20 11:27:47,361 - utils - INFO - HTML loaded successfully: 208456 characters

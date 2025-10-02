@@ -1,0 +1,17 @@
+# STTI Assessment Profile Implementation Dependencies
+# Python 3.8+ required
+
+# No external dependencies needed for core functionality
+# All dependencies use Python standard library:
+# - pathlib (file paths)
+# - logging (logging system)
+# - shutil (file operations)
+# - datetime (timestamps)
+# - argparse (CLI interface)
+# - abc (abstract base classes)
+# - dataclasses (data structures)
+
+# Optional dependencies for future enhancements:
+# beautifulsoup4>=4.9.0  # For proper HTML parsing instead of string manipulation
+# jinja2>=3.0.0          # For templating instead of string formatting
+# pytest>=6.0.0          # For comprehensive testing framework
