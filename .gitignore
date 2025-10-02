@@ -1,47 +1,59 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# =============================================================================
+# STTI Assessment - Static Site Deployment
+# Only expose what's needed for GitHub Pages to serve the assessment
+# =============================================================================
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# -----------------------------------------------------------------------------
+# Development & Tooling (PRIVATE)
+# -----------------------------------------------------------------------------
+/Analysis/                        # Python scripts, debug tools, validation
+/Documentation/                   # SOPs, workflow docs, internal notes
+/README.md                        # Development README
+/ULTIMATE_RENOVATION_REPORT.md    # Project history
+start-server.sh                   # Local dev server script
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# -----------------------------------------------------------------------------
+# Source Content (PRIVATE - profiles.json is generated from this)
+# -----------------------------------------------------------------------------
 STTI Profiles Master Content.md
-2025-09-20 Chat Session - Emergency Refactoring and ProfileRenderer Development.md
-start-server.sh
-Web-App/x/main.js.backup-before-renovation
-.gitignore
-.gitignore
+
+# -----------------------------------------------------------------------------
+# Backups & Archives (PRIVATE)
+# -----------------------------------------------------------------------------
+/Web-App/x/                       # Old backup files
+**/x/                             # Archive folders anywhere
+**/*backup*                       # Any backup files
+**/*old*                          # Any old files
+
+# -----------------------------------------------------------------------------
+# Chat Sessions & Internal Docs (PRIVATE)
+# -----------------------------------------------------------------------------
+**/*Chat Session*.md              # AI conversation logs
+**/*INTERNAL*.md                  # Internal documentation
+
+# -----------------------------------------------------------------------------
+# System Files (PRIVATE)
+# -----------------------------------------------------------------------------
+.DS_Store                         # macOS folder metadata
+*.log                             # Log files
+.vscode/                          # VS Code settings
+.idea/                            # JetBrains IDE settings
+
+# -----------------------------------------------------------------------------
+# Python Development (PRIVATE)
+# -----------------------------------------------------------------------------
+__pycache__/                      # Python cache
+*.pyc                             # Compiled Python
+*.pyo                             # Optimized Python
+venv/                             # Virtual environments
+*.egg-info/                       # Python package info
+requirements.txt                  # Python dependencies (dev-only)
+
+# -----------------------------------------------------------------------------
+# WHAT'S PUBLIC (for GitHub Pages)
+# -----------------------------------------------------------------------------
+# ✓ /Assets/            - Fonts and images
+# ✓ /Web-App/           - The actual assessment application
+# ✓ /index.html         - Root redirect
+# Everything else above is private development content
+# =============================================================================
