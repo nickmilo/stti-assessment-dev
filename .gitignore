@@ -20,7 +20,7 @@ STTI Profiles Master Content.md
 # -----------------------------------------------------------------------------
 # Backups & Archives (PRIVATE)
 # -----------------------------------------------------------------------------
-/Web-App/x/                       # Old backup files
+/Web-App/                         # Legacy folder (migration to root complete)
 **/x/                             # Archive folders anywhere
 **/*backup*                       # Any backup files
 **/*old*                          # Any old files
@@ -52,8 +52,11 @@ requirements.txt                  # Python dependencies (dev-only)
 # -----------------------------------------------------------------------------
 # WHAT'S PUBLIC (for GitHub Pages)
 # -----------------------------------------------------------------------------
-# ✓ /Assets/            - Fonts and images
-# ✓ /Web-App/           - The actual assessment application
-# ✓ /index.html         - Root redirect
+# ✓ /Assets/                - Fonts and images
+# ✓ /index.html             - Assessment application
+# ✓ /main.js                - Application logic
+# ✓ /styles.css             - Styling
+# ✓ /profile-renderer.js    - Profile rendering
+# ✓ /profiles.json          - Profile data
 # Everything else above is private development content
 # =============================================================================

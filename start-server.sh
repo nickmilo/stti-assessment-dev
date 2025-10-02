@@ -4,7 +4,7 @@
 
 echo "🚀 Starting STTI Assessment local server..."
 echo ""
-echo "Server will start at: http://localhost:8000/Web-App/"
+echo "Server will start at: http://localhost:8000/"
 echo ""
 echo "Press Ctrl+C to stop the server"
 echo ""

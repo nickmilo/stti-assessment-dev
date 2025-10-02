@@ -272,7 +272,7 @@
                     // Set chord diagram for all profiles
                     const chordDiagram = document.getElementById('chordDiagram');
                     if (chordDiagram) {
-                        chordDiagram.src = `../Assets/Images/Clean_STTI_${code}_Thin.png`;
+                        chordDiagram.src = `./Assets/Images/Clean_STTI_${code}_Thin.png`;
                         chordDiagram.alt = `${code} Sensemaking Pattern`;
                     }
                     
@@ -631,7 +631,7 @@
 
             // Update chord diagram
             const chordImage = document.getElementById('chordDiagram');
-            chordImage.src = `../Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
+            chordImage.src = `./Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
 
             showScreen('resultsScreen');
