@@ -708,8 +708,8 @@
             else if (secondaryArchetype === 'Creative') secondaryPill.classList.add('creative-pill');
             
             // Update third and fourth archetype pills using actual score rankings
-            const thirdArchetype = archetypeNames[profile.archetypeScores[2][0]];
-            const fourthArchetype = archetypeNames[profile.archetypeScores[3][0]];
+            const thirdArchetype = ARCHETYPE_NAMES[profile.archetypeScores[2][0]];
+            const fourthArchetype = ARCHETYPE_NAMES[profile.archetypeScores[3][0]];
             
             const thirdPill = document.getElementById('thirdArchetypePill');
             const fourthPill = document.getElementById('fourthArchetypePill');
@@ -734,19 +734,8 @@
             // Set archetype description using ProfileRenderer
             setArchetypeDescription(profile.code);
 
-            // Update tendency pill
-            const tendencyPill = document.getElementById('tendencyPill');
-            tendencyPill.textContent = profile.tendency;
-            tendencyPill.className = 'tendency-pill ' + (profile.tendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
-            
-            // Update secondary tendency pill (show opposite tendency)
-            const secondaryTendencyPill = document.getElementById('secondaryTendencyPill');
-            const secondaryTendency = profile.tendency === 'Architect' ? 'Gardener' : 'Architect';
-            secondaryTendencyPill.textContent = secondaryTendency;
-            secondaryTendencyPill.className = 'tendency-pill secondary-tendency ' + (secondaryTendency === 'Architect' ? 'architect-pill' : 'gardener-pill');
-            
-            document.getElementById('tendencyDescription').innerHTML =
-                `The <strong>${profile.tendency}</strong> is your dominant sensemaking tendency. This means you ${tendencyDesc}`;
+            // Set tendency pills and description using ProfileRenderer
+            setTendencyPills(profile.code);
 
             // Set orientation title
             const westernerTitle = document.getElementById('westernerTitle');
