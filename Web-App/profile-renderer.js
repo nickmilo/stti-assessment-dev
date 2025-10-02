@@ -23,10 +23,37 @@ class ProfileRenderer {
             this.isReady = true;
             console.log('✅ Profile configuration loaded:', Object.keys(this.profiles).length, 'profiles');
         } catch (error) {
-            console.error('❌ Failed to load profile configuration:', error);
-            // Fallback to hardcoded profiles if JSON fails
-            this.profiles = this.getFallbackProfiles();
-            this.isReady = true;
+            console.error('❌ CRITICAL ERROR: Failed to load profile configuration:', error);
+            this.isReady = false;
+            this.showCriticalError(error);
+        }
+    }
+
+    /**
+     * Show critical error to user when profiles fail to load
+     */
+    showCriticalError(error) {
+        const errorHTML = `
+            <div style="padding: 40px; text-align: center; color: #e53e3e; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #c53030;">⚠️ Configuration Error</h2>
+                <p style="font-size: 18px; margin: 20px 0;">The assessment profiles failed to load. Please refresh the page to try again.</p>
+                <p style="font-size: 14px; color: #666; margin-top: 20px;">
+                    Technical error: ${error.message}
+                </p>
+                <button onclick="window.location.reload()"
+                        style="margin-top: 30px; padding: 12px 24px; font-size: 16px;
+                               background: #3182ce; color: white; border: none;
+                               border-radius: 6px; cursor: pointer;">
+                    Refresh Page
+                </button>
+            </div>
+        `;
+
+        // Show error in results screen
+        const resultsScreen = document.getElementById('resultsScreen');
+        if (resultsScreen) {
+            resultsScreen.innerHTML = errorHTML;
+            resultsScreen.classList.add('active');
         }
     }
 
@@ -167,28 +194,6 @@ class ProfileRenderer {
         return this.profiles ? Object.keys(this.profiles) : [];
     }
 
-    /**
-     * Fallback profiles in case JSON loading fails
-     */
-    getFallbackProfiles() {
-        return {
-            "IS-Architect": {
-                "overwhelmed": {
-                    "title": "When Westerners feel overwhelmed…",
-                    "content": "They usually double-down on their strengths to analyze, when what they likely need more is to move from reflection to expression."
-                },
-                "stuckUnstuck": {
-                    "title": "Getting stuck and unstuck as an IS-Architect",
-                    "content": "When you combine your Westerner archetypes with an Architect tendency, it's most difficult to access your Creative archetype—yet that's exactly what you most need."
-                },
-                "prompts": {
-                    "title": "Prompts to go from West to East as an IS-Architect",
-                    "content": "How can you tie your current activity or problem to a concrete outcome or goal?"
-                }
-            }
-            // Additional fallback profiles would go here
-        };
-    }
 }
 
 // Global instance for backward compatibility

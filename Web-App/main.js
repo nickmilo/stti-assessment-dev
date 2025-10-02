@@ -296,8 +296,6 @@
                     
                     // Load full content based on profile
 
-                    // TODO: Add other profiles here one by one
-                    
                     console.log(`${code} activated successfully`);
                 }
             } catch (err) {
