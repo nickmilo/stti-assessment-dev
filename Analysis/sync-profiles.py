@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Sync Profiles Script
-Parses STTI Profiles Master Content.md and generates profiles.json
+Parses STTI Master Profiles.md and generates profiles.json
 """
 
 import json
@@ -45,7 +45,7 @@ class ParserError(Exception):
 
 def parse_master_content(md_path):
     """
-    Parse STTI Profiles Master Content.md into structured data
+    Parse STTI Master Profiles.md into structured data
 
     Args:
         md_path: Path to the Markdown file
@@ -257,8 +257,8 @@ def main():
     # Determine paths
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
-    master_content_path = project_root / 'STTI Profiles Master Content.md'
-    output_path = project_root / 'Web-App' / 'profiles.json'
+    master_content_path = project_root / 'STTI Master Profiles.md'
+    output_path = project_root / 'profiles.json'
 
     # Check for dry-run flag
     dry_run = '--dry-run' in sys.argv

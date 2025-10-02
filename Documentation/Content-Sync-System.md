@@ -9,7 +9,7 @@
 
 ## Overview
 
-This document describes the automated system for syncing content from the human-editable Markdown file (`STTI Profiles Master Content.md`) to the code that powers the web application.
+This document describes the automated system for syncing content from the human-editable Markdown file (`STTI Master Profiles.md`) to the code that powers the web application.
 
 **Goal**: Edit Markdown → Run one command → Everything updates automatically
 
@@ -18,7 +18,7 @@ This document describes the automated system for syncing content from the human-
 ## Architecture (Simplified)
 
 ```
-STTI Profiles Master Content.md
+STTI Master Profiles.md
     ↓
 [Parser + Validator]
     ↓
@@ -155,7 +155,7 @@ Each of the 24 profiles has these sections:
 ```bash
 # 1. Edit the master content file
 # Update line 21 or any other content in:
-# "STTI Profiles Master Content.md"
+# "STTI Master Profiles.md"
 
 # 2. Run sync (with automatic validation)
 python Analysis/sync-profiles.py
@@ -333,7 +333,7 @@ if content.strip() == "":
 ## Maintenance Notes
 
 ### Updating Content (Future)
-1. Edit `STTI Profiles Master Content.md`
+1. Edit `STTI Master Profiles.md`
 2. Run `python Analysis/sync-profiles.py`
 3. Test locally
 4. Commit and push

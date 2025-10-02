@@ -83,7 +83,7 @@ All profile content is now managed through a single human-editable Markdown file
 ### How It Works
 
 ```
-STTI Profiles Master Content.md (edit this)
+STTI Master Profiles.md (edit this)
            ↓
     python3 Analysis/sync-profiles.py
            ↓
@@ -98,7 +98,7 @@ STTI Profiles Master Content.md (edit this)
 
 ```bash
 # 1. Edit the Master Content file
-vim "STTI Profiles Master Content.md"
+vim "STTI Master Profiles.md"
 # Change line 21 or any other content
 
 # 2. Run sync script (with automatic validation)
@@ -113,7 +113,7 @@ open Web-App/index.html
 # Test secret codes: 0001, 0002, etc.
 
 # 5. Commit changes
-git add "STTI Profiles Master Content.md" Web-App/profiles.json
+git add "STTI Master Profiles.md" Web-App/profiles.json
 git commit -m "Update profile content"
 git push
 ```
