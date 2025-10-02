@@ -73,18 +73,21 @@
             <div class="results">
                 <!-- Main title above gradient -->
                 <div class="profile-main-title">Your Sensemaking Profile</div>
-                
-                <!-- Profile Banner with Code and Subtitle -->
-                <div class="profile-banner">
-                    <div class="banner-profile-code" id="profileCode">IS-Architect</div>
-                    <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
-                </div>
-                
-                <div class="profile-header">
+
+                <!-- Profile Banner and Chord Diagram Side-by-Side -->
+                <div class="banner-chord-wrapper">
+                    <div class="profile-banner">
+                        <div class="banner-profile-code" id="profileCode">IS-Architect</div>
+                        <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
+                    </div>
                     <div class="chord-diagram">
                         <img id="chordDiagram" src="./Assets/Images/Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
                     </div>
-                    <div class="profile-info">
+                </div>
+
+                <!-- Full-width Archetypes Section -->
+                <div class="profile-header">
+                    <div class="section-box section-box--purple">
                         <div class="archetype-title">Archetypes</div>
                         <div class="archetype-pills-container">
                             <div class="archetype-pills primary-row">
@@ -148,7 +151,7 @@
                 </div>
 
                 <!-- Additional Analysis Sections -->
-                <div class="overwhelmed-section" id="overwhelmedSection" style="display: none; position: relative;">
+                <div class="section-box section-box--pink" id="overwhelmedSection" style="display: none; position: relative;">
                     <div class="unlock-badge">Bonus</div>
                     <div class="section-title space-grotesk-font collapsed" onclick="toggleSection('overwhelmedContent', this)">When Westerners feel overwhelmed…</div>
                     <div class="section-content collapsed" id="overwhelmedContent">
@@ -156,7 +159,7 @@
                     </div>
                 </div>
 
-                <div class="stuck-unstuck-section" id="stuckUnstuckSection" style="display: none; position: relative;">
+                <div class="section-box section-box--cyan" id="stuckUnstuckSection" style="display: none; position: relative;">
                     <div class="unlock-badge">Bonus</div>
                     <div class="section-title space-grotesk-font collapsed" onclick="toggleSection('stuckUnstuckContent', this)">Getting stuck and unstuck as an IS-Architect</div>
                     <div class="section-content collapsed" id="stuckUnstuckContent">
@@ -166,7 +169,7 @@
                     </div>
                 </div>
 
-                <div class="prompts-section" id="promptsSection" style="display: none; position: relative;">
+                <div class="section-box section-box--yellow" id="promptsSection" style="display: none; position: relative;">
                     <div class="unlock-badge">Bonus</div>
                     <div class="section-title space-grotesk-font collapsed" onclick="toggleSection('promptsContent', this)">Prompts to go from West to East as an IS-Architect</div>
                     <div class="section-content collapsed" id="promptsContent">
