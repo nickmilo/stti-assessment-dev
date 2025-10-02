@@ -566,6 +566,62 @@
             return { code, dominantArchetypes, tendency, scores, archetypeScores };
         }
 
+        /**
+         * Animates score bars with dynamic range calculation
+         * Makes small differences visually prominent
+         */
+        function animateScoreBars(scores) {
+            // Extract archetype scores
+            const archetypeScores = [scores.I, scores.S, scores.P, scores.C];
+            const minArchetype = Math.min(...archetypeScores);
+            const maxArchetype = Math.max(...archetypeScores);
+            const archetypeRange = maxArchetype - minArchetype || 1;
+
+            // For visual emphasis, use a "zoomed" range
+            const buffer = Math.max(5, archetypeRange * 0.2);
+            const visualMin = Math.max(0, minArchetype - buffer);
+            const visualMax = maxArchetype + buffer;
+            const visualRange = visualMax - visualMin;
+
+            // Animate each archetype bar
+            animateBar('score-inner-guide', scores.I, visualMin, visualRange);
+            animateBar('score-synthesizer', scores.S, visualMin, visualRange);
+            animateBar('score-creative', scores.C, visualMin, visualRange);
+            animateBar('score-producer', scores.P, visualMin, visualRange);
+
+            // Tendency bars (use max of both to ensure both show proportionally)
+            const tendencyMax = Math.max(scores.A, scores.G);
+            animateBar('score-architect', scores.A, 0, tendencyMax);
+            animateBar('score-gardener', scores.G, 0, tendencyMax);
+
+            // Update raw scores display
+            const rawScoresText = document.getElementById('raw-scores-text');
+            if (rawScoresText) {
+                rawScoresText.textContent = `I: ${scores.I}, S: ${scores.S}, C: ${scores.C}, P: ${scores.P} | A: ${scores.A}, G: ${scores.G}`;
+            }
+        }
+
+        function animateBar(scoreId, score, minValue, range) {
+            const scoreElement = document.getElementById(scoreId);
+            if (!scoreElement) return;
+
+            // Update the numerical value
+            scoreElement.textContent = score;
+
+            // Find the corresponding bar
+            const wrapper = scoreElement.closest('.score-bar-wrapper');
+            const bar = wrapper.querySelector('.score-bar');
+
+            // Calculate percentage width based on dynamic range
+            const adjustedScore = score - minValue;
+            const percentage = (adjustedScore / range) * 100;
+
+            // Animate the bar width after a short delay
+            setTimeout(() => {
+                bar.style.width = `${percentage}%`;
+            }, 100);
+        }
+
         async function submitToFormspree(profile) {
             try {
                 const response = await fetch('https://formspree.io/f/xvgblrvw', {
@@ -633,6 +689,9 @@
             const chordImage = document.getElementById('chordDiagram');
             chordImage.src = `./Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
+
+            // Animate score bars
+            animateScoreBars(profile.scores);
 
             showScreen('resultsScreen');
         }

@@ -128,6 +128,112 @@
                     </div>
                 </div>
 
+                <!-- Score Visualization Section -->
+                <div class="scores-section section-box section-box--purple">
+                    <div class="section-title collapsed" onclick="toggleSection('scoresContent', this)">Your Score Breakdown</div>
+                    <div class="section-content expanded" id="scoresContent">
+
+                        <!-- Archetypes Scores -->
+                        <div class="score-category">
+                            <div class="score-category-label">Archetypes</div>
+
+                            <div class="score-bar-wrapper">
+                                <div class="score-label">
+                                    <span class="score-name">Inner Guide</span>
+                                    <span class="score-value" id="score-inner-guide">0</span>
+                                </div>
+                                <div class="score-track">
+                                    <div class="score-baseline"></div>
+                                    <div class="score-bar score-bar-yellow" data-score="0" style="width: 0%;">
+                                        <div class="score-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="score-bar-wrapper">
+                                <div class="score-label">
+                                    <span class="score-name">Synthesizer</span>
+                                    <span class="score-value" id="score-synthesizer">0</span>
+                                </div>
+                                <div class="score-track">
+                                    <div class="score-baseline"></div>
+                                    <div class="score-bar score-bar-cyan" data-score="0" style="width: 0%;">
+                                        <div class="score-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="score-bar-wrapper">
+                                <div class="score-label">
+                                    <span class="score-name">Creative</span>
+                                    <span class="score-value" id="score-creative">0</span>
+                                </div>
+                                <div class="score-track">
+                                    <div class="score-baseline"></div>
+                                    <div class="score-bar score-bar-purple" data-score="0" style="width: 0%;">
+                                        <div class="score-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="score-bar-wrapper">
+                                <div class="score-label">
+                                    <span class="score-name">Producer</span>
+                                    <span class="score-value" id="score-producer">0</span>
+                                </div>
+                                <div class="score-track">
+                                    <div class="score-baseline"></div>
+                                    <div class="score-bar score-bar-pink" data-score="0" style="width: 0%;">
+                                        <div class="score-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tendencies Scores -->
+                        <div class="score-category">
+                            <div class="score-category-label">Tendencies</div>
+
+                            <div class="score-bar-wrapper">
+                                <div class="score-label">
+                                    <span class="score-name">Architect</span>
+                                    <span class="score-value" id="score-architect">0</span>
+                                </div>
+                                <div class="score-track">
+                                    <div class="score-baseline"></div>
+                                    <div class="score-bar score-bar-cyan-alt" data-score="0" style="width: 0%;">
+                                        <div class="score-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="score-bar-wrapper">
+                                <div class="score-label">
+                                    <span class="score-name">Gardener</span>
+                                    <span class="score-value" id="score-gardener">0</span>
+                                </div>
+                                <div class="score-track">
+                                    <div class="score-baseline"></div>
+                                    <div class="score-bar score-bar-green" data-score="0" style="width: 0%;">
+                                        <div class="score-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Range indicator -->
+                        <div class="score-range-hint">
+                            Bars are scaled to emphasize differences. Exact scores shown on right.
+                        </div>
+
+                        <!-- Raw scores display -->
+                        <div class="raw-scores">
+                            <span class="raw-scores-label">Raw Scores:</span>
+                            <span id="raw-scores-text">I: 0, S: 0, C: 0, P: 0 | A: 0, G: 0</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Action buttons (first set) -->
                 <div style="margin: 3rem 0; text-align: center;">
                     <div class="share-dropdown-container">
