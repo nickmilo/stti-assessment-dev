@@ -15,6 +15,7 @@
         }
 
         :root {
+            /* Brand Colors */
             --lyt-purple: #b9adff;
             --lyt-purple-deep: #8272d0;
             --lyt-yellow: #fcf601;
@@ -22,6 +23,46 @@
             --lyt-cyan: #5dbcd2;
             --lyt-pink: #d669bc;
             --lyt-green: #67c073;
+
+            /* Neutral Colors */
+            --color-text-primary: #2d3748;
+            --color-text-secondary: #4a5568;
+            --color-text-tertiary: #666;
+            --color-text-muted: #999;
+            --color-text-disabled: #a0aec0;
+            --color-border-light: #e2e8f0;
+            --color-border-medium: #cbd5e0;
+            --color-border-dark: #9ca3af;
+
+            /* Spacing Scale (based on 0.25rem = 4px) */
+            --space-xs: 0.25rem;    /* 4px */
+            --space-sm: 0.5rem;     /* 8px */
+            --space-md: 0.75rem;    /* 12px */
+            --space-lg: 1rem;       /* 16px */
+            --space-xl: 1.5rem;     /* 24px */
+            --space-2xl: 2rem;      /* 32px */
+            --space-3xl: 3rem;      /* 48px */
+
+            /* Font Size Scale */
+            --font-size-xs: 0.8rem;    /* 12.8px */
+            --font-size-sm: 0.9rem;    /* 14.4px */
+            --font-size-base: 1rem;    /* 16px */
+            --font-size-md: 1.1rem;    /* 17.6px */
+            --font-size-lg: 1.2rem;    /* 19.2px */
+            --font-size-xl: 1.3rem;    /* 20.8px */
+            --font-size-2xl: 1.8rem;   /* 28.8px */
+            --font-size-3xl: 2.5rem;   /* 40px */
+
+            /* Border Radius Scale */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-pill: 18px;
+            --radius-full: 50%;
+
+            /* Responsive Breakpoints (for reference in media queries) */
+            --breakpoint-mobile: 480px;
+            --breakpoint-tablet: 768px;
         }
 
         * {
@@ -84,7 +125,7 @@
         }
 
         .container {
-            max-width: 720px;
+            max-width: 792px;  /* Widened by 10% from 720px */
             margin: 0 auto;
             padding: 2rem 1rem;
         }
@@ -354,6 +395,24 @@
             font-weight: 400;
         }
 
+        /* Banner and Chord Diagram Side-by-Side */
+        .banner-chord-wrapper {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .banner-chord-wrapper .profile-banner {
+            flex: 1;
+            margin: 0;
+        }
+
+        .banner-chord-wrapper .chord-diagram {
+            flex-shrink: 0;
+            width: 300px;
+        }
+
         .results {
             text-align: left;
             padding: 1.5rem 2rem 3rem 2rem;
@@ -375,15 +434,39 @@
         }
 
         .profile-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            display: block;
             margin-bottom: 2rem;
-            align-items: start;
         }
 
         .profile-info {
             flex: 1;
+        }
+
+        /* Reusable Section Box Utility */
+        .section-box {
+            border-radius: var(--radius-md);
+            padding: var(--space-xl) var(--space-2xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section-box--purple {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            border-left: 4px solid var(--lyt-purple);
+        }
+
+        .section-box--pink {
+            background: linear-gradient(135deg, #fff8f0 0%, #fff0f8 100%);
+            border-left: 4px solid var(--lyt-pink);
+        }
+
+        .section-box--cyan {
+            background: linear-gradient(135deg, #f0fff8 0%, #f0f8ff 100%);
+            border-left: 4px solid var(--lyt-cyan);
+        }
+
+        .section-box--yellow {
+            background: linear-gradient(135deg, #fffef0 0%, #f8fff0 100%);
+            border-left: 4px solid var(--lyt-yellow-muted);
         }
 
         .profile-code {
@@ -462,19 +545,20 @@
             padding: 0.25rem 1rem;
             border-radius: 16px;
         }
-        
+
         .archetype-pills-container {
-            margin-bottom: 0.5rem;
-        }
-        
-        .archetype-pills {
             display: flex;
+            flex-wrap: wrap;
             gap: 0.75rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
-        
+
+        .archetype-pills {
+            display: contents;
+        }
+
         .archetype-pills.secondary-row {
-            margin-bottom: 0;
+            display: contents;
         }
         
         .archetype-pill {
@@ -605,30 +689,6 @@
             text-align: left;
         }
 
-        .overwhelmed-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #fff8f0 0%, #fff0f8 100%);
-            border-radius: 12px;
-            border-left: 4px solid var(--lyt-pink);
-        }
-
-        .stuck-unstuck-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f0fff8 0%, #f0f8ff 100%);
-            border-radius: 12px;
-            border-left: 4px solid var(--lyt-cyan);
-        }
-
-        .prompts-section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #fffef0 0%, #f8fff0 100%);
-            border-radius: 12px;
-            border-left: 4px solid var(--lyt-yellow-muted);
-        }
-
         .section-title {
             font-family: 'DM Mono', monospace;
             text-decoration: underline;
@@ -685,18 +745,12 @@
             max-height: 500px;
         }
 
-        .section-content {
-            font-size: 1rem;
-            color: #4a5568;
-            line-height: 1.6;
-        }
-
         .detailed-analysis {
-            margin: 3rem 0;
-            padding: 2rem;
             background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             border-left: 4px solid var(--lyt-purple);
+            padding: var(--space-2xl);
+            margin: var(--space-3xl) 0;
         }
 
         .analysis-title {
@@ -1072,6 +1126,16 @@
             .banner-subtitle {
                 font-size: 1.4rem;
             }
+
+            /* Banner-Chord Layout: Stack vertically on tablets/mobile */
+            .banner-chord-wrapper {
+                flex-direction: column;
+                gap: var(--space-xl);
+            }
+
+            .banner-chord-wrapper .chord-diagram {
+                width: 250px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1110,5 +1174,10 @@
 
             .tendency-description {
                 text-align: left;
+            }
+
+            /* Banner-Chord Layout: Smaller chord on mobile */
+            .banner-chord-wrapper .chord-diagram {
+                width: 200px;
             }
         }
