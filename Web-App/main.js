@@ -69,18 +69,6 @@
             'C': 'creative-pill'
         };
 
-        const ARCHETYPE_DESCRIPTIONS = {
-            'I': 'naturally focus on things that you find intrinsically meaningful',
-            'S': 'having a desire to deeply make sense of those things',
-            'P': 'being energized by taking action and making progress on meaningful work',
-            'C': 'expressing your unique perspective and creating original contributions'
-        };
-
-        const TENDENCY_DESCRIPTIONS = {
-            'Architect': 'gravitate towards structuring and organizing the things around you. However, it doesn\'t mean the things around you are organized, only that you prefer clarity and understanding over uncertainty, but sometimes even…opportunities.',
-            'Gardener': 'prefer flexibility and emergent approaches, allowing ideas and projects to develop organically. You thrive in ambiguous situations and are comfortable navigating uncertainty, often discovering unexpected opportunities through exploration.'
-        };
-
         let currentQuestion = 0;
         let answers = {};
         let userEmail = '';
@@ -98,14 +86,12 @@
             // Build sequence for 4-digit codes
             if (e.key >= '0' && e.key <= '9') {
                 keySequence += e.key;
-                console.log('Building sequence:', keySequence);
-                
+
                 // Clear timer
                 if (keyTimer) clearTimeout(keyTimer);
                 
                 // Reset after 3 seconds
                 keyTimer = setTimeout(() => {
-                    console.log('Resetting sequence');
                     keySequence = '';
                 }, 3000);
                 
@@ -183,7 +169,6 @@
                     activateProfile('CS-Gardener', 'The Translator');
                     keySequence = ''; clearTimeout(keyTimer);
                 } else if (keySequence.length >= 4) {
-                    console.log('4+ digits, resetting');
                     keySequence = '';
                     clearTimeout(keyTimer);
                 }
@@ -191,7 +176,6 @@
             
             // Keep 9 key as backup
             if (e.key === '9' && keySequence === '') {
-                console.log('9 key backup');
                 activateProfile('IS-Architect', 'The Philosopher');
             }
         });
@@ -401,34 +385,6 @@
             console.error(`❌ setOrientation: ProfileRenderer missing for ${code}`);
         }
 
-        function setProfileSubtitle(code) {
-            // Extract archetypes from profile code
-            const [archetypes] = code.split('-');
-            const sortedArchetypes = archetypes.split('').sort().join('');
-
-            // Determine subtitle based on orientation
-            let subtitle = '';
-
-            if (sortedArchetypes === 'IS') {
-                subtitle = 'The Philosopher';
-            } else if (sortedArchetypes === 'CP') {
-                subtitle = 'The Maker';
-            } else if (sortedArchetypes === 'PS') {
-                subtitle = 'The Builder';
-            } else if (sortedArchetypes === 'CI') {
-                subtitle = 'The Explorer';
-            } else if (sortedArchetypes === 'CS') {
-                subtitle = 'The Translator';
-            } else if (sortedArchetypes === 'IP') {
-                subtitle = 'The Converter';
-            } else {
-                subtitle = 'The Sensemaker';
-            }
-
-            // Set profile subtitle
-            const profileSubtitle = document.getElementById('profileSubtitle');
-            if (profileSubtitle) profileSubtitle.textContent = subtitle;
-        }
         
 
 
@@ -532,8 +488,7 @@
                 answer: response,
                 archetype: questions[currentQuestion].archetype
             };
-            console.log('Q53 DEBUG: Answer selected for question', currentQuestion + 1, 'of', questions.length);
-            
+
             // Visual feedback
             document.querySelectorAll('.answer-btn').forEach(btn => {
                 btn.style.transform = 'scale(1)';
@@ -552,8 +507,7 @@
                     currentQuestion++;
                     loadQuestion();
                 }, 400);
-            } else {            console.log('Q53 DEBUG: On last question, calling showResults in 400ms');
-            
+            } else {
                 setTimeout(() => {
                     showResults();
                 }, 400);
@@ -648,118 +602,40 @@
         }
 
         function showResults() {
-            console.log('Q53 DEBUG: showResults() called, hasSubmitted =', hasSubmitted);
-
             const scores = calculateScores();
             const profile = determineProfile(scores);
 
             // Prevent multiple submissions to Formspree
             if (hasSubmitted) {
                 console.log('Results already submitted, skipping duplicate Formspree submission');
-                // Still show the results screen even if it's a duplicate
                 showScreen('resultsScreen');
                 return;
             }
             hasSubmitted = true;
-            
-            // Set collapsible sections content for this profile
-            setCollapsibleSections(profile.code);
-            
-            // Hide sections for broken profiles
-            hideBrokenProfileSections(profile.code);
 
             // Submit to Formspree
             submitToFormspree(profile);
-            
-            // Update results display
+
+            // Update profile code display
             document.getElementById('profileCode').textContent = profile.code;
-            
-            // Extract archetypes from profile code for description logic
-            const [archetypes, tendency] = profile.code.split('-');
-
-            // Use score-based rankings for all archetype positions
-            const primaryArchetype = ARCHETYPE_NAMES[profile.archetypeScores[0][0]];
-            const secondaryArchetype = ARCHETYPE_NAMES[profile.archetypeScores[1][0]];
-            const primaryDesc = ARCHETYPE_DESCRIPTIONS[profile.archetypeScores[0][0]];
-            const secondaryDesc = ARCHETYPE_DESCRIPTIONS[profile.archetypeScores[1][0]];
-            const tendencyDesc = TENDENCY_DESCRIPTIONS[profile.tendency];
-            
-            // Update archetype pills
-            document.getElementById('primaryArchetypePill').textContent = primaryArchetype;
-            document.getElementById('secondaryArchetypePill').textContent = secondaryArchetype;
-            
-            // Update pill classes based on archetype types
-            const primaryPill = document.getElementById('primaryArchetypePill');
-            const secondaryPill = document.getElementById('secondaryArchetypePill');
-            
-            // Reset classes
-            primaryPill.className = 'archetype-pill';
-            secondaryPill.className = 'archetype-pill';
-            
-            // Add appropriate color classes
-            if (primaryArchetype === 'Inner Guide') primaryPill.classList.add('inner-guide-pill');
-            else if (primaryArchetype === 'Synthesizer') primaryPill.classList.add('synthesizer-pill');
-            else if (primaryArchetype === 'Producer') primaryPill.classList.add('producer-pill');
-            else if (primaryArchetype === 'Creative') primaryPill.classList.add('creative-pill');
-            
-            if (secondaryArchetype === 'Inner Guide') secondaryPill.classList.add('inner-guide-pill');
-            else if (secondaryArchetype === 'Synthesizer') secondaryPill.classList.add('synthesizer-pill');
-            else if (secondaryArchetype === 'Producer') secondaryPill.classList.add('producer-pill');
-            else if (secondaryArchetype === 'Creative') secondaryPill.classList.add('creative-pill');
-            
-            // Update third and fourth archetype pills using actual score rankings
-            const thirdArchetype = ARCHETYPE_NAMES[profile.archetypeScores[2][0]];
-            const fourthArchetype = ARCHETYPE_NAMES[profile.archetypeScores[3][0]];
-            
-            const thirdPill = document.getElementById('thirdArchetypePill');
-            const fourthPill = document.getElementById('fourthArchetypePill');
-            
-            thirdPill.textContent = thirdArchetype;
-            fourthPill.textContent = fourthArchetype;
-            
-            // Reset and add classes for third pill
-            thirdPill.className = 'archetype-pill secondary-archetype';
-            if (thirdArchetype === 'Inner Guide') thirdPill.classList.add('inner-guide-pill');
-            else if (thirdArchetype === 'Synthesizer') thirdPill.classList.add('synthesizer-pill');
-            else if (thirdArchetype === 'Producer') thirdPill.classList.add('producer-pill');
-            else if (thirdArchetype === 'Creative') thirdPill.classList.add('creative-pill');
-            
-            // Reset and add classes for fourth pill
-            fourthPill.className = 'archetype-pill secondary-archetype';
-            if (fourthArchetype === 'Inner Guide') fourthPill.classList.add('inner-guide-pill');
-            else if (fourthArchetype === 'Synthesizer') fourthPill.classList.add('synthesizer-pill');
-            else if (fourthArchetype === 'Producer') fourthPill.classList.add('producer-pill');
-            else if (fourthArchetype === 'Creative') fourthPill.classList.add('creative-pill');
-
-            // Set archetype description using ProfileRenderer
-            setArchetypeDescription(profile.code);
-
-            // Set tendency pills and description using ProfileRenderer
-            setTendencyPills(profile.code);
 
             // Set orientation title
             const westernerTitle = document.getElementById('westernerTitle');
             westernerTitle.textContent = 'Orientation';
 
-            // Set profile subtitle and orientation using helper functions
-            setProfileSubtitle(profile.code);
+            // Delegate all rendering to helper functions
+            setStaticArchetypePills(profile.code);
             setOrientation(profile.code);
-            
-            // Show additional sections for all profiles
-            const overwhelmedSection = document.getElementById('overwhelmedSection');
-            const stuckUnstuckSection = document.getElementById('stuckUnstuckSection');
-            const promptsSection = document.getElementById('promptsSection');
-            
-            // Always show the collapsible sections - they contain profile-specific content
-            overwhelmedSection.style.display = 'block';
-            stuckUnstuckSection.style.display = 'block';
-            promptsSection.style.display = 'block';
-            
-            // Update chord diagram image
+            setTendencyPills(profile.code);
+            setArchetypeDescription(profile.code);
+            setCollapsibleSections(profile.code);
+            hideBrokenProfileSections(profile.code);
+
+            // Update chord diagram
             const chordImage = document.getElementById('chordDiagram');
             chordImage.src = `../Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
-            
+
             showScreen('resultsScreen');
         }
 
