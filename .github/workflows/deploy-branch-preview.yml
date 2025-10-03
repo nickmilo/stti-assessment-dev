@@ -1,0 +1,49 @@
+name: Deploy Branch Preview
+
+on:
+  push:
+    branches:
+      - demographic-feature
+      - develop-css-v2
+      - redesign-results-layout
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get branch name
+        id: branch
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          SAFE_BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/[^a-zA-Z0-9-]/-/g')
+          echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "safe_name=$SAFE_BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Prepare deployment files
+        run: |
+          mkdir -p deploy-temp
+          # Copy all web app files
+          cp -r index.html main.js profile-renderer.js styles.css deploy-temp/
+          cp -r Assets deploy-temp/ 2>/dev/null || true
+          cp -r Web-App deploy-temp/ 2>/dev/null || true
+
+          echo "Branch: ${{ steps.branch.outputs.name }}" > deploy-temp/BRANCH_INFO.txt
+          echo "Deployed: $(date)" >> deploy-temp/BRANCH_INFO.txt
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy-temp
+          destination_dir: preview/${{ steps.branch.outputs.safe_name }}
+          keep_files: true
+          commit_message: "Deploy preview for ${{ steps.branch.outputs.name }}"
