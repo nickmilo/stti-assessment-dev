@@ -888,18 +888,19 @@
             });
             svg.appendChild(axesGroup);
 
-            // Calculate polygon points from scores (relative scaling with padding)
+            // Calculate polygon points from scores (relative scaling aligned to concentric circles)
             const polygonPoints = axes.map(axis => {
                 const score = scores[axis.key];
 
                 let radius;
                 if (maxScore === minScore) {
-                    // All scores equal - render balanced polygon at 50% radius
-                    radius = 0.5 * MAX_RADIUS;
+                    // All scores equal - render balanced polygon at 60% radius (circle 3 of 5)
+                    radius = 0.6 * MAX_RADIUS;
                 } else {
-                    // Add padding: highest score ~90% max, lowest score ~10% min
+                    // Scale so: lowest score = level 2/5 (40%), highest score = level 5/5 (100%)
+                    // This ensures lowest score hits second-lowest concentric circle
                     const normalizedScore = (score - minScore) / (maxScore - minScore);
-                    const paddedScore = normalizedScore * 0.8 + 0.1;  // Scale to 10%-90% range
+                    const paddedScore = normalizedScore * 0.6 + 0.4;  // Scale to 40%-100% range
                     radius = paddedScore * MAX_RADIUS;
                 }
 
@@ -1066,9 +1067,9 @@
 
             // Reflection label (left)
             const leftLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            leftLabel.setAttribute('x', CENTER_X - MAX_RADIUS - 10);
+            leftLabel.setAttribute('x', 15);  // Fixed position from left edge
             leftLabel.setAttribute('y', CENTER_Y + 5);
-            leftLabel.setAttribute('text-anchor', 'end');
+            leftLabel.setAttribute('text-anchor', 'start');
             leftLabel.setAttribute('fill', '#6B7280');
             leftLabel.setAttribute('font-size', '13');
             leftLabel.setAttribute('font-style', 'italic');
@@ -1077,9 +1078,9 @@
 
             // Expression label (right)
             const rightLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            rightLabel.setAttribute('x', CENTER_X + MAX_RADIUS + 10);
+            rightLabel.setAttribute('x', 485);  // Fixed position from right edge
             rightLabel.setAttribute('y', CENTER_Y + 5);
-            rightLabel.setAttribute('text-anchor', 'start');
+            rightLabel.setAttribute('text-anchor', 'end');
             rightLabel.setAttribute('fill', '#6B7280');
             rightLabel.setAttribute('font-size', '13');
             rightLabel.setAttribute('font-style', 'italic');
@@ -1105,18 +1106,19 @@
             });
             svg.appendChild(axesGroup);
 
-            // Calculate polygon points from scores (relative scaling with padding)
+            // Calculate polygon points from scores (relative scaling aligned to concentric circles)
             const polygonPoints = axes.map(axis => {
                 const score = scores[axis.key];
 
                 let radius;
                 if (maxScore === minScore) {
-                    // All scores equal - render balanced polygon at 50% radius
-                    radius = 0.5 * MAX_RADIUS;
+                    // All scores equal - render balanced polygon at 60% radius (circle 3 of 5)
+                    radius = 0.6 * MAX_RADIUS;
                 } else {
-                    // Add padding: highest score ~90% max, lowest score ~10% min
+                    // Scale so: lowest score = level 2/5 (40%), highest score = level 5/5 (100%)
+                    // This ensures lowest score hits second-lowest concentric circle
                     const normalizedScore = (score - minScore) / (maxScore - minScore);
-                    const paddedScore = normalizedScore * 0.8 + 0.1;  // Scale to 10%-90% range
+                    const paddedScore = normalizedScore * 0.6 + 0.4;  // Scale to 40%-100% range
                     radius = paddedScore * MAX_RADIUS;
                 }
 
