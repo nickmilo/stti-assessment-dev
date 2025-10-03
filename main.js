@@ -241,6 +241,42 @@
                 } else if (keySequence === '0024') {
                     activateProfile('CS-Gardener', 'The Translator');
                     keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0025') {
+                    // Test profile: Extreme variance (I:32 S:8 P:26 C:15 A:32 G:10)
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 32, S: 8, P: 26, C: 15, A: 32, G: 10
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0026') {
+                    // Test profile: Balanced scores (I:24 S:18 P:33 C:20 A:20 G:18)
+                    activateProfile('PI-Architect', 'The Converter', {
+                        I: 24, S: 18, P: 33, C: 20, A: 20, G: 18
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0027') {
+                    // Test profile: All equal (I:20 S:20 P:20 C:20 A:20 G:20) - perfect balance
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 20, S: 20, P: 20, C: 20, A: 20, G: 20
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0028') {
+                    // Test profile: All minimum (I:8 S:8 P:8 C:8 A:8 G:8) - edge case
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 8, S: 8, P: 8, C: 8, A: 8, G: 8
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0029') {
+                    // Test profile: All maximum (I:32 S:32 P:32 C:32 A:32 G:32) - edge case
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 32, S: 32, P: 32, C: 32, A: 32, G: 32
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0030') {
+                    // Test profile: Gardener extreme (I:15 S:26 P:8 C:32 A:10 G:32) - reverse of 0025
+                    activateProfile('CP-Gardener', 'The Maker', {
+                        I: 15, S: 26, P: 8, C: 32, A: 10, G: 32
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
                 } else if (keySequence.length >= 4) {
                     keySequence = '';
                     clearTimeout(keyTimer);
@@ -325,51 +361,72 @@
             console.error(`❌ setCollapsibleSections: ProfileRenderer failed for ${code} - no fallback available`);
         }
 
-        function activateProfile(code, name) {
+        function activateProfile(code, name, customScores = null) {
             try {
                 // Hide all screens
                 document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                
+
                 // Show results screen
                 const resultsScreen = document.getElementById('resultsScreen');
                 if (resultsScreen) {
                     resultsScreen.classList.add('active');
-                    
+
                     // Set basic profile info
                     const profileCode = document.getElementById('profileCode');
                     if (profileCode) profileCode.textContent = code;
-                    
+
                     const profileSubtitle = document.getElementById('profileSubtitle');
                     if (profileSubtitle) profileSubtitle.textContent = name;
-                    
+
                     // Set chord diagram for all profiles
                     const chordDiagram = document.getElementById('chordDiagram');
                     if (chordDiagram) {
                         chordDiagram.src = `./Assets/Images/Clean_STTI_${code}_Thin.png`;
                         chordDiagram.alt = `${code} Sensemaking Pattern`;
                     }
-                    
-                    // Set static archetype pills for all profiles
-                    setStaticArchetypePills(code);
-                    
+
+                    // If custom scores provided, render with those scores
+                    if (customScores) {
+                        // Calculate archetype scores array for sorting pills
+                        const archetypeScores = [
+                            ['I', customScores.I],
+                            ['S', customScores.S],
+                            ['P', customScores.P],
+                            ['C', customScores.C]
+                        ];
+
+                        // Set archetype pills sorted by score
+                        setStaticArchetypePills(code, archetypeScores);
+
+                        // Render radar charts with custom scores
+                        renderRadarChart(customScores, code);
+                        renderRadarChartArchetypesOnly(customScores);
+
+                        // Animate score bars with custom scores
+                        animateScoreBars(customScores);
+                    } else {
+                        // Set static archetype pills for regular profiles (no scores)
+                        setStaticArchetypePills(code);
+                    }
+
                     // Set orientation for all profiles
                     setOrientation(code);
-                    
+
                     // Set tendency pills and descriptions for all profiles
                     setTendencyPills(code);
-                    
+
                     // Set archetype description for all profiles
                     setArchetypeDescription(code);
-                    
+
                     // Set collapsible sections content for all profiles
                     setCollapsibleSections(code);
-                    
+
                     // Hide sections for broken profiles
                     hideBrokenProfileSections(code);
-                    
+
                     // Load full content based on profile
 
-                    console.log(`${code} activated successfully`);
+                    console.log(`${code} activated successfully${customScores ? ' with custom scores' : ''}`);
                 }
             } catch (err) {
                 console.error('Error:', err);
