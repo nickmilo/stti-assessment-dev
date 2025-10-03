@@ -377,38 +377,56 @@
             }
         }
         
-        function setStaticArchetypePills(code) {
-            // Extract archetypes from profile code
-            const archetypes = code.split('-')[0]; // Gets "IS", "CP", etc.
-            const primary = archetypes[0];
-            const secondary = archetypes[1];
+        function setStaticArchetypePills(code, archetypeScores = null) {
+            let sortedArchetypes;
 
-            // Set primary and secondary pills
+            if (archetypeScores) {
+                // Sort by score (descending), then alphabetically for ties
+                sortedArchetypes = archetypeScores.slice().sort((a, b) => {
+                    if (b[1] !== a[1]) {
+                        return b[1] - a[1]; // Higher score first
+                    }
+                    return a[0].localeCompare(b[0]); // Alphabetical tiebreaker
+                });
+            } else {
+                // Fallback for secret codes: use profile code order
+                const archetypes = code.split('-')[0];
+                const primary = archetypes[0];
+                const secondary = archetypes[1];
+                const remaining = ['I', 'S', 'P', 'C'].filter(a => a !== primary && a !== secondary);
+                sortedArchetypes = [
+                    [primary, 0],
+                    [secondary, 0],
+                    ...remaining.map(a => [a, 0])
+                ];
+            }
+
+            // Extract archetype letters in score order
+            const [first, second, third, fourth] = sortedArchetypes.map(pair => pair[0]);
+
+            // Set all 4 pills in correct score order
             const primaryPill = document.getElementById('primaryArchetypePill');
             if (primaryPill) {
-                primaryPill.textContent = ARCHETYPE_NAMES[primary];
-                primaryPill.className = `archetype-pill ${ARCHETYPE_PILL_CLASSES[primary]}`;
+                primaryPill.textContent = ARCHETYPE_NAMES[first];
+                primaryPill.className = `archetype-pill ${ARCHETYPE_PILL_CLASSES[first]}`;
             }
 
             const secondaryPill = document.getElementById('secondaryArchetypePill');
             if (secondaryPill) {
-                secondaryPill.textContent = ARCHETYPE_NAMES[secondary];
-                secondaryPill.className = `archetype-pill ${ARCHETYPE_PILL_CLASSES[secondary]}`;
+                secondaryPill.textContent = ARCHETYPE_NAMES[second];
+                secondaryPill.className = `archetype-pill ${ARCHETYPE_PILL_CLASSES[second]}`;
             }
 
-            // Set third and fourth pills (remaining archetypes, faded)
-            const remainingArchetypes = ['I', 'S', 'P', 'C'].filter(a => a !== primary && a !== secondary);
-
             const thirdPill = document.getElementById('thirdArchetypePill');
-            if (thirdPill && remainingArchetypes[0]) {
-                thirdPill.textContent = ARCHETYPE_NAMES[remainingArchetypes[0]];
-                thirdPill.className = `archetype-pill secondary-archetype ${ARCHETYPE_PILL_CLASSES[remainingArchetypes[0]]}`;
+            if (thirdPill) {
+                thirdPill.textContent = ARCHETYPE_NAMES[third];
+                thirdPill.className = `archetype-pill secondary-archetype ${ARCHETYPE_PILL_CLASSES[third]}`;
             }
 
             const fourthPill = document.getElementById('fourthArchetypePill');
-            if (fourthPill && remainingArchetypes[1]) {
-                fourthPill.textContent = ARCHETYPE_NAMES[remainingArchetypes[1]];
-                fourthPill.className = `archetype-pill secondary-archetype ${ARCHETYPE_PILL_CLASSES[remainingArchetypes[1]]}`;
+            if (fourthPill) {
+                fourthPill.textContent = ARCHETYPE_NAMES[fourth];
+                fourthPill.className = `archetype-pill secondary-archetype ${ARCHETYPE_PILL_CLASSES[fourth]}`;
             }
         }
         
@@ -833,7 +851,7 @@
             westernerTitle.textContent = 'Orientation';
 
             // Delegate all rendering to helper functions
-            setStaticArchetypePills(profile.code);
+            setStaticArchetypePills(profile.code, profile.archetypeScores);
             setOrientation(profile.code);
             setTendencyPills(profile.code);
             setArchetypeDescription(profile.code);
