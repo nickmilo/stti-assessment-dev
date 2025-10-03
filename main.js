@@ -823,8 +823,8 @@
 
         // Configuration
         const RADAR_CHART_CONFIG = {
-            CENTER_X: 175,    // Updated for 350x350 viewBox (was 250 for 500x500)
-            CENTER_Y: 175,    // Updated for 350x350 viewBox (was 250 for 500x500)
+            CENTER_X: 220,    // Updated for 440x440 viewBox (was 175 for 350x350)
+            CENTER_Y: 220,    // Updated for 440x440 viewBox (was 175 for 350x350)
             MAX_RADIUS: 160,  // Increased from 135 to better fill the smaller viewBox
             GRID_LEVELS: 5,
             LABEL_OFFSET: 50,
@@ -1128,12 +1128,12 @@
             svg.innerHTML = '';
 
             // DYNAMIC DONUT: Proportional arcs based on A/G scores
-            // Start at left (180°), go clockwise
+            // Start at left (180°), Architect sweeps upward, Gardener sweeps downward
             const startAngle = 180;  // Left side (9 o'clock position)
             const architectAngle = (architectPercent / 100) * 360;  // Architect's portion in degrees
             const gardenerAngle = (gardenerPercent / 100) * 360;    // Gardener's portion in degrees
 
-            // Create Architect arc (starts at 180°, sweeps clockwise by architectAngle)
+            // Create Architect arc (starts at 180°, sweeps UPWARD/clockwise through top)
             const architectArcEnd = startAngle + architectAngle;
             const architectPath = createDonutSegment(
                 centerX, centerY,
@@ -1143,11 +1143,12 @@
             );
             svg.appendChild(architectPath);
 
-            // Create Gardener arc (starts where Architect ends, completes the circle back to 180°)
+            // Create Gardener arc (starts at 180°, sweeps DOWNWARD/counterclockwise through bottom)
+            const gardenerArcEnd = startAngle - gardenerAngle;
             const gardenerPath = createDonutSegment(
                 centerX, centerY,
                 outerRadius, innerRadius,
-                architectArcEnd, startAngle + 360,
+                startAngle, gardenerArcEnd,
                 '#67c073'
             );
             svg.appendChild(gardenerPath);
