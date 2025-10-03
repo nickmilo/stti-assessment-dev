@@ -716,18 +716,19 @@
          * Each archetype/tendency has 8 questions × 4 points max = 32
          */
         function animateScoreBars(scores) {
-            // Theoretical maximum score per archetype/tendency: 8 questions × 4 points = 32
+            // Score range: 8 questions × 1-4 points = 8 to 32
+            const THEORETICAL_MIN = 8;
             const THEORETICAL_MAX = 32;
 
-            // Animate each archetype bar (absolute scaling)
-            animateBar('score-inner-guide', scores.I, THEORETICAL_MAX);
-            animateBar('score-synthesizer', scores.S, THEORETICAL_MAX);
-            animateBar('score-creative', scores.C, THEORETICAL_MAX);
-            animateBar('score-producer', scores.P, THEORETICAL_MAX);
+            // Animate each archetype bar (scaled from min to max)
+            animateBar('score-inner-guide', scores.I, THEORETICAL_MIN, THEORETICAL_MAX);
+            animateBar('score-synthesizer', scores.S, THEORETICAL_MIN, THEORETICAL_MAX);
+            animateBar('score-creative', scores.C, THEORETICAL_MIN, THEORETICAL_MAX);
+            animateBar('score-producer', scores.P, THEORETICAL_MIN, THEORETICAL_MAX);
 
-            // Animate tendency bars (absolute scaling)
-            animateBar('score-architect', scores.A, THEORETICAL_MAX);
-            animateBar('score-gardener', scores.G, THEORETICAL_MAX);
+            // Animate tendency bars (scaled from min to max)
+            animateBar('score-architect', scores.A, THEORETICAL_MIN, THEORETICAL_MAX);
+            animateBar('score-gardener', scores.G, THEORETICAL_MIN, THEORETICAL_MAX);
 
             // Update raw scores display
             const rawScoresText = document.getElementById('raw-scores-text');
@@ -736,7 +737,7 @@
             }
         }
 
-        function animateBar(scoreId, score, maxScore) {
+        function animateBar(scoreId, score, minScore, maxScore) {
             const scoreElement = document.getElementById(scoreId);
             if (!scoreElement) return;
 
@@ -747,8 +748,8 @@
             const wrapper = scoreElement.closest('.score-bar-wrapper');
             const bar = wrapper.querySelector('.score-bar');
 
-            // Calculate percentage width based on absolute theoretical maximum
-            const percentage = (score / maxScore) * 100;
+            // Calculate percentage width scaled from min to max (8-32 range)
+            const percentage = ((score - minScore) / (maxScore - minScore)) * 100;
 
             // Animate the bar width after a short delay
             setTimeout(() => {
