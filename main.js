@@ -986,12 +986,13 @@
             const maxScore = Math.max(...allScores);
             const minScore = Math.min(...allScores);
 
-            // Data structure: 4 axes (archetypes only) in clockwise order from top
+            // Data structure: 4 axes (archetypes only) in cardinal directions
+            // N/S/E/W orientation matching STTI framework
             const axes = [
-                { key: 'I', label: 'Inner Guide', angle: -135 },
-                { key: 'S', label: 'Synthesizer', angle: -45 },
-                { key: 'P', label: 'Producer', angle: 45 },
-                { key: 'C', label: 'Creative', angle: 135 }
+                { key: 'S', label: 'Synthesizer', angle: -90 },   // North/Top
+                { key: 'P', label: 'Producer', angle: 0 },        // East/Right
+                { key: 'C', label: 'Creative', angle: 90 },       // South/Bottom
+                { key: 'I', label: 'Inner Guide', angle: 180 }    // West/Left
             ];
 
             // Clear existing content
@@ -1010,6 +1011,34 @@
                 gridGroup.appendChild(circle);
             }
             svg.appendChild(gridGroup);
+
+            // Draw Cartesian grid lines (horizontal + vertical through center)
+            const cartesianGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            cartesianGroup.setAttribute('class', 'cartesian-grid');
+
+            // Horizontal line (West-East axis)
+            const horizontalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            horizontalLine.setAttribute('x1', CENTER_X - MAX_RADIUS);
+            horizontalLine.setAttribute('y1', CENTER_Y);
+            horizontalLine.setAttribute('x2', CENTER_X + MAX_RADIUS);
+            horizontalLine.setAttribute('y2', CENTER_Y);
+            horizontalLine.setAttribute('stroke', '#D0D0D0');
+            horizontalLine.setAttribute('stroke-width', '2');
+            horizontalLine.setAttribute('stroke-dasharray', '8,4');
+            cartesianGroup.appendChild(horizontalLine);
+
+            // Vertical line (North-South axis)
+            const verticalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            verticalLine.setAttribute('x1', CENTER_X);
+            verticalLine.setAttribute('y1', CENTER_Y - MAX_RADIUS);
+            verticalLine.setAttribute('x2', CENTER_X);
+            verticalLine.setAttribute('y2', CENTER_Y + MAX_RADIUS);
+            verticalLine.setAttribute('stroke', '#D0D0D0');
+            verticalLine.setAttribute('stroke-width', '2');
+            verticalLine.setAttribute('stroke-dasharray', '8,4');
+            cartesianGroup.appendChild(verticalLine);
+
+            svg.appendChild(cartesianGroup);
 
             // Draw axis lines (spokes)
             const axesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
