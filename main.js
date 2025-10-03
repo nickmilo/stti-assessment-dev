@@ -827,9 +827,9 @@
             LABEL_OFFSET: 50,
             ANIMATION_DELAY: 300,
             DOT_ANIMATION_STAGGER: 100,
-            SCALE_MIN_PERCENT: 0.4,
-            SCALE_MAX_PERCENT: 1.0,
-            BALANCED_RADIUS_PERCENT: 0.6
+            // Fixed absolute scale: Circle 1 = 8, Circle 2 = 18, Circle 3 = 23, Circle 4 = 28, Circle 5 = 32
+            SCALE_MIN_VALUE: 8,
+            SCALE_MAX_VALUE: 32
         };
 
         // SVG Helper Functions
@@ -902,14 +902,106 @@
             const labelsGroup = createSVGGroup('axis-labels');
             const labelAttrs = { fill: '#6B7280', 'font-size': '13', 'font-style': 'italic' };
 
-            labelsGroup.appendChild(createText(centerX, centerY - maxRadius - 15, 'Top-down',
-                { 'text-anchor': 'middle', ...labelAttrs }));
-            labelsGroup.appendChild(createText(centerX, centerY + maxRadius + 25, 'Bottom-up',
-                { 'text-anchor': 'middle', ...labelAttrs }));
-            labelsGroup.appendChild(createText(25, centerY + 5, 'Reflection',
-                { 'text-anchor': 'start', ...labelAttrs }));
-            labelsGroup.appendChild(createText(475, centerY + 5, 'Expression',
-                { 'text-anchor': 'end', ...labelAttrs }));
+            // Helper function to add text with background
+            const addLabelWithBackground = (x, y, text, textAnchor, bgWidth = 80, bgHeight = 20) => {
+                const bg = createSVGElement('rect', {
+                    x: textAnchor === 'middle' ? x - bgWidth/2 : (textAnchor === 'start' ? x - 2 : x - bgWidth + 2),
+                    y: y - bgHeight/2 - 3,
+                    width: bgWidth,
+                    height: bgHeight,
+                    fill: 'rgba(255, 255, 255, 0.85)',
+                    rx: '4'
+                });
+                labelsGroup.appendChild(bg);
+                labelsGroup.appendChild(createText(x, y, text, { 'text-anchor': textAnchor, ...labelAttrs }));
+            };
+
+            addLabelWithBackground(centerX, centerY - maxRadius - 15, 'Top-down', 'middle', 75, 20);
+            addLabelWithBackground(centerX, centerY + maxRadius + 25, 'Bottom-up', 'middle', 80, 20);
+            addLabelWithBackground(10, centerY + 5, 'Reflection', 'start', 75, 20);
+            addLabelWithBackground(490, centerY + 5, 'Expression', 'end', 80, 20);
+
+            svg.appendChild(labelsGroup);
+        }
+
+        function drawQuadrantGradients(svg, centerX, centerY, maxRadius) {
+            // Create defs for gradients
+            let defs = svg.querySelector('defs');
+            if (!defs) {
+                defs = createSVGElement('defs');
+                svg.insertBefore(defs, svg.firstChild);
+            }
+
+            // Define quadrant gradients
+            const gradients = [
+                { id: 'synthesizerGradient', color1: '#93C5FD', color2: 'rgba(147, 197, 253, 0.1)' }, // Blue
+                { id: 'producerGradient', color1: '#FCA5A5', color2: 'rgba(252, 165, 165, 0.1)' },     // Red
+                { id: 'creativeGradient', color1: '#DDA0DD', color2: 'rgba(221, 160, 221, 0.1)' },    // Purple
+                { id: 'innerGuideGradient', color1: '#FDE047', color2: 'rgba(253, 224, 71, 0.1)' }   // Yellow
+            ];
+
+            gradients.forEach(({ id, color1, color2 }) => {
+                const gradient = createSVGElement('radialGradient', { id });
+                const stop1 = createSVGElement('stop', { offset: '0%', 'stop-color': color2 });
+                const stop2 = createSVGElement('stop', { offset: '100%', 'stop-color': color1 });
+                gradient.appendChild(stop1);
+                gradient.appendChild(stop2);
+                defs.appendChild(gradient);
+            });
+
+            // Create quadrant paths (curved segments)
+            const quadrantsGroup = createSVGGroup('quadrant-gradients');
+
+            // Helper to create quadrant path
+            const createQuadrantPath = (startAngle, endAngle, gradientId) => {
+                const startRad = (startAngle * Math.PI) / 180;
+                const endRad = (endAngle * Math.PI) / 180;
+
+                const x1 = centerX + maxRadius * Math.cos(startRad);
+                const y1 = centerY + maxRadius * Math.sin(startRad);
+                const x2 = centerX + maxRadius * Math.cos(endRad);
+                const y2 = centerY + maxRadius * Math.sin(endRad);
+
+                const pathData = `M ${centerX} ${centerY} L ${x1} ${y1} A ${maxRadius} ${maxRadius} 0 0 1 ${x2} ${y2} Z`;
+
+                return createSVGElement('path', {
+                    d: pathData,
+                    fill: `url(#${gradientId})`,
+                    opacity: '0.6'
+                });
+            };
+
+            // Add quadrant paths: Synthesizer (upper-left), Producer (upper-right), Creative (lower-right), Inner Guide (lower-left)
+            quadrantsGroup.appendChild(createQuadrantPath(-180, -90, 'synthesizerGradient'));  // Upper-left
+            quadrantsGroup.appendChild(createQuadrantPath(-90, 0, 'producerGradient'));        // Upper-right
+            quadrantsGroup.appendChild(createQuadrantPath(0, 90, 'creativeGradient'));         // Lower-right
+            quadrantsGroup.appendChild(createQuadrantPath(90, 180, 'innerGuideGradient'));     // Lower-left
+
+            svg.appendChild(quadrantsGroup);
+        }
+
+        function drawYAxisScoreLabels(svg, centerX, centerY, maxRadius) {
+            // Fixed scale values for each of the 5 concentric circles
+            const scaleValues = [8, 18, 23, 28, 32];
+            const labelsGroup = createSVGGroup('y-axis-score-labels');
+
+            scaleValues.forEach((value, index) => {
+                // Calculate radius for this circle (1-based index)
+                const circleRadius = ((index + 1) / RADAR_CHART_CONFIG.GRID_LEVELS) * maxRadius;
+
+                // Position label to the right of the vertical axis
+                const labelX = centerX + 10;
+                const labelY = centerY - circleRadius + 4; // Offset for vertical centering
+
+                const label = createText(labelX, labelY, value.toString(), {
+                    'text-anchor': 'start',
+                    'fill': '#F59E0B',  // Orange/gold color
+                    'font-size': '12',
+                    'font-weight': '600'
+                });
+
+                labelsGroup.appendChild(label);
+            });
 
             svg.appendChild(labelsGroup);
         }
@@ -928,23 +1020,19 @@
 
         // Data Rendering Functions
         function calculatePolygonPoints(axes, scores, centerX, centerY, maxRadius) {
-            const allScores = axes.map(axis => scores[axis.key]);
-            const maxScore = Math.max(...allScores);
-            const minScore = Math.min(...allScores);
-
             return axes.map(axis => {
                 const score = scores[axis.key];
-                let radius;
 
-                if (maxScore === minScore) {
-                    radius = RADAR_CHART_CONFIG.BALANCED_RADIUS_PERCENT * maxRadius;
-                } else {
-                    const normalizedScore = (score - minScore) / (maxScore - minScore);
-                    const paddedScore = normalizedScore *
-                        (RADAR_CHART_CONFIG.SCALE_MAX_PERCENT - RADAR_CHART_CONFIG.SCALE_MIN_PERCENT) +
-                        RADAR_CHART_CONFIG.SCALE_MIN_PERCENT;
-                    radius = paddedScore * maxRadius;
-                }
+                // Fixed absolute scale: 8 (innermost) to 32 (outermost)
+                // Clamp score to valid range
+                const clampedScore = Math.max(
+                    RADAR_CHART_CONFIG.SCALE_MIN_VALUE,
+                    Math.min(RADAR_CHART_CONFIG.SCALE_MAX_VALUE, score)
+                );
+
+                // Calculate radius based on fixed scale
+                const radius = ((clampedScore - RADAR_CHART_CONFIG.SCALE_MIN_VALUE) /
+                               (RADAR_CHART_CONFIG.SCALE_MAX_VALUE - RADAR_CHART_CONFIG.SCALE_MIN_VALUE)) * maxRadius;
 
                 const angleRad = (axis.angle * Math.PI) / 180;
                 const x = centerX + radius * Math.cos(angleRad);
@@ -1048,7 +1136,11 @@
             svg.innerHTML = '';
 
             drawConcentricGrid(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
-            if (includeCartesian) drawCartesianGrid(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
+            if (includeCartesian) {
+                drawQuadrantGradients(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
+                drawCartesianGrid(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
+                drawYAxisScoreLabels(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
+            }
             drawAxisSpokes(svg, axes, CENTER_X, CENTER_Y, MAX_RADIUS);
 
             const polygonPoints = calculatePolygonPoints(axes, scores, CENTER_X, CENTER_Y, MAX_RADIUS);
