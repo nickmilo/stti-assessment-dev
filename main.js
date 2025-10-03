@@ -1058,50 +1058,50 @@
 
             const centerX = 150;
             const centerY = 150;
-            const radius = 100;
-            const strokeWidth = 40;
+            const outerRadius = 120;
+            const innerRadius = 70;
 
             // Calculate percentages
             const total = scores.A + scores.G;
             const architectPercent = (scores.A / total) * 100;
             const gardenerPercent = (scores.G / total) * 100;
 
-            // Start at 180° (left side)
-            const startAngle = 180;
-            const architectAngle = (architectPercent / 100) * 360;
-
             // Clear SVG
             svg.innerHTML = '';
 
-            // Draw background circle (full donut outline)
-            const bgCircle = createSVGElement('circle', {
-                cx: centerX, cy: centerY, r: radius,
-                fill: 'none',
-                stroke: '#f3f4f6',
-                'stroke-width': strokeWidth
+            // SIMPLE DONUT: Two perfect half-circles (top and bottom)
+            // Top half = Architect (blue), Bottom half = Gardener (green)
+
+            // Top semicircle (Architect) - outer arc goes left-to-right clockwise, inner arc goes right-to-left counter-clockwise
+            const topPath = `M ${centerX - outerRadius},${centerY} A ${outerRadius},${outerRadius} 0 0,1 ${centerX + outerRadius},${centerY} L ${centerX + innerRadius},${centerY} A ${innerRadius},${innerRadius} 0 0,0 ${centerX - innerRadius},${centerY} Z`;
+
+            const architectHalf = createSVGElement('path', {
+                d: topPath,
+                fill: '#5dbcd2'
             });
-            svg.appendChild(bgCircle);
+            svg.appendChild(architectHalf);
 
-            // Draw Architect arc (from 180° clockwise)
-            const architectArc = createDonutArc(
-                centerX, centerY, radius,
-                startAngle, startAngle + architectAngle,
-                strokeWidth, '#5dbcd2'
-            );
-            svg.appendChild(architectArc);
+            // Bottom semicircle (Gardener) - outer arc goes right-to-left clockwise, inner arc goes left-to-right counter-clockwise
+            const bottomPath = `M ${centerX + outerRadius},${centerY} A ${outerRadius},${outerRadius} 0 0,1 ${centerX - outerRadius},${centerY} L ${centerX - innerRadius},${centerY} A ${innerRadius},${innerRadius} 0 0,0 ${centerX + innerRadius},${centerY} Z`;
 
-            // Draw Gardener arc (continues from Architect)
-            const gardenerArc = createDonutArc(
-                centerX, centerY, radius,
-                startAngle + architectAngle, startAngle + 360,
-                strokeWidth, '#67c073'
-            );
-            svg.appendChild(gardenerArc);
+            const gardenerHalf = createSVGElement('path', {
+                d: bottomPath,
+                fill: '#67c073'
+            });
+            svg.appendChild(gardenerHalf);
+
+            // White center circle for donut hole
+            const centerHole = createSVGElement('circle', {
+                cx: centerX,
+                cy: centerY,
+                r: innerRadius,
+                fill: 'white'
+            });
+            svg.appendChild(centerHole);
 
             // Add percentage labels
-            // Architect label (upper-left quadrant)
             const architectLabel = createText(
-                centerX - 50, centerY - 20,
+                centerX, centerY - 40,
                 `${architectPercent.toFixed(1)}%`,
                 {
                     'text-anchor': 'middle',
@@ -1112,20 +1112,8 @@
             );
             svg.appendChild(architectLabel);
 
-            const architectName = createText(
-                centerX - 50, centerY - 5,
-                'Architect',
-                {
-                    'text-anchor': 'middle',
-                    'font-size': '12',
-                    'fill': '#4a5568'
-                }
-            );
-            svg.appendChild(architectName);
-
-            // Gardener label (lower-right quadrant)
             const gardenerLabel = createText(
-                centerX + 50, centerY + 20,
+                centerX, centerY + 50,
                 `${gardenerPercent.toFixed(1)}%`,
                 {
                     'text-anchor': 'middle',
@@ -1136,54 +1124,7 @@
             );
             svg.appendChild(gardenerLabel);
 
-            const gardenerName = createText(
-                centerX + 50, centerY + 35,
-                'Gardener',
-                {
-                    'text-anchor': 'middle',
-                    'font-size': '12',
-                    'fill': '#4a5568'
-                }
-            );
-            svg.appendChild(gardenerName);
-
-            // Add "dominant" indicator on right side
-            if (architectPercent > 50) {
-                const indicator = createSVGElement('circle', {
-                    cx: centerX + radius + 20,
-                    cy: centerY - 20,
-                    r: 8,
-                    fill: '#5dbcd2'
-                });
-                svg.appendChild(indicator);
-            } else if (gardenerPercent > 50) {
-                const indicator = createSVGElement('circle', {
-                    cx: centerX + radius + 20,
-                    cy: centerY + 20,
-                    r: 8,
-                    fill: '#67c073'
-                });
-                svg.appendChild(indicator);
-            }
-
-            // SIMPLE TEST: Just draw two basic circles to prove SVG is working
-            const testOuter = createSVGElement('circle', {
-                cx: centerX, cy: centerY, r: 80,
-                fill: 'none',
-                stroke: 'red',
-                'stroke-width': '3'
-            });
-            svg.appendChild(testOuter);
-
-            const testInner = createSVGElement('circle', {
-                cx: centerX, cy: centerY, r: 50,
-                fill: 'white',
-                stroke: 'blue',
-                'stroke-width': '3'
-            });
-            svg.appendChild(testInner);
-
-            console.log('✓ DONUT: Test circles added - you should see red outer ring and blue inner ring');
+            console.log('✓ DONUT: Simple half-circle donut rendered - A=' + architectPercent.toFixed(1) + '%, G=' + gardenerPercent.toFixed(1) + '%');
         }
 
         function drawAxisLabels(svg, axes, centerX, centerY, maxRadius, labelOffset = 50) {
