@@ -1012,33 +1012,81 @@
             }
             svg.appendChild(gridGroup);
 
-            // Draw Cartesian grid lines (horizontal + vertical through center)
+            // Draw Cartesian grid lines (horizontal + vertical through center) - SOLID
             const cartesianGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             cartesianGroup.setAttribute('class', 'cartesian-grid');
 
-            // Horizontal line (West-East axis)
+            // Horizontal line (Reflection-Expression axis)
             const horizontalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             horizontalLine.setAttribute('x1', CENTER_X - MAX_RADIUS);
             horizontalLine.setAttribute('y1', CENTER_Y);
             horizontalLine.setAttribute('x2', CENTER_X + MAX_RADIUS);
             horizontalLine.setAttribute('y2', CENTER_Y);
-            horizontalLine.setAttribute('stroke', '#D0D0D0');
+            horizontalLine.setAttribute('stroke', '#B0B0B0');
             horizontalLine.setAttribute('stroke-width', '2');
-            horizontalLine.setAttribute('stroke-dasharray', '8,4');
             cartesianGroup.appendChild(horizontalLine);
 
-            // Vertical line (North-South axis)
+            // Vertical line (Top-down/Bottom-up axis)
             const verticalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             verticalLine.setAttribute('x1', CENTER_X);
             verticalLine.setAttribute('y1', CENTER_Y - MAX_RADIUS);
             verticalLine.setAttribute('x2', CENTER_X);
             verticalLine.setAttribute('y2', CENTER_Y + MAX_RADIUS);
-            verticalLine.setAttribute('stroke', '#D0D0D0');
+            verticalLine.setAttribute('stroke', '#B0B0B0');
             verticalLine.setAttribute('stroke-width', '2');
-            verticalLine.setAttribute('stroke-dasharray', '8,4');
             cartesianGroup.appendChild(verticalLine);
 
             svg.appendChild(cartesianGroup);
+
+            // Add axis labels
+            const axisLabelsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            axisLabelsGroup.setAttribute('class', 'axis-labels');
+
+            // Top-down label (top)
+            const topLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            topLabel.setAttribute('x', CENTER_X);
+            topLabel.setAttribute('y', CENTER_Y - MAX_RADIUS - 15);
+            topLabel.setAttribute('text-anchor', 'middle');
+            topLabel.setAttribute('fill', '#6B7280');
+            topLabel.setAttribute('font-size', '13');
+            topLabel.setAttribute('font-style', 'italic');
+            topLabel.textContent = 'Top-down';
+            axisLabelsGroup.appendChild(topLabel);
+
+            // Bottom-up label (bottom)
+            const bottomLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            bottomLabel.setAttribute('x', CENTER_X);
+            bottomLabel.setAttribute('y', CENTER_Y + MAX_RADIUS + 25);
+            bottomLabel.setAttribute('text-anchor', 'middle');
+            bottomLabel.setAttribute('fill', '#6B7280');
+            bottomLabel.setAttribute('font-size', '13');
+            bottomLabel.setAttribute('font-style', 'italic');
+            bottomLabel.textContent = 'Bottom-up';
+            axisLabelsGroup.appendChild(bottomLabel);
+
+            // Reflection label (left)
+            const leftLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            leftLabel.setAttribute('x', CENTER_X - MAX_RADIUS - 10);
+            leftLabel.setAttribute('y', CENTER_Y + 5);
+            leftLabel.setAttribute('text-anchor', 'end');
+            leftLabel.setAttribute('fill', '#6B7280');
+            leftLabel.setAttribute('font-size', '13');
+            leftLabel.setAttribute('font-style', 'italic');
+            leftLabel.textContent = 'Reflection';
+            axisLabelsGroup.appendChild(leftLabel);
+
+            // Expression label (right)
+            const rightLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            rightLabel.setAttribute('x', CENTER_X + MAX_RADIUS + 10);
+            rightLabel.setAttribute('y', CENTER_Y + 5);
+            rightLabel.setAttribute('text-anchor', 'start');
+            rightLabel.setAttribute('fill', '#6B7280');
+            rightLabel.setAttribute('font-size', '13');
+            rightLabel.setAttribute('font-style', 'italic');
+            rightLabel.textContent = 'Expression';
+            axisLabelsGroup.appendChild(rightLabel);
+
+            svg.appendChild(axisLabelsGroup);
 
             // Draw axis lines (spokes)
             const axesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
