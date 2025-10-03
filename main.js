@@ -54,6 +54,76 @@
             { id: 53, text: "I don't feel the need to exhaustively explore an idea.", archetype: 'S-' }
         ];
 
+        const demographicQuestions = [
+            {
+                id: 54,
+                type: 'radio',
+                text: 'How familiar are you with linking notes/ideas in digital tools?',
+                options: [
+                    'Very experienced - I use linking regularly',
+                    'Somewhat experienced - I\'ve tried it or use it occasionally',
+                    'Familiar with the concept but haven\'t used it much',
+                    'Not familiar with linking notes/ideas digitally',
+                    'Prefer not to answer'
+                ]
+            },
+            {
+                id: 55,
+                type: 'radio',
+                text: 'What is your age range?',
+                options: [
+                    'Under 18',
+                    '18-24',
+                    '25-34',
+                    '35-44',
+                    '45-54',
+                    '55-64',
+                    '65+',
+                    'Prefer not to answer'
+                ]
+            },
+            {
+                id: 56,
+                type: 'checkbox-with-text',
+                text: 'Have you been diagnosed with any of these neurodivergent conditions? (Select all that apply)',
+                options: [
+                    'ADHD',
+                    'Autism/Autistic',
+                    'Dyslexia',
+                    'Learning disabilities/differences',
+                    { text: 'Prefer to self-describe:', hasInput: true, inputId: 'q56_self_describe' },
+                    'I suspect I have something, but I haven\'t been diagnosed',
+                    'None of the above',
+                    'Prefer not to answer'
+                ]
+            },
+            {
+                id: 57,
+                type: 'radio-with-text',
+                text: 'What is your gender?',
+                options: [
+                    'Man',
+                    'Woman',
+                    'Non-binary',
+                    { text: 'Prefer to self-describe:', hasInput: true, inputId: 'q57_self_describe' },
+                    'Prefer not to answer'
+                ]
+            },
+            {
+                id: 58,
+                type: 'radio',
+                text: 'How would you describe your current approach to using AI tools?',
+                options: [
+                    'Enthusiastically using - I actively seek out AI tools and integrate them into my work',
+                    'Practically using - I use AI tools when they\'re helpful for specific tasks',
+                    'Reluctantly using - I use them sometimes but have reservations',
+                    'Avoiding use - I prefer not to use AI tools',
+                    'Haven\'t had much opportunity to use AI tools yet',
+                    'Prefer not to answer'
+                ]
+            }
+        ];
+
         // Global constants for archetype configuration
         const ARCHETYPE_NAMES = {
             'I': 'Inner Guide',
@@ -71,8 +141,11 @@
 
         let currentQuestion = 0;
         let answers = {};
+        let demographicAnswers = {};
         let userEmail = '';
-        let hasSubmitted = false; // Prevent multiple form submissions
+        let hasSubmittedToFormspree = false; // Prevent duplicate API submissions
+        let hasRenderedResults = false; // Track rendering state separately
+        const TOTAL_QUESTIONS = 58; // 53 STTI + 5 demographic (intro screen is NOT counted as a question)
         
         
         // Simple secret code system - exact copy of what worked with Z key
@@ -443,20 +516,79 @@
         }
 
         function loadQuestion() {
-            if (currentQuestion >= questions.length) {
-                showResults();
+            // STTI questions (0-52)
+            if (currentQuestion < questions.length) {
+                const question = questions[currentQuestion];
+                document.getElementById('questionText').textContent = question.text;
+                document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${TOTAL_QUESTIONS}`;
+
+                const progress = ((currentQuestion + 1) / TOTAL_QUESTIONS) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+
+                // Show assessment screen, hide others
+                showScreen('assessmentScreen');
+
+                highlightSelectedAnswer();
+                updateNavButtons();
                 return;
             }
 
-            const question = questions[currentQuestion];
-            document.getElementById('questionText').textContent = question.text;
-            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
-            
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            
-            highlightSelectedAnswer();
-            updateNavButtons();
+            // After Q53, show demographic intro screen
+            if (currentQuestion === questions.length) {
+                showScreen('demographicIntroScreen');
+                updateProgressBar();
+                return;
+            }
+
+            // Demographic questions (54-58)
+            const demoIndex = currentQuestion - questions.length - 1;
+            if (demoIndex >= 0 && demoIndex < demographicQuestions.length) {
+                showScreen('demographicQuestionScreen');
+                loadDemographicQuestion(demoIndex);
+                return;
+            }
+
+            // All questions complete - show results
+            showResults();
+        }
+
+        function updateProgressBar() {
+            // CRITICAL FIX: Calculate correct question number to display
+            // - STTI questions (0-52): Display as 1-53 (currentQuestion + 1)
+            // - Intro screen (53): Display as 53 (NOT 54 - intro is not a question)
+            // - Demo questions (54-58): Display as 54-58 (currentQuestion itself, since already offset)
+            let displayQuestion;
+            if (currentQuestion < questions.length) {
+                // STTI questions: 0-indexed, so add 1
+                displayQuestion = currentQuestion + 1;
+            } else if (currentQuestion === questions.length) {
+                // Intro screen: keep at last STTI question number
+                displayQuestion = questions.length;
+            } else {
+                // Demographic questions: currentQuestion is already the correct question number
+                displayQuestion = currentQuestion;
+            }
+
+            const progress = (displayQuestion / TOTAL_QUESTIONS) * 100;
+            const progressText = `Question ${displayQuestion} of ${TOTAL_QUESTIONS}`;
+
+            // Update main assessment progress bar
+            const mainProgressBar = document.getElementById('progressBar');
+            const mainProgressText = document.getElementById('progressText');
+            if (mainProgressBar) mainProgressBar.style.width = progress + '%';
+            if (mainProgressText) mainProgressText.textContent = progressText;
+
+            // Update demographic intro progress bar
+            const demoIntroProgressBar = document.getElementById('demoIntroProgressBar');
+            const demoIntroProgressText = document.getElementById('demoIntroProgressText');
+            if (demoIntroProgressBar) demoIntroProgressBar.style.width = progress + '%';
+            if (demoIntroProgressText) demoIntroProgressText.textContent = progressText;
+
+            // Update demographic question progress bar
+            const demoQuestionProgressBar = document.getElementById('demoQuestionProgressBar');
+            const demoQuestionProgressText = document.getElementById('demoQuestionProgressText');
+            if (demoQuestionProgressBar) demoQuestionProgressBar.style.width = progress + '%';
+            if (demoQuestionProgressText) demoQuestionProgressText.textContent = progressText;
         }
 
         function highlightSelectedAnswer() {
@@ -498,18 +630,12 @@
             }
 
             updateNavButtons();
-            
+
             // Auto-advance after a short delay
-            if (currentQuestion < questions.length - 1) {
-                setTimeout(() => {
-                    currentQuestion++;
-                    loadQuestion();
-                }, 400);
-            } else {
-                setTimeout(() => {
-                    showResults();
-                }, 400);
-            }
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 400);
         }
 
         function goBack() {
@@ -568,7 +694,18 @@
 
         async function submitToFormspree(profile) {
             try {
-                const response = await fetch('https://formspree.io/f/xvgblrvw', {
+                // Format demographic data
+                const demographicData = {
+                    q54_linking_experience: demographicAnswers[54]?.value || 'Not answered',
+                    q55_age_range: demographicAnswers[55]?.value || 'Not answered',
+                    q56_neurodivergence: demographicAnswers[56]?.values || [],
+                    q56_self_describe: demographicAnswers[56]?.textInputs?.q56_self_describe || '',
+                    q57_gender: demographicAnswers[57]?.value || 'Not answered',
+                    q57_self_describe: demographicAnswers[57]?.textInput || '',
+                    q58_ai_tools: demographicAnswers[58]?.value || 'Not answered'
+                };
+
+                const response = await fetch('https://formspree.io/f/meorkprg', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -585,10 +722,11 @@
                             question_text: questions.find(q => q.id === answer.questionId)?.text,
                             answer: answer.answer,
                             archetype: answer.archetype
-                        }))
+                        })),
+                        demographic_data: demographicData
                     })
                 });
-                
+
                 if (response.ok) {
                     console.log('Data submitted to Formspree successfully');
                 } else {
@@ -599,20 +737,37 @@
             }
         }
 
-        function showResults() {
+        async function showResults() {
             const scores = calculateScores();
             const profile = determineProfile(scores);
 
-            // Prevent multiple submissions to Formspree
-            if (hasSubmitted) {
-                console.log('Results already submitted, skipping duplicate Formspree submission');
-                showScreen('resultsScreen');
+            // Submit to Formspree (only once)
+            if (!hasSubmittedToFormspree) {
+                submitToFormspree(profile);
+                hasSubmittedToFormspree = true;
+            } else {
+                console.log('Results already submitted to Formspree, skipping duplicate submission');
+            }
+
+            // Wait for profiles to load before rendering
+            try {
+                // Ensure profileRenderer exists
+                if (!window.profileRenderer) {
+                    throw new Error('ProfileRenderer not initialized');
+                }
+
+                await window.profileRenderer.waitForProfiles();
+            } catch (error) {
+                console.error('Failed to load profiles after retries:', error);
+
+                // Show error using fallback if profileRenderer doesn't exist
+                if (window.profileRenderer && window.profileRenderer.showCriticalError) {
+                    window.profileRenderer.showCriticalError(error);
+                } else {
+                    alert('Configuration Error: The assessment profiles failed to load. Please refresh the page.');
+                }
                 return;
             }
-            hasSubmitted = true;
-
-            // Submit to Formspree
-            submitToFormspree(profile);
 
             // Update profile code display
             document.getElementById('profileCode').textContent = profile.code;
@@ -634,6 +789,7 @@
             chordImage.src = `./Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
 
+            hasRenderedResults = true; // Mark results as successfully rendered
             showScreen('resultsScreen');
         }
 
@@ -776,7 +932,7 @@
         // Hide collapsible sections for broken profiles
         function hideBrokenProfileSections(profileCode) {
             const brokenProfiles = ['IC-Architect', 'IC-Gardener', 'PI-Architect', 'PI-Gardener', 'PC-Architect', 'SI-Architect', 'SI-Gardener', 'SP-Architect', 'SP-Gardener', 'SC-Architect', 'SC-Gardener'];
-            
+
             if (brokenProfiles.includes(profileCode)) {
                 const sectionsToHide = ['overwhelmedSection', 'stuckUnstuckSection', 'promptsSection', 'archetypesSynergySection'];
                 sectionsToHide.forEach(sectionId => {
@@ -786,4 +942,228 @@
                     }
                 });
             }
+        }
+
+        // Demographic question functions
+        function loadDemographicQuestion(demoIndex) {
+            const question = demographicQuestions[demoIndex];
+            const questionNumber = question.id;
+
+            updateProgressBar();
+
+            document.getElementById('demoQuestionText').textContent = question.text;
+            const optionsContainer = document.getElementById('demoOptionsContainer');
+            optionsContainer.innerHTML = '';
+
+            if (question.type === 'radio' || question.type === 'radio-with-text') {
+                renderRadioOptions(question, optionsContainer, questionNumber);
+            } else if (question.type === 'checkbox' || question.type === 'checkbox-with-text') {
+                renderCheckboxOptions(question, optionsContainer, questionNumber);
+            }
+
+            // Show/hide navigation
+            const demoBackBtn = document.getElementById('demoBackBtn');
+            const demoForwardBtn = document.getElementById('demoForwardBtn');
+            demoBackBtn.style.display = 'inline-block';
+            demoForwardBtn.style.display = 'inline-block';
+            demoBackBtn.disabled = false;
+
+            // CRITICAL FIX: Update forward button state after rendering options
+            // This ensures button is enabled if user navigates back to an answered question
+            updateDemoForwardButton(questionNumber);
+        }
+
+        function renderRadioOptions(question, container, questionNumber) {
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'demo-option';
+
+                const isObject = typeof option === 'object';
+                const optionText = isObject ? option.text : option;
+                const hasInput = isObject && option.hasInput;
+
+                const radioId = `demo_q${questionNumber}_opt${index}`;
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `demo_q${questionNumber}`;
+                radio.value = optionText;
+                radio.id = radioId;
+                radio.className = 'demo-radio';
+
+                // Check if previously selected
+                if (demographicAnswers[questionNumber] && demographicAnswers[questionNumber].value === optionText) {
+                    radio.checked = true;
+                }
+
+                radio.addEventListener('change', () => {
+                    demographicAnswers[questionNumber] = { value: optionText };
+                    if (hasInput) {
+                        const textInput = document.getElementById(option.inputId);
+                        if (textInput) {
+                            demographicAnswers[questionNumber].textInput = textInput.value;
+                        }
+                    }
+                    updateDemoForwardButton(questionNumber);
+                });
+
+                const label = document.createElement('label');
+                label.htmlFor = radioId;
+                label.textContent = optionText;
+                label.className = 'demo-label';
+
+                optionDiv.appendChild(radio);
+                optionDiv.appendChild(label);
+
+                if (hasInput) {
+                    const textInput = document.createElement('input');
+                    textInput.type = 'text';
+                    textInput.id = option.inputId;
+                    textInput.className = 'demo-text-input';
+                    textInput.placeholder = 'Please specify...';
+                    if (demographicAnswers[questionNumber] && demographicAnswers[questionNumber].textInput) {
+                        textInput.value = demographicAnswers[questionNumber].textInput;
+                    }
+                    textInput.addEventListener('input', () => {
+                        if (radio.checked && demographicAnswers[questionNumber]) {
+                            demographicAnswers[questionNumber].textInput = textInput.value;
+                        }
+                    });
+                    optionDiv.appendChild(textInput);
+                }
+
+                container.appendChild(optionDiv);
+            });
+        }
+
+        function renderCheckboxOptions(question, container, questionNumber) {
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'demo-option';
+
+                const isObject = typeof option === 'object';
+                const optionText = isObject ? option.text : option;
+                const hasInput = isObject && option.hasInput;
+
+                const checkboxId = `demo_q${questionNumber}_opt${index}`;
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = optionText;
+                checkbox.id = checkboxId;
+                checkbox.className = 'demo-checkbox';
+
+                // Initialize answer array if needed
+                if (!demographicAnswers[questionNumber]) {
+                    demographicAnswers[questionNumber] = { values: [], textInputs: {} };
+                }
+
+                // Check if previously selected
+                if (demographicAnswers[questionNumber].values.includes(optionText)) {
+                    checkbox.checked = true;
+                }
+
+                checkbox.addEventListener('change', () => {
+                    if (!demographicAnswers[questionNumber]) {
+                        demographicAnswers[questionNumber] = { values: [], textInputs: {} };
+                    }
+
+                    if (checkbox.checked) {
+                        if (!demographicAnswers[questionNumber].values.includes(optionText)) {
+                            demographicAnswers[questionNumber].values.push(optionText);
+                        }
+                    } else {
+                        const idx = demographicAnswers[questionNumber].values.indexOf(optionText);
+                        if (idx > -1) {
+                            demographicAnswers[questionNumber].values.splice(idx, 1);
+                        }
+                        if (hasInput) {
+                            delete demographicAnswers[questionNumber].textInputs[option.inputId];
+                        }
+                    }
+                    updateDemoForwardButton(questionNumber);
+                });
+
+                const label = document.createElement('label');
+                label.htmlFor = checkboxId;
+                label.textContent = optionText;
+                label.className = 'demo-label';
+
+                optionDiv.appendChild(checkbox);
+                optionDiv.appendChild(label);
+
+                if (hasInput) {
+                    const textInput = document.createElement('input');
+                    textInput.type = 'text';
+                    textInput.id = option.inputId;
+                    textInput.className = 'demo-text-input';
+                    textInput.placeholder = 'Please specify...';
+                    if (demographicAnswers[questionNumber] && demographicAnswers[questionNumber].textInputs[option.inputId]) {
+                        textInput.value = demographicAnswers[questionNumber].textInputs[option.inputId];
+                    }
+                    textInput.addEventListener('input', () => {
+                        if (checkbox.checked) {
+                            if (!demographicAnswers[questionNumber].textInputs) {
+                                demographicAnswers[questionNumber].textInputs = {};
+                            }
+                            demographicAnswers[questionNumber].textInputs[option.inputId] = textInput.value;
+                        }
+                    });
+                    optionDiv.appendChild(textInput);
+                }
+
+                container.appendChild(optionDiv);
+            });
+        }
+
+        function updateDemoForwardButton(questionNumber) {
+            const forwardBtn = document.getElementById('demoForwardBtn');
+            const answer = demographicAnswers[questionNumber];
+
+            if (answer) {
+                if (answer.value !== undefined) {
+                    // Radio question - has answer
+                    forwardBtn.disabled = false;
+                } else if (answer.values !== undefined && answer.values.length > 0) {
+                    // Checkbox question - has at least one selection
+                    forwardBtn.disabled = false;
+                } else {
+                    forwardBtn.disabled = true;
+                }
+            } else {
+                forwardBtn.disabled = true;
+            }
+        }
+
+        function demoGoBack() {
+            if (currentQuestion > questions.length) {
+                currentQuestion--;
+                hasRenderedResults = false; // Allow results to be re-rendered if user returns
+                loadQuestion();
+            }
+        }
+
+        function demoGoForward() {
+            const demoIndex = currentQuestion - questions.length - 1;
+            const questionNumber = demographicQuestions[demoIndex].id;
+
+            if (demographicAnswers[questionNumber]) {
+                // Check if this is the last demographic question
+                if (demoIndex === demographicQuestions.length - 1) {
+                    // Last demographic question - go directly to results
+                    showResults();
+                } else {
+                    // More demographic questions remain
+                    currentQuestion++;
+                    loadQuestion();
+                }
+            }
+        }
+
+        function continueToDemographics() {
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function skipToResults() {
+            // Skip demographic questions and show results immediately
+            showResults();
         }

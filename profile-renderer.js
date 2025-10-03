@@ -11,22 +11,69 @@ class ProfileRenderer {
     }
 
     /**
-     * Load profile configuration from JSON
+     * Load profile configuration from inline data or fallback to fetch
      */
     async loadProfiles() {
         try {
+            // Check if inline data is available (loaded from profiles-data.js)
+            if (window.STTI_PROFILES && typeof window.STTI_PROFILES === 'object') {
+                this.profiles = window.STTI_PROFILES;
+                this.isReady = true;
+                console.log('✅ Profile configuration loaded from inline data:', Object.keys(this.profiles).length, 'profiles');
+                return;
+            }
+
+            // Fallback to fetch if inline data is not available (backward compatibility)
+            console.log('⚠️ Inline profile data not found, attempting to fetch profiles.json...');
             const response = await fetch('profiles.json');
             if (!response.ok) {
                 throw new Error(`Failed to load profiles: ${response.status}`);
             }
             this.profiles = await response.json();
             this.isReady = true;
-            console.log('✅ Profile configuration loaded:', Object.keys(this.profiles).length, 'profiles');
+            console.log('✅ Profile configuration loaded from fetch:', Object.keys(this.profiles).length, 'profiles');
         } catch (error) {
             console.error('❌ CRITICAL ERROR: Failed to load profile configuration:', error);
             this.isReady = false;
-            this.showCriticalError(error);
+            // DON'T show error on page load - wait until results are needed
+            // Error will be shown in waitForProfiles() if still failing
         }
+    }
+
+    /**
+     * Wait for profiles to load with retry logic
+     * Used by showResults() to ensure profiles are ready before rendering
+     */
+    async waitForProfiles(maxRetries = 3, timeoutMs = 5000) {
+        const startTime = Date.now();
+        let attempts = 0;
+
+        while (!this.isReady && attempts < maxRetries) {
+            attempts++;
+
+            if (attempts > 1) {
+                console.log(`🔄 Retrying profile load (attempt ${attempts}/${maxRetries})...`);
+            }
+
+            await this.loadProfiles();
+
+            // Poll with exponential backoff
+            let pollInterval = 100;
+            while (!this.isReady && (Date.now() - startTime) < timeoutMs) {
+                await new Promise(resolve => setTimeout(resolve, pollInterval));
+                pollInterval = Math.min(pollInterval * 1.5, 1000);
+            }
+
+            if (this.isReady) {
+                return true;
+            }
+        }
+
+        if (!this.isReady) {
+            throw new Error(`Failed to load profiles after ${attempts} attempts`);
+        }
+
+        return this.isReady;
     }
 
     /**

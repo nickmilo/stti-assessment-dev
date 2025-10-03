@@ -36,7 +36,7 @@
         <div id="assessmentScreen" class="screen">
             <div class="assessment">
                 <div class="progress-section">
-                    <div class="progress-text" id="progressText">Question 1 of 53</div>
+                    <div class="progress-text" id="progressText">Question 1 of 58</div>
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
@@ -44,7 +44,7 @@
 
                 <div class="question-section">
                     <div class="question-text" id="questionText">Loading question...</div>
-                    
+
                     <div class="answers">
                         <button class="answer-btn sd" onclick="selectAnswer('SD')">
                             <span>Strongly Disagree</span>
@@ -63,6 +63,51 @@
                     <div class="navigation">
                         <button id="backBtn" class="nav-btn" onclick="goBack()">‹</button>
                         <button id="forwardBtn" class="nav-btn" onclick="goForward()">›</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demographic Intro Screen -->
+        <div id="demographicIntroScreen" class="screen">
+            <div class="assessment">
+                <div class="progress-section">
+                    <div class="progress-text" id="demoIntroProgressText">Question 53 of 58</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="demoIntroProgressBar"></div>
+                    </div>
+                </div>
+
+                <div class="demographic-intro">
+                    <h3 class="demo-intro-title">Optional Demographic Questions</h3>
+                    <p class="demo-intro-text">
+                        This optional demographic data allows us to explore whether factors like age, gender, or neurodivergence influence how people naturally approach problem-solving and sensemaking—aiding our ability to develop better tools and resources. Your responses are completely optional and will only be used for research purposes to improve our understanding of how people across different populations and life experiences process and interpret information.
+                    </p>
+                    <div class="demo-intro-buttons">
+                        <button class="demo-skip-btn" onclick="skipToResults()">Skip to Results</button>
+                        <button class="demo-continue-btn" onclick="continueToDemographics()">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demographic Question Screen -->
+        <div id="demographicQuestionScreen" class="screen">
+            <div class="assessment">
+                <div class="progress-section">
+                    <div class="progress-text" id="demoQuestionProgressText">Question 54 of 58</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="demoQuestionProgressBar"></div>
+                    </div>
+                </div>
+
+                <div class="demographic-question">
+                    <div class="demo-question-text" id="demoQuestionText">Loading question...</div>
+                    <div class="demo-options-container" id="demoOptionsContainer"></div>
+
+                    <div class="demo-navigation">
+                        <button id="demoBackBtn" class="demo-back-btn" onclick="demoGoBack()">Back</button>
+                        <button id="demoForwardBtn" class="demo-continue-btn" onclick="demoGoForward()">Continue</button>
                     </div>
                 </div>
             </div>
@@ -350,6 +395,8 @@
         <img id="modalImage" src="" alt="Enlarged Sensemaking Pattern">
     </div>
 
+    <!-- Load profile data inline (must load before profile-renderer.js) -->
+    <script src="Web-App/profiles-data.js"></script>
     <script src="profile-renderer.js"></script>
     <script src="main.js"></script>
 </body>
