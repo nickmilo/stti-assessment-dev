@@ -1602,8 +1602,8 @@
     background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
     border-radius: var(--radius-md);
     border-left: 4px solid var(--lyt-purple);
-    padding: var(--space-lg) var(--space-2xl);  /* 16px top/bottom, 32px left/right */
-    margin-bottom: var(--space-2xl);
+    padding: var(--space-sm) var(--space-lg);  /* OPTIMIZED: 8px top/bottom, 16px left/right for compact display */
+    margin-bottom: var(--space-md);  /* REDUCED from 2xl (32px) to md (12px) - kills white space */
     text-align: center;
 }
 
@@ -1755,7 +1755,8 @@
 
 /* Architect/Gardener Donut Chart */
 .donut-chart-section {
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);  /* Reduced from 2xl to lg - less white space */
+    padding: var(--space-lg);  /* Minimal padding */
     text-align: center;
 }
 
@@ -1763,12 +1764,12 @@
     font-family: 'DM Mono', monospace;
     text-decoration: underline;
     color: var(--lyt-purple-deep);
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-md);  /* Reduced from xl to md */
     font-size: 1.1rem;
 }
 
 .donut-chart-container {
-    max-width: 300px;
+    max-width: 350px;  /* Increased from 300px to 350px */
     margin: 0 auto;
 }
 

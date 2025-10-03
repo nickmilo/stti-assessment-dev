@@ -402,6 +402,9 @@
                         renderRadarChart(customScores, code);
                         renderRadarChartArchetypesOnly(customScores);
 
+                        // Render donut chart with custom A/G scores
+                        renderArchitectGardenerDonut(customScores);
+
                         // Animate score bars with custom scores
                         animateScoreBars(customScores);
                     } else {
@@ -820,9 +823,9 @@
 
         // Configuration
         const RADAR_CHART_CONFIG = {
-            CENTER_X: 250,
-            CENTER_Y: 250,
-            MAX_RADIUS: 135,  // 75% of 180 for more compact chart
+            CENTER_X: 175,    // Updated for 350x350 viewBox (was 250 for 500x500)
+            CENTER_Y: 175,    // Updated for 350x350 viewBox (was 250 for 500x500)
+            MAX_RADIUS: 160,  // Increased from 135 to better fill the smaller viewBox
             GRID_LEVELS: 5,
             LABEL_OFFSET: 50,
             ANIMATION_DELAY: 300,
@@ -919,8 +922,8 @@
 
             addLabelWithBackground(centerX, centerY - maxRadius - 8, 'Top-down', 'middle', 75, 20);
             addLabelWithBackground(centerX, centerY + maxRadius + 18, 'Bottom-up', 'middle', 80, 20);
-            addLabelWithBackground(10, centerY + 5, 'Reflection', 'start', 75, 20);
-            addLabelWithBackground(490, centerY + 5, 'Expression', 'end', 80, 20);
+            addLabelWithBackground(centerX - maxRadius - 65, centerY + 5, 'Reflection', 'start', 75, 20);
+            addLabelWithBackground(centerX + maxRadius + 65, centerY + 5, 'Expression', 'end', 80, 20);
 
             svg.appendChild(labelsGroup);
         }
@@ -1008,7 +1011,7 @@
         }
 
         /**
-         * Create SVG arc path for donut chart
+         * Create SVG arc path for donut chart (stroked arc, no fill)
          */
         function createDonutArc(cx, cy, radius, startAngle, endAngle, strokeWidth, color) {
             // Convert angles to radians (subtract 90 to start from left instead of top)
@@ -1037,6 +1040,61 @@
         }
 
         /**
+         * Create filled donut segment (ring segment with inner and outer arcs)
+         * @param {number} cx - Center X coordinate
+         * @param {number} cy - Center Y coordinate
+         * @param {number} outerRadius - Outer radius of donut
+         * @param {number} innerRadius - Inner radius of donut (hole size)
+         * @param {number} startAngle - Start angle in degrees (0 = top, 180 = left)
+         * @param {number} endAngle - End angle in degrees
+         * @param {string} fillColor - Fill color for segment
+         * @returns {SVGElement} Path element for donut segment
+         */
+        function createDonutSegment(cx, cy, outerRadius, innerRadius, startAngle, endAngle, fillColor) {
+            // Normalize angles to 0-360 range
+            const normalizeAngle = (angle) => ((angle % 360) + 360) % 360;
+            const start = normalizeAngle(startAngle);
+            const end = normalizeAngle(endAngle);
+
+            // Calculate angle span
+            let angleSpan = end - start;
+            if (angleSpan < 0) angleSpan += 360;
+
+            // Convert to radians (SVG uses top=0, we want left=180 so offset by -90)
+            const startRad = ((start - 90) * Math.PI) / 180;
+            const endRad = ((end - 90) * Math.PI) / 180;
+
+            // Calculate outer arc points
+            const outerX1 = cx + outerRadius * Math.cos(startRad);
+            const outerY1 = cy + outerRadius * Math.sin(startRad);
+            const outerX2 = cx + outerRadius * Math.cos(endRad);
+            const outerY2 = cy + outerRadius * Math.sin(endRad);
+
+            // Calculate inner arc points (reversed direction)
+            const innerX1 = cx + innerRadius * Math.cos(endRad);
+            const innerY1 = cy + innerRadius * Math.sin(endRad);
+            const innerX2 = cx + innerRadius * Math.cos(startRad);
+            const innerY2 = cy + innerRadius * Math.sin(startRad);
+
+            // Large arc flag (1 if arc > 180°)
+            const largeArc = angleSpan > 180 ? 1 : 0;
+
+            // Build path: outer arc (clockwise) + line to inner + inner arc (counter-clockwise) + close
+            const pathData = `
+                M ${outerX1} ${outerY1}
+                A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${outerX2} ${outerY2}
+                L ${innerX1} ${innerY1}
+                A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${innerX2} ${innerY2}
+                Z
+            `.replace(/\s+/g, ' ').trim();
+
+            return createSVGElement('path', {
+                d: pathData,
+                fill: fillColor
+            });
+        }
+
+        /**
          * Render Architect vs Gardener donut chart
          * @param {Object} scores - Score object with A and G properties
          */
@@ -1058,8 +1116,8 @@
 
             const centerX = 150;
             const centerY = 150;
-            const outerRadius = 120;
-            const innerRadius = 70;
+            const outerRadius = 140;  // Much bigger - almost fills the 300x300 viewBox
+            const innerRadius = 90;   // Proportionally larger inner hole
 
             // Calculate percentages
             const total = scores.A + scores.G;
@@ -1069,26 +1127,30 @@
             // Clear SVG
             svg.innerHTML = '';
 
-            // SIMPLE DONUT: Two perfect half-circles (top and bottom)
-            // Top half = Architect (blue), Bottom half = Gardener (green)
+            // DYNAMIC DONUT: Proportional arcs based on A/G scores
+            // Start at left (180°), go clockwise
+            const startAngle = 180;  // Left side (9 o'clock position)
+            const architectAngle = (architectPercent / 100) * 360;  // Architect's portion in degrees
+            const gardenerAngle = (gardenerPercent / 100) * 360;    // Gardener's portion in degrees
 
-            // Top semicircle (Architect) - outer arc goes left-to-right clockwise, inner arc goes right-to-left counter-clockwise
-            const topPath = `M ${centerX - outerRadius},${centerY} A ${outerRadius},${outerRadius} 0 0,1 ${centerX + outerRadius},${centerY} L ${centerX + innerRadius},${centerY} A ${innerRadius},${innerRadius} 0 0,0 ${centerX - innerRadius},${centerY} Z`;
+            // Create Architect arc (starts at 180°, sweeps clockwise by architectAngle)
+            const architectArcEnd = startAngle + architectAngle;
+            const architectPath = createDonutSegment(
+                centerX, centerY,
+                outerRadius, innerRadius,
+                startAngle, architectArcEnd,
+                '#5dbcd2'
+            );
+            svg.appendChild(architectPath);
 
-            const architectHalf = createSVGElement('path', {
-                d: topPath,
-                fill: '#5dbcd2'
-            });
-            svg.appendChild(architectHalf);
-
-            // Bottom semicircle (Gardener) - outer arc goes right-to-left clockwise, inner arc goes left-to-right counter-clockwise
-            const bottomPath = `M ${centerX + outerRadius},${centerY} A ${outerRadius},${outerRadius} 0 0,1 ${centerX - outerRadius},${centerY} L ${centerX - innerRadius},${centerY} A ${innerRadius},${innerRadius} 0 0,0 ${centerX + innerRadius},${centerY} Z`;
-
-            const gardenerHalf = createSVGElement('path', {
-                d: bottomPath,
-                fill: '#67c073'
-            });
-            svg.appendChild(gardenerHalf);
+            // Create Gardener arc (starts where Architect ends, completes the circle back to 180°)
+            const gardenerPath = createDonutSegment(
+                centerX, centerY,
+                outerRadius, innerRadius,
+                architectArcEnd, startAngle + 360,
+                '#67c073'
+            );
+            svg.appendChild(gardenerPath);
 
             // White center circle for donut hole
             const centerHole = createSVGElement('circle', {

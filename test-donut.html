@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donut Chart Test</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            font-family: system-ui;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        svg {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Donut Chart Test</h2>
+        <svg id="donut" viewBox="0 0 300 300" width="300" height="300">
+            <!-- This will be populated by JavaScript -->
+        </svg>
+        <div id="info" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        // Test the exact same SVG path logic
+        const centerX = 150;
+        const centerY = 150;
+        const outerRadius = 120;
+        const innerRadius = 70;
+
+        // Test with 50/50 split
+        const architectPercent = 50;
+        const gardenerPercent = 50;
+
+        const svg = document.getElementById('donut');
+        const info = document.getElementById('info');
+
+        // Helper to create SVG elements
+        function createSVGElement(type, attrs) {
+            const el = document.createElementNS('http://www.w3.org/2000/svg', type);
+            Object.entries(attrs).forEach(([key, value]) => {
+                el.setAttribute(key, value);
+            });
+            return el;
+        }
+
+        // Top semicircle (Architect) - outer arc goes left-to-right clockwise, inner arc goes right-to-left counter-clockwise
+        const topPath = `M ${centerX - outerRadius},${centerY} A ${outerRadius},${outerRadius} 0 0,1 ${centerX + outerRadius},${centerY} L ${centerX + innerRadius},${centerY} A ${innerRadius},${innerRadius} 0 0,0 ${centerX - innerRadius},${centerY} Z`;
+
+        const architectHalf = createSVGElement('path', {
+            d: topPath,
+            fill: '#5dbcd2',
+            stroke: 'black',
+            'stroke-width': '1'
+        });
+        svg.appendChild(architectHalf);
+
+        // Bottom semicircle (Gardener) - outer arc goes right-to-left clockwise, inner arc goes left-to-right counter-clockwise
+        const bottomPath = `M ${centerX + outerRadius},${centerY} A ${outerRadius},${outerRadius} 0 0,1 ${centerX - outerRadius},${centerY} L ${centerX - innerRadius},${centerY} A ${innerRadius},${innerRadius} 0 0,0 ${centerX + innerRadius},${centerY} Z`;
+
+        const gardenerHalf = createSVGElement('path', {
+            d: bottomPath,
+            fill: '#67c073',
+            stroke: 'black',
+            'stroke-width': '1'
+        });
+        svg.appendChild(gardenerHalf);
+
+        // White center circle for donut hole
+        const centerHole = createSVGElement('circle', {
+            cx: centerX,
+            cy: centerY,
+            r: innerRadius,
+            fill: 'white',
+            stroke: 'black',
+            'stroke-width': '1'
+        });
+        svg.appendChild(centerHole);
+
+        // Add labels
+        const architectLabel = createSVGElement('text', {
+            x: centerX,
+            y: centerY - 40,
+            'text-anchor': 'middle',
+            'font-size': '18',
+            'font-weight': '600',
+            fill: '#5dbcd2'
+        });
+        architectLabel.textContent = `${architectPercent}%`;
+        svg.appendChild(architectLabel);
+
+        const gardenerLabel = createSVGElement('text', {
+            x: centerX,
+            y: centerY + 50,
+            'text-anchor': 'middle',
+            'font-size': '18',
+            'font-weight': '600',
+            fill: '#67c073'
+        });
+        gardenerLabel.textContent = `${gardenerPercent}%`;
+        svg.appendChild(gardenerLabel);
+
+        info.innerHTML = `
+            <strong>Path Data:</strong><br>
+            <small>Top: ${topPath}</small><br><br>
+            <small>Bottom: ${bottomPath}</small>
+        `;
+    </script>
+</body>
+</html>
