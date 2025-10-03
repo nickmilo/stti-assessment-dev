@@ -823,8 +823,8 @@
 
         // Configuration
         const RADAR_CHART_CONFIG = {
-            CENTER_X: 260,    // Updated for 520x520 viewBox (was 220 for 440x440)
-            CENTER_Y: 260,    // Updated for 520x520 viewBox (was 220 for 440x440)
+            CENTER_X: 220,    // Updated for 440x440 viewBox (was 260 for 520x520)
+            CENTER_Y: 220,    // Updated for 440x440 viewBox (was 260 for 520x520)
             MAX_RADIUS: 160,  // Increased from 135 to better fill the smaller viewBox
             GRID_LEVELS: 5,
             LABEL_OFFSET: 50,
@@ -922,8 +922,8 @@
 
             addLabelWithBackground(centerX, centerY - maxRadius - 8, 'Top-down', 'middle', 75, 20);
             addLabelWithBackground(centerX, centerY + maxRadius + 18, 'Bottom-up', 'middle', 80, 20);
-            addLabelWithBackground(centerX - maxRadius - 65, centerY + 5, 'Reflection', 'start', 75, 20);
-            addLabelWithBackground(centerX + maxRadius + 65, centerY + 5, 'Expression', 'end', 80, 20);
+            addLabelWithBackground(centerX - maxRadius - 45, centerY + 5, 'Reflection', 'start', 75, 20);
+            addLabelWithBackground(centerX + maxRadius + 45, centerY + 5, 'Expression', 'end', 80, 20);
 
             svg.appendChild(labelsGroup);
         }
@@ -1060,9 +1060,9 @@
             let angleSpan = end - start;
             if (angleSpan < 0) angleSpan += 360;
 
-            // Convert to radians (SVG uses top=0, we want left=180 so offset by -90)
-            const startRad = ((start - 90) * Math.PI) / 180;
-            const endRad = ((end - 90) * Math.PI) / 180;
+            // Convert to radians (0° = right/3 o'clock, 90° = bottom/6 o'clock, 180° = left/9 o'clock, 270° = top/12 o'clock)
+            const startRad = (start * Math.PI) / 180;
+            const endRad = (end * Math.PI) / 180;
 
             // Calculate outer arc points
             const outerX1 = cx + outerRadius * Math.cos(startRad);
