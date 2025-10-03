@@ -986,13 +986,13 @@
             const maxScore = Math.max(...allScores);
             const minScore = Math.min(...allScores);
 
-            // Data structure: 4 axes (archetypes only) in cardinal directions
-            // N/S/E/W orientation matching STTI framework
+            // Data structure: 4 axes (archetypes only) positioned in quadrants
+            // Reflection-Expression (horizontal) × Top-down/Bottom-up (vertical)
             const axes = [
-                { key: 'S', label: 'Synthesizer', angle: -90 },   // North/Top
-                { key: 'P', label: 'Producer', angle: 0 },        // East/Right
-                { key: 'C', label: 'Creative', angle: 90 },       // South/Bottom
-                { key: 'I', label: 'Inner Guide', angle: 180 }    // West/Left
+                { key: 'S', label: 'Synthesizer', angle: -135 },  // Upper-left (Reflection + Top-down)
+                { key: 'P', label: 'Producer', angle: -45 },      // Upper-right (Expression + Top-down)
+                { key: 'C', label: 'Creative', angle: 45 },       // Lower-right (Expression + Bottom-up)
+                { key: 'I', label: 'Inner Guide', angle: 135 }    // Lower-left (Reflection + Bottom-up)
             ];
 
             // Clear existing content
