@@ -760,43 +760,56 @@
         /**
          * Render radar chart showing archetype and tendency scores
          * @param {Object} scores - Score object with I, S, P, C, A, G properties
+         * @param {String} profileCode - Profile code (e.g., "SP-Architect")
          */
-        function renderRadarChart(scores) {
+        function renderRadarChart(scores, profileCode) {
             const svg = document.getElementById('radarChart');
             if (!svg) return;
+
+            // Update profile code display above chart
+            const profileCodeElement = document.getElementById('radarProfileCode');
+            if (profileCodeElement && profileCode) {
+                const tendency = profileCode.split('-')[1];
+                const tendencyNames = {
+                    'Architect': 'The Architect',
+                    'Gardener': 'The Gardener'
+                };
+                profileCodeElement.textContent = `${profileCode} - ${tendencyNames[tendency] || tendency}`;
+            }
 
             // Configuration
             const CENTER_X = 200;
             const CENTER_Y = 200;
             const MAX_RADIUS = 160;
-            const MIN_SCORE = 8;
-            const MAX_SCORE = 32;
 
-            // Data structure: 6 axes in clockwise order from top
+            // Find max score for relative scaling
+            const allScores = [scores.I, scores.S, scores.P, scores.C, scores.A, scores.G];
+            const maxScore = Math.max(...allScores);
+
+            // Data structure: 5 axes (removed Synthesizer) in clockwise order from top
             const axes = [
                 { key: 'A', label: 'Architect', angle: -90 },
-                { key: 'P', label: 'Producer', angle: -30 },
-                { key: 'C', label: 'Creative', angle: 30 },
-                { key: 'G', label: 'Gardener', angle: 90 },
-                { key: 'I', label: 'Inner Guide', angle: 150 },
-                { key: 'S', label: 'Synthesizer', angle: 210 }
+                { key: 'P', label: 'Producer', angle: -18 },
+                { key: 'C', label: 'Creative', angle: 54 },
+                { key: 'G', label: 'Gardener', angle: 126 },
+                { key: 'I', label: 'Inner Guide', angle: 198 }
             ];
 
             // Clear existing content
             svg.innerHTML = '';
 
-            // Draw concentric circles (grid background)
+            // Draw concentric circles (grid background) - relative to max score
             const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             gridGroup.setAttribute('class', 'radar-grid');
-            const levels = [12, 16, 20, 24, 28, 32];
-            levels.forEach(level => {
-                const radius = ((level - MIN_SCORE) / (MAX_SCORE - MIN_SCORE)) * MAX_RADIUS;
+            const levels = 5;
+            for (let i = 1; i <= levels; i++) {
+                const radius = (i / levels) * MAX_RADIUS;
                 const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                 circle.setAttribute('cx', CENTER_X);
                 circle.setAttribute('cy', CENTER_Y);
                 circle.setAttribute('r', radius);
                 gridGroup.appendChild(circle);
-            });
+            }
             svg.appendChild(gridGroup);
 
             // Draw axis lines (spokes)
@@ -816,10 +829,10 @@
             });
             svg.appendChild(axesGroup);
 
-            // Calculate polygon points from scores
+            // Calculate polygon points from scores (relative scaling)
             const polygonPoints = axes.map(axis => {
                 const score = scores[axis.key];
-                const normalizedScore = (score - MIN_SCORE) / (MAX_SCORE - MIN_SCORE);
+                const normalizedScore = score / maxScore;  // Relative to highest score
                 const radius = normalizedScore * MAX_RADIUS;
 
                 const angleRad = (axis.angle * Math.PI) / 180;
@@ -997,7 +1010,7 @@
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
 
             // Render radar chart and animate score bars
-            renderRadarChart(profile.scores);
+            renderRadarChart(profile.scores, profile.code);
             animateScoreBars(profile.scores);
 
             hasRenderedResults = true; // Mark results as successfully rendered

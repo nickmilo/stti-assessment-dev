@@ -1733,3 +1733,12 @@
         opacity: 0.6 !important;
     }
 }
+
+/* Radar Profile Code */
+.radar-profile-code {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--lyt-purple-deep);
+    margin-bottom: var(--space-md);
+}
