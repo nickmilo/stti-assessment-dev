@@ -1653,7 +1653,7 @@
 
 /* Score polygon (filled area) */
 .score-polygon {
-    fill: rgba(185, 173, 255, 0.4);
+    fill: rgba(185, 173, 255, 0.8);
     stroke: var(--lyt-purple);
     stroke-width: 3;
     stroke-linejoin: round;
@@ -1670,7 +1670,7 @@
 
 /* Score dots at vertices */
 .score-dot {
-    r: 6;
+    r: 12;
     stroke: white;
     stroke-width: 2;
     cursor: pointer;
@@ -1681,7 +1681,7 @@
 }
 
 .score-dot:hover {
-    r: 8;
+    r: 16;
     filter: drop-shadow(0 0 8px currentColor);
 }
 

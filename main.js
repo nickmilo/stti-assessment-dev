@@ -917,8 +917,8 @@
                 labelsGroup.appendChild(createText(x, y, text, { 'text-anchor': textAnchor, ...labelAttrs }));
             };
 
-            addLabelWithBackground(centerX, centerY - maxRadius - 15, 'Top-down', 'middle', 75, 20);
-            addLabelWithBackground(centerX, centerY + maxRadius + 25, 'Bottom-up', 'middle', 80, 20);
+            addLabelWithBackground(centerX, centerY - maxRadius - 8, 'Top-down', 'middle', 75, 20);
+            addLabelWithBackground(centerX, centerY + maxRadius + 18, 'Bottom-up', 'middle', 80, 20);
             addLabelWithBackground(10, centerY + 5, 'Reflection', 'start', 75, 20);
             addLabelWithBackground(490, centerY + 5, 'Expression', 'end', 80, 20);
 
@@ -1041,8 +1041,13 @@
          * @param {Object} scores - Score object with A and G properties
          */
         function renderArchitectGardenerDonut(scores) {
+            console.log('🍩 Rendering donut chart with scores:', scores);
             const svg = document.getElementById('architectGardenerDonut');
-            if (!svg) return;
+            if (!svg) {
+                console.error('❌ Donut SVG element #architectGardenerDonut not found in DOM!');
+                return;
+            }
+            console.log('✓ Donut SVG element found');
 
             const centerX = 150;
             const centerY = 150;
@@ -1169,19 +1174,40 @@
 
         // Data Rendering Functions
         function calculatePolygonPoints(axes, scores, centerX, centerY, maxRadius) {
+            // Define the fixed scale: score values that correspond to each circle
+            const scalePoints = [
+                { score: 8, radius: (1/5) * maxRadius },   // Circle 1: 36px
+                { score: 18, radius: (2/5) * maxRadius },  // Circle 2: 72px
+                { score: 23, radius: (3/5) * maxRadius },  // Circle 3: 108px
+                { score: 28, radius: (4/5) * maxRadius },  // Circle 4: 144px
+                { score: 32, radius: (5/5) * maxRadius }   // Circle 5: 180px
+            ];
+
             return axes.map(axis => {
                 const score = scores[axis.key];
+                let radius;
 
-                // Fixed absolute scale: 8 (innermost) to 32 (outermost)
-                // Clamp score to valid range
-                const clampedScore = Math.max(
-                    RADAR_CHART_CONFIG.SCALE_MIN_VALUE,
-                    Math.min(RADAR_CHART_CONFIG.SCALE_MAX_VALUE, score)
-                );
+                // Find which segment the score falls into
+                if (score <= scalePoints[0].score) {
+                    // Below minimum: map to first circle
+                    radius = scalePoints[0].radius;
+                } else if (score >= scalePoints[scalePoints.length - 1].score) {
+                    // Above maximum: map to last circle
+                    radius = scalePoints[scalePoints.length - 1].radius;
+                } else {
+                    // Interpolate between adjacent scale points
+                    for (let i = 0; i < scalePoints.length - 1; i++) {
+                        const lower = scalePoints[i];
+                        const upper = scalePoints[i + 1];
 
-                // Calculate radius based on fixed scale
-                const radius = ((clampedScore - RADAR_CHART_CONFIG.SCALE_MIN_VALUE) /
-                               (RADAR_CHART_CONFIG.SCALE_MAX_VALUE - RADAR_CHART_CONFIG.SCALE_MIN_VALUE)) * maxRadius;
+                        if (score >= lower.score && score <= upper.score) {
+                            // Linear interpolation between two points
+                            const t = (score - lower.score) / (upper.score - lower.score);
+                            radius = lower.radius + t * (upper.radius - lower.radius);
+                            break;
+                        }
+                    }
+                }
 
                 const angleRad = (axis.angle * Math.PI) / 180;
                 const x = centerX + radius * Math.cos(angleRad);
@@ -1313,10 +1339,10 @@
 
         function getArchetypeColor(key) {
             const colors = {
-                'I': '#f39c12',  // Inner Guide - orange/yellow
-                'S': '#5dbcd2',  // Synthesizer - cyan
-                'P': '#e74c3c',  // Producer - red/pink
-                'C': '#9b59b6',  // Creative - purple
+                'I': '#fcf601',  // Inner Guide - yellow (matches innerGuideGradient)
+                'S': '#5dbcd2',  // Synthesizer - cyan (matches synthesizerGradient)
+                'P': '#d669bc',  // Producer - pink (matches producerGradient)
+                'C': '#b9adff',  // Creative - purple (matches creativeGradient)
                 'A': '#5dbcd2',  // Architect - cyan
                 'G': '#27ae60'   // Gardener - green
             };
