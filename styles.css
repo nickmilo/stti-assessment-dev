@@ -1607,6 +1607,16 @@
     text-align: center;
 }
 
+.radar-profile-code {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--lyt-purple-deep);
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+    border-left: 4px solid var(--lyt-purple);
+}
+
 .radar-chart-title {
     font-family: 'DM Mono', monospace;
     text-decoration: underline;

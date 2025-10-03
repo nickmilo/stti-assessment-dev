@@ -777,14 +777,15 @@
                 profileCodeElement.textContent = `${profileCode} - ${tendencyNames[tendency] || tendency}`;
             }
 
-            // Configuration
-            const CENTER_X = 200;
-            const CENTER_Y = 200;
-            const MAX_RADIUS = 160;
+            // Configuration (updated for 500x500 viewBox)
+            const CENTER_X = 250;
+            const CENTER_Y = 250;
+            const MAX_RADIUS = 180;
 
-            // Find max score for relative scaling
+            // Find max and min scores for relative scaling with padding
             const allScores = [scores.I, scores.S, scores.P, scores.C, scores.A, scores.G];
             const maxScore = Math.max(...allScores);
+            const minScore = Math.min(...allScores);
 
             // Data structure: 6 axes in clockwise order from top
             const axes = [
@@ -830,11 +831,20 @@
             });
             svg.appendChild(axesGroup);
 
-            // Calculate polygon points from scores (relative scaling)
+            // Calculate polygon points from scores (relative scaling with padding)
             const polygonPoints = axes.map(axis => {
                 const score = scores[axis.key];
-                const normalizedScore = score / maxScore;  // Relative to highest score
-                const radius = normalizedScore * MAX_RADIUS;
+
+                let radius;
+                if (maxScore === minScore) {
+                    // All scores equal - render balanced polygon at 50% radius
+                    radius = 0.5 * MAX_RADIUS;
+                } else {
+                    // Add padding: highest score ~90% max, lowest score ~10% min
+                    const normalizedScore = (score - minScore) / (maxScore - minScore);
+                    const paddedScore = normalizedScore * 0.8 + 0.1;  // Scale to 10%-90% range
+                    radius = paddedScore * MAX_RADIUS;
+                }
 
                 const angleRad = (axis.angle * Math.PI) / 180;
                 const x = CENTER_X + radius * Math.cos(angleRad);
@@ -873,7 +883,7 @@
 
             axes.forEach(axis => {
                 const angleRad = (axis.angle * Math.PI) / 180;
-                const labelRadius = MAX_RADIUS + 30;
+                const labelRadius = MAX_RADIUS + 50;  // Increased spacing for labels
                 const x = CENTER_X + labelRadius * Math.cos(angleRad);
                 const y = CENTER_Y + labelRadius * Math.sin(angleRad);
 
@@ -899,6 +909,146 @@
                     }, index * 100);
                 });
             }, 300);
+        }
+
+        /**
+         * Render archetype-only radar chart (4 archetypes, no tendencies)
+         * @param {Object} scores - Score object with I, S, P, C properties
+         */
+        function renderRadarChartArchetypesOnly(scores) {
+            const svg = document.getElementById('radarChartArchetypes');
+            if (!svg) return;
+
+            // Configuration (updated for 500x500 viewBox)
+            const CENTER_X = 250;
+            const CENTER_Y = 250;
+            const MAX_RADIUS = 180;
+
+            // Find max and min scores for relative scaling with padding (4 archetypes only)
+            const allScores = [scores.I, scores.S, scores.P, scores.C];
+            const maxScore = Math.max(...allScores);
+            const minScore = Math.min(...allScores);
+
+            // Data structure: 4 axes (archetypes only) in clockwise order from top
+            const axes = [
+                { key: 'I', label: 'Inner Guide', angle: -135 },
+                { key: 'S', label: 'Synthesizer', angle: -45 },
+                { key: 'P', label: 'Producer', angle: 45 },
+                { key: 'C', label: 'Creative', angle: 135 }
+            ];
+
+            // Clear existing content
+            svg.innerHTML = '';
+
+            // Draw concentric circles (grid background)
+            const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            gridGroup.setAttribute('class', 'radar-grid');
+            const levels = 5;
+            for (let i = 1; i <= levels; i++) {
+                const radius = (i / levels) * MAX_RADIUS;
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', CENTER_X);
+                circle.setAttribute('cy', CENTER_Y);
+                circle.setAttribute('r', radius);
+                gridGroup.appendChild(circle);
+            }
+            svg.appendChild(gridGroup);
+
+            // Draw axis lines (spokes)
+            const axesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            axesGroup.setAttribute('class', 'radar-axes');
+            axes.forEach(axis => {
+                const angleRad = (axis.angle * Math.PI) / 180;
+                const x2 = CENTER_X + MAX_RADIUS * Math.cos(angleRad);
+                const y2 = CENTER_Y + MAX_RADIUS * Math.sin(angleRad);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', CENTER_X);
+                line.setAttribute('y1', CENTER_Y);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                axesGroup.appendChild(line);
+            });
+            svg.appendChild(axesGroup);
+
+            // Calculate polygon points from scores (relative scaling with padding)
+            const polygonPoints = axes.map(axis => {
+                const score = scores[axis.key];
+
+                let radius;
+                if (maxScore === minScore) {
+                    // All scores equal - render balanced polygon at 50% radius
+                    radius = 0.5 * MAX_RADIUS;
+                } else {
+                    // Add padding: highest score ~90% max, lowest score ~10% min
+                    const normalizedScore = (score - minScore) / (maxScore - minScore);
+                    const paddedScore = normalizedScore * 0.8 + 0.1;  // Scale to 10%-90% range
+                    radius = paddedScore * MAX_RADIUS;
+                }
+
+                const angleRad = (axis.angle * Math.PI) / 180;
+                const x = CENTER_X + radius * Math.cos(angleRad);
+                const y = CENTER_Y + radius * Math.sin(angleRad);
+
+                return { x, y, score, label: axis.label };
+            });
+
+            // Draw score polygon (filled area)
+            const dataGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            dataGroup.setAttribute('class', 'radar-data');
+
+            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            const pointsString = polygonPoints.map(p => `${p.x},${p.y}`).join(' ');
+            polygon.setAttribute('points', pointsString);
+            polygon.setAttribute('class', 'score-polygon');
+            dataGroup.appendChild(polygon);
+
+            // Draw score dots at each vertex
+            polygonPoints.forEach((point, index) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', point.x);
+                circle.setAttribute('cy', point.y);
+                circle.setAttribute('class', 'score-dot');
+                circle.setAttribute('data-score', point.score);
+                circle.setAttribute('data-label', point.label);
+                circle.style.fill = getArchetypeColor(axes[index].key);
+                dataGroup.appendChild(circle);
+            });
+
+            svg.appendChild(dataGroup);
+
+            // Draw labels at each axis endpoint
+            const labelsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            labelsGroup.setAttribute('class', 'radar-labels');
+
+            axes.forEach(axis => {
+                const angleRad = (axis.angle * Math.PI) / 180;
+                const labelRadius = MAX_RADIUS + 50;  // Increased spacing for labels
+                const x = CENTER_X + labelRadius * Math.cos(angleRad);
+                const y = CENTER_Y + labelRadius * Math.sin(angleRad);
+
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y);
+                text.textContent = axis.label;
+                labelsGroup.appendChild(text);
+            });
+
+            svg.appendChild(labelsGroup);
+
+            // Animate the chart
+            setTimeout(() => {
+                polygon.style.opacity = '0.6';
+                polygon.style.transform = 'scale(1)';
+
+                const dots = svg.querySelectorAll('.score-dot');
+                dots.forEach((dot, index) => {
+                    setTimeout(() => {
+                        dot.style.opacity = '1';
+                        dot.style.transform = 'scale(1)';
+                    }, index * 100);
+                });
+            }, 600);  // Delay slightly longer than first chart
         }
 
         function getArchetypeColor(key) {
@@ -1010,8 +1160,9 @@
             chordImage.src = `./Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
 
-            // Render radar chart and animate score bars
+            // Render both radar charts and animate score bars
             renderRadarChart(profile.scores, profile.code);
+            renderRadarChartArchetypesOnly(profile.scores);
             animateScoreBars(profile.scores);
 
             hasRenderedResults = true; // Mark results as successfully rendered

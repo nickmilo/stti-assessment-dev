@@ -176,14 +176,26 @@
                 <!-- Radar Chart Section -->
                 <div class="radar-chart-section">
                     <div id="radarProfileCode" class="radar-profile-code"></div>
-                    <div class="radar-chart-title">Score Profile Visualization</div>
+                    <div class="radar-chart-title">Score Profile Visualization (All 6 Dimensions)</div>
                     <div class="radar-chart-container">
-                        <svg id="radarChart" viewBox="0 0 400 400" class="radar-chart-svg" role="img" aria-labelledby="radarChartTitle radarChartDesc">
+                        <svg id="radarChart" viewBox="0 0 500 500" class="radar-chart-svg" role="img" aria-labelledby="radarChartTitle radarChartDesc">
                             <title id="radarChartTitle">Score Profile Radar Chart</title>
                             <desc id="radarChartDesc">A radar chart showing your scores across 6 dimensions</desc>
                         </svg>
                     </div>
                     <div class="radar-chart-hint">Larger area = stronger archetype scores</div>
+                </div>
+
+                <!-- Archetype-Only Radar Chart Section -->
+                <div class="radar-chart-section">
+                    <div class="radar-chart-title">Archetype Profile (4 Archetypes)</div>
+                    <div class="radar-chart-container">
+                        <svg id="radarChartArchetypes" viewBox="0 0 500 500" class="radar-chart-svg" role="img" aria-labelledby="radarChartArchetypesTitle radarChartArchetypesDesc">
+                            <title id="radarChartArchetypesTitle">Archetype Radar Chart</title>
+                            <desc id="radarChartArchetypesDesc">A radar chart showing your scores across 4 archetypes</desc>
+                        </svg>
+                    </div>
+                    <div class="radar-chart-hint">Pure archetype scores (excluding tendencies)</div>
                 </div>
 
                 <!-- Score Visualization Section -->
