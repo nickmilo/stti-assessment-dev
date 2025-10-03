@@ -711,32 +711,23 @@
         }
 
         /**
-         * Animates score bars with dynamic range calculation
-         * Makes small differences visually prominent
+         * Animate score visualization bars with absolute scaling
+         * Bars scale from 0 to theoretical maximum (32 points)
+         * Each archetype/tendency has 8 questions × 4 points max = 32
          */
         function animateScoreBars(scores) {
-            // Extract archetype scores
-            const archetypeScores = [scores.I, scores.S, scores.P, scores.C];
-            const minArchetype = Math.min(...archetypeScores);
-            const maxArchetype = Math.max(...archetypeScores);
-            const archetypeRange = maxArchetype - minArchetype || 1;
+            // Theoretical maximum score per archetype/tendency: 8 questions × 4 points = 32
+            const THEORETICAL_MAX = 32;
 
-            // For visual emphasis, use a "zoomed" range
-            const buffer = Math.max(5, archetypeRange * 0.2);
-            const visualMin = Math.max(0, minArchetype - buffer);
-            const visualMax = maxArchetype + buffer;
-            const visualRange = visualMax - visualMin;
+            // Animate each archetype bar (absolute scaling)
+            animateBar('score-inner-guide', scores.I, THEORETICAL_MAX);
+            animateBar('score-synthesizer', scores.S, THEORETICAL_MAX);
+            animateBar('score-creative', scores.C, THEORETICAL_MAX);
+            animateBar('score-producer', scores.P, THEORETICAL_MAX);
 
-            // Animate each archetype bar
-            animateBar('score-inner-guide', scores.I, visualMin, visualRange);
-            animateBar('score-synthesizer', scores.S, visualMin, visualRange);
-            animateBar('score-creative', scores.C, visualMin, visualRange);
-            animateBar('score-producer', scores.P, visualMin, visualRange);
-
-            // Tendency bars (use max of both to ensure both show proportionally)
-            const tendencyMax = Math.max(scores.A, scores.G);
-            animateBar('score-architect', scores.A, 0, tendencyMax);
-            animateBar('score-gardener', scores.G, 0, tendencyMax);
+            // Animate tendency bars (absolute scaling)
+            animateBar('score-architect', scores.A, THEORETICAL_MAX);
+            animateBar('score-gardener', scores.G, THEORETICAL_MAX);
 
             // Update raw scores display
             const rawScoresText = document.getElementById('raw-scores-text');
@@ -745,7 +736,7 @@
             }
         }
 
-        function animateBar(scoreId, score, minValue, range) {
+        function animateBar(scoreId, score, maxScore) {
             const scoreElement = document.getElementById(scoreId);
             if (!scoreElement) return;
 
@@ -756,9 +747,8 @@
             const wrapper = scoreElement.closest('.score-bar-wrapper');
             const bar = wrapper.querySelector('.score-bar');
 
-            // Calculate percentage width based on dynamic range
-            const adjustedScore = score - minValue;
-            const percentage = (adjustedScore / range) * 100;
+            // Calculate percentage width based on absolute theoretical maximum
+            const percentage = (score / maxScore) * 100;
 
             // Animate the bar width after a short delay
             setTimeout(() => {
