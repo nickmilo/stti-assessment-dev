@@ -823,8 +823,8 @@
 
         // Configuration
         const RADAR_CHART_CONFIG = {
-            CENTER_X: 220,    // Updated for 440x440 viewBox (was 175 for 350x350)
-            CENTER_Y: 220,    // Updated for 440x440 viewBox (was 175 for 350x350)
+            CENTER_X: 260,    // Updated for 520x520 viewBox (was 220 for 440x440)
+            CENTER_Y: 260,    // Updated for 520x520 viewBox (was 220 for 440x440)
             MAX_RADIUS: 160,  // Increased from 135 to better fill the smaller viewBox
             GRID_LEVELS: 5,
             LABEL_OFFSET: 50,
@@ -1133,22 +1133,25 @@
             const architectAngle = (architectPercent / 100) * 360;  // Architect's portion in degrees
             const gardenerAngle = (gardenerPercent / 100) * 360;    // Gardener's portion in degrees
 
-            // Create Architect arc (starts at 180°, sweeps UPWARD/clockwise through top)
-            const architectArcEnd = startAngle + architectAngle;
+            // Calculate arc endpoints
+            const architectArcEnd = startAngle - architectAngle;  // Counterclockwise through top
+            const gardenerArcEnd = startAngle + gardenerAngle;    // Clockwise through bottom
+
+            // Create Architect arc (sweeps UPWARD/counterclockwise through top)
+            // REVERSED parameters: end → start for counterclockwise direction
             const architectPath = createDonutSegment(
                 centerX, centerY,
                 outerRadius, innerRadius,
-                startAngle, architectArcEnd,
+                architectArcEnd, startAngle,  // REVERSED: end → start
                 '#5dbcd2'
             );
             svg.appendChild(architectPath);
 
-            // Create Gardener arc (starts at 180°, sweeps DOWNWARD/counterclockwise through bottom)
-            const gardenerArcEnd = startAngle - gardenerAngle;
+            // Create Gardener arc (sweeps DOWNWARD/clockwise through bottom)
             const gardenerPath = createDonutSegment(
                 centerX, centerY,
                 outerRadius, innerRadius,
-                startAngle, gardenerArcEnd,
+                startAngle, gardenerArcEnd,  // NORMAL: start → end
                 '#67c073'
             );
             svg.appendChild(gardenerPath);

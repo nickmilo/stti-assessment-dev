@@ -1634,6 +1634,7 @@
 .radar-chart-svg {
     width: 100%;
     height: auto;
+    overflow: visible;
     filter: drop-shadow(0 4px 12px rgba(185, 173, 255, 0.15));
 }
 
