@@ -814,147 +814,171 @@
             }, 100);
         }
 
-        /**
-         * Render radar chart showing archetype and tendency scores
-         * @param {Object} scores - Score object with I, S, P, C, A, G properties
-         * @param {String} profileCode - Profile code (e.g., "SP-Architect")
-         */
-        function renderRadarChart(scores, profileCode) {
-            const svg = document.getElementById('radarChart');
-            if (!svg) return;
+        // ============================================================================
+        // RADAR CHART REFACTORED CODE
+        // ============================================================================
 
-            // Update profile code display above chart
-            const profileCodeElement = document.getElementById('radarProfileCode');
-            if (profileCodeElement && profileCode) {
-                const tendency = profileCode.split('-')[1];
-                const tendencyNames = {
-                    'Architect': 'The Architect',
-                    'Gardener': 'The Gardener'
-                };
-                profileCodeElement.textContent = `${profileCode} - ${tendencyNames[tendency] || tendency}`;
-            }
+        // Configuration
+        const RADAR_CHART_CONFIG = {
+            CENTER_X: 250,
+            CENTER_Y: 250,
+            MAX_RADIUS: 180,
+            GRID_LEVELS: 5,
+            LABEL_OFFSET: 50,
+            ANIMATION_DELAY: 300,
+            DOT_ANIMATION_STAGGER: 100,
+            SCALE_MIN_PERCENT: 0.4,
+            SCALE_MAX_PERCENT: 1.0,
+            BALANCED_RADIUS_PERCENT: 0.6
+        };
 
-            // Configuration (updated for 500x500 viewBox)
-            const CENTER_X = 250;
-            const CENTER_Y = 250;
-            const MAX_RADIUS = 180;
+        // SVG Helper Functions
+        function createSVGElement(type, attributes = {}, styles = {}) {
+            const element = document.createElementNS('http://www.w3.org/2000/svg', type);
+            Object.entries(attributes).forEach(([key, value]) => {
+                element.setAttribute(key, value);
+            });
+            Object.entries(styles).forEach(([key, value]) => {
+                element.style[key] = value;
+            });
+            return element;
+        }
 
-            // Find max and min scores for relative scaling with padding
-            const allScores = [scores.I, scores.S, scores.P, scores.C, scores.A, scores.G];
-            const maxScore = Math.max(...allScores);
-            const minScore = Math.min(...allScores);
+        function createSVGGroup(className) {
+            return createSVGElement('g', { class: className });
+        }
 
-            // Data structure: 6 axes in clockwise order from top
-            const axes = [
-                { key: 'A', label: 'Architect', angle: -90 },
-                { key: 'P', label: 'Producer', angle: -30 },
-                { key: 'C', label: 'Creative', angle: 30 },
-                { key: 'G', label: 'Gardener', angle: 90 },
-                { key: 'I', label: 'Inner Guide', angle: 150 },
-                { key: 'S', label: 'Synthesizer', angle: 210 }
-            ];
+        function createLine(x1, y1, x2, y2, className = '') {
+            const attrs = { x1, y1, x2, y2 };
+            if (className) attrs.class = className;
+            return createSVGElement('line', attrs);
+        }
 
-            // Clear existing content
-            svg.innerHTML = '';
+        function createText(x, y, content, attributes = {}) {
+            const text = createSVGElement('text', { x, y, ...attributes });
+            text.textContent = content;
+            return text;
+        }
 
-            // Draw concentric circles (grid background) - relative to max score
-            const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            gridGroup.setAttribute('class', 'radar-grid');
-            const levels = 5;
+        // Grid Rendering Functions
+        function drawConcentricGrid(svg, centerX, centerY, maxRadius, levels = 5) {
+            const gridGroup = createSVGGroup('radar-grid');
             for (let i = 1; i <= levels; i++) {
-                const radius = (i / levels) * MAX_RADIUS;
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', CENTER_X);
-                circle.setAttribute('cy', CENTER_Y);
-                circle.setAttribute('r', radius);
+                const radius = (i / levels) * maxRadius;
+                const circle = createSVGElement('circle', { cx: centerX, cy: centerY, r: radius });
                 gridGroup.appendChild(circle);
             }
             svg.appendChild(gridGroup);
+        }
 
-            // Draw axis lines (spokes)
-            const axesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            axesGroup.setAttribute('class', 'radar-axes');
+        function drawAxisSpokes(svg, axes, centerX, centerY, maxRadius) {
+            const axesGroup = createSVGGroup('radar-axes');
             axes.forEach(axis => {
                 const angleRad = (axis.angle * Math.PI) / 180;
-                const x2 = CENTER_X + MAX_RADIUS * Math.cos(angleRad);
-                const y2 = CENTER_Y + MAX_RADIUS * Math.sin(angleRad);
-
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', CENTER_X);
-                line.setAttribute('y1', CENTER_Y);
-                line.setAttribute('x2', x2);
-                line.setAttribute('y2', y2);
-                axesGroup.appendChild(line);
+                const x2 = centerX + maxRadius * Math.cos(angleRad);
+                const y2 = centerY + maxRadius * Math.sin(angleRad);
+                axesGroup.appendChild(createLine(centerX, centerY, x2, y2));
             });
             svg.appendChild(axesGroup);
+        }
 
-            // Calculate polygon points from scores (relative scaling aligned to concentric circles)
-            const polygonPoints = axes.map(axis => {
+        function drawCartesianGrid(svg, centerX, centerY, maxRadius) {
+            const cartesianGroup = createSVGGroup('cartesian-grid');
+
+            cartesianGroup.appendChild(createSVGElement('line', {
+                x1: centerX - maxRadius, y1: centerY,
+                x2: centerX + maxRadius, y2: centerY,
+                stroke: '#B0B0B0', 'stroke-width': '2'
+            }));
+
+            cartesianGroup.appendChild(createSVGElement('line', {
+                x1: centerX, y1: centerY - maxRadius,
+                x2: centerX, y2: centerY + maxRadius,
+                stroke: '#B0B0B0', 'stroke-width': '2'
+            }));
+
+            svg.appendChild(cartesianGroup);
+
+            const labelsGroup = createSVGGroup('axis-labels');
+            const labelAttrs = { fill: '#6B7280', 'font-size': '13', 'font-style': 'italic' };
+
+            labelsGroup.appendChild(createText(centerX, centerY - maxRadius - 15, 'Top-down',
+                { 'text-anchor': 'middle', ...labelAttrs }));
+            labelsGroup.appendChild(createText(centerX, centerY + maxRadius + 25, 'Bottom-up',
+                { 'text-anchor': 'middle', ...labelAttrs }));
+            labelsGroup.appendChild(createText(15, centerY + 5, 'Reflection',
+                { 'text-anchor': 'start', ...labelAttrs }));
+            labelsGroup.appendChild(createText(485, centerY + 5, 'Expression',
+                { 'text-anchor': 'end', ...labelAttrs }));
+
+            svg.appendChild(labelsGroup);
+        }
+
+        function drawAxisLabels(svg, axes, centerX, centerY, maxRadius, labelOffset = 50) {
+            const labelsGroup = createSVGGroup('radar-labels');
+            axes.forEach(axis => {
+                const angleRad = (axis.angle * Math.PI) / 180;
+                const labelRadius = maxRadius + labelOffset;
+                const x = centerX + labelRadius * Math.cos(angleRad);
+                const y = centerY + labelRadius * Math.sin(angleRad);
+                labelsGroup.appendChild(createText(x, y, axis.label));
+            });
+            svg.appendChild(labelsGroup);
+        }
+
+        // Data Rendering Functions
+        function calculatePolygonPoints(axes, scores, centerX, centerY, maxRadius) {
+            const allScores = axes.map(axis => scores[axis.key]);
+            const maxScore = Math.max(...allScores);
+            const minScore = Math.min(...allScores);
+
+            return axes.map(axis => {
                 const score = scores[axis.key];
-
                 let radius;
+
                 if (maxScore === minScore) {
-                    // All scores equal - render balanced polygon at 60% radius (circle 3 of 5)
-                    radius = 0.6 * MAX_RADIUS;
+                    radius = RADAR_CHART_CONFIG.BALANCED_RADIUS_PERCENT * maxRadius;
                 } else {
-                    // Scale so: lowest score = level 2/5 (40%), highest score = level 5/5 (100%)
-                    // This ensures lowest score hits second-lowest concentric circle
                     const normalizedScore = (score - minScore) / (maxScore - minScore);
-                    const paddedScore = normalizedScore * 0.6 + 0.4;  // Scale to 40%-100% range
-                    radius = paddedScore * MAX_RADIUS;
+                    const paddedScore = normalizedScore *
+                        (RADAR_CHART_CONFIG.SCALE_MAX_PERCENT - RADAR_CHART_CONFIG.SCALE_MIN_PERCENT) +
+                        RADAR_CHART_CONFIG.SCALE_MIN_PERCENT;
+                    radius = paddedScore * maxRadius;
                 }
 
                 const angleRad = (axis.angle * Math.PI) / 180;
-                const x = CENTER_X + radius * Math.cos(angleRad);
-                const y = CENTER_Y + radius * Math.sin(angleRad);
-
+                const x = centerX + radius * Math.cos(angleRad);
+                const y = centerY + radius * Math.sin(angleRad);
                 return { x, y, score, label: axis.label };
             });
+        }
 
-            // Draw score polygon (filled area)
-            const dataGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            dataGroup.setAttribute('class', 'radar-data');
+        function drawPolygonWithDots(svg, polygonPoints, axes) {
+            const dataGroup = createSVGGroup('radar-data');
 
-            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            const pointsString = polygonPoints.map(p => `${p.x},${p.y}`).join(' ');
-            polygon.setAttribute('points', pointsString);
-            polygon.setAttribute('class', 'score-polygon');
+            const polygon = createSVGElement('polygon', {
+                points: polygonPoints.map(p => `${p.x},${p.y}`).join(' '),
+                class: 'score-polygon'
+            });
             dataGroup.appendChild(polygon);
 
-            // Draw score dots at each vertex
             polygonPoints.forEach((point, index) => {
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', point.x);
-                circle.setAttribute('cy', point.y);
-                circle.setAttribute('class', 'score-dot');
-                circle.setAttribute('data-score', point.score);
-                circle.setAttribute('data-label', point.label);
-                circle.style.fill = getArchetypeColor(axes[index].key);
+                const circle = createSVGElement('circle', {
+                    cx: point.x, cy: point.y,
+                    class: 'score-dot',
+                    'data-score': point.score,
+                    'data-label': point.label
+                }, {
+                    fill: getArchetypeColor(axes[index].key)
+                });
                 dataGroup.appendChild(circle);
             });
 
             svg.appendChild(dataGroup);
+            return polygon;
+        }
 
-            // Draw labels at each axis endpoint
-            const labelsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            labelsGroup.setAttribute('class', 'radar-labels');
-
-            axes.forEach(axis => {
-                const angleRad = (axis.angle * Math.PI) / 180;
-                const labelRadius = MAX_RADIUS + 50;  // Increased spacing for labels
-                const x = CENTER_X + labelRadius * Math.cos(angleRad);
-                const y = CENTER_Y + labelRadius * Math.sin(angleRad);
-
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttribute('x', x);
-                text.setAttribute('y', y);
-                text.textContent = axis.label;
-                labelsGroup.appendChild(text);
-            });
-
-            svg.appendChild(labelsGroup);
-
-            // Animate the chart
+        function animateChart(svg, polygon, initialDelay = 300) {
             setTimeout(() => {
                 polygon.style.opacity = '0.6';
                 polygon.style.transform = 'scale(1)';
@@ -964,9 +988,74 @@
                     setTimeout(() => {
                         dot.style.opacity = '1';
                         dot.style.transform = 'scale(1)';
-                    }, index * 100);
+                    }, index * RADAR_CHART_CONFIG.DOT_ANIMATION_STAGGER);
                 });
-            }, 300);
+            }, initialDelay);
+        }
+
+        /**
+         * Unified radar chart renderer
+         * @param {Object} scores - Score object with I, S, P, C, A, G properties
+         * @param {Object|String} optionsOrProfileCode - Either options object or legacy profileCode string
+         */
+        function renderRadarChart(scores, optionsOrProfileCode = {}) {
+            // Support legacy call: renderRadarChart(scores, profileCode)
+            const options = typeof optionsOrProfileCode === 'string'
+                ? { profileCode: optionsOrProfileCode }
+                : optionsOrProfileCode;
+
+            const {
+                svgId = 'radarChart',
+                profileCode = null,
+                includeCartesian = false,
+                animationDelay = RADAR_CHART_CONFIG.ANIMATION_DELAY,
+                axisConfig = null
+            } = options;
+
+            const svg = document.getElementById(svgId);
+            if (!svg) return;
+
+            const { CENTER_X, CENTER_Y, MAX_RADIUS, LABEL_OFFSET } = RADAR_CHART_CONFIG;
+
+            const axisConfigs = {
+                '6-axis': [
+                    { key: 'A', label: 'Architect', angle: -90 },
+                    { key: 'P', label: 'Producer', angle: -30 },
+                    { key: 'C', label: 'Creative', angle: 30 },
+                    { key: 'G', label: 'Gardener', angle: 90 },
+                    { key: 'I', label: 'Inner Guide', angle: 150 },
+                    { key: 'S', label: 'Synthesizer', angle: 210 }
+                ],
+                '4-axis': [
+                    { key: 'S', label: 'Synthesizer', angle: -135 },
+                    { key: 'P', label: 'Producer', angle: -45 },
+                    { key: 'C', label: 'Creative', angle: 45 },
+                    { key: 'I', label: 'Inner Guide', angle: 135 }
+                ]
+            };
+
+            const axes = axisConfig || (includeCartesian ? axisConfigs['4-axis'] : axisConfigs['6-axis']);
+
+            if (profileCode) {
+                const profileCodeElement = document.getElementById('radarProfileCode');
+                if (profileCodeElement) {
+                    const tendency = profileCode.split('-')[1];
+                    const tendencyNames = { 'Architect': 'The Architect', 'Gardener': 'The Gardener' };
+                    profileCodeElement.textContent = `${profileCode} - ${tendencyNames[tendency] || tendency}`;
+                }
+            }
+
+            svg.innerHTML = '';
+
+            drawConcentricGrid(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
+            if (includeCartesian) drawCartesianGrid(svg, CENTER_X, CENTER_Y, MAX_RADIUS);
+            drawAxisSpokes(svg, axes, CENTER_X, CENTER_Y, MAX_RADIUS);
+
+            const polygonPoints = calculatePolygonPoints(axes, scores, CENTER_X, CENTER_Y, MAX_RADIUS);
+            const polygon = drawPolygonWithDots(svg, polygonPoints, axes);
+
+            drawAxisLabels(svg, axes, CENTER_X, CENTER_Y, MAX_RADIUS, LABEL_OFFSET);
+            animateChart(svg, polygon, animationDelay);
         }
 
         /**
@@ -974,217 +1063,11 @@
          * @param {Object} scores - Score object with I, S, P, C properties
          */
         function renderRadarChartArchetypesOnly(scores) {
-            const svg = document.getElementById('radarChartArchetypes');
-            if (!svg) return;
-
-            // Configuration (updated for 500x500 viewBox)
-            const CENTER_X = 250;
-            const CENTER_Y = 250;
-            const MAX_RADIUS = 180;
-
-            // Find max and min scores for relative scaling with padding (4 archetypes only)
-            const allScores = [scores.I, scores.S, scores.P, scores.C];
-            const maxScore = Math.max(...allScores);
-            const minScore = Math.min(...allScores);
-
-            // Data structure: 4 axes (archetypes only) positioned in quadrants
-            // Reflection-Expression (horizontal) × Top-down/Bottom-up (vertical)
-            const axes = [
-                { key: 'S', label: 'Synthesizer', angle: -135 },  // Upper-left (Reflection + Top-down)
-                { key: 'P', label: 'Producer', angle: -45 },      // Upper-right (Expression + Top-down)
-                { key: 'C', label: 'Creative', angle: 45 },       // Lower-right (Expression + Bottom-up)
-                { key: 'I', label: 'Inner Guide', angle: 135 }    // Lower-left (Reflection + Bottom-up)
-            ];
-
-            // Clear existing content
-            svg.innerHTML = '';
-
-            // Draw concentric circles (grid background)
-            const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            gridGroup.setAttribute('class', 'radar-grid');
-            const levels = 5;
-            for (let i = 1; i <= levels; i++) {
-                const radius = (i / levels) * MAX_RADIUS;
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', CENTER_X);
-                circle.setAttribute('cy', CENTER_Y);
-                circle.setAttribute('r', radius);
-                gridGroup.appendChild(circle);
-            }
-            svg.appendChild(gridGroup);
-
-            // Draw Cartesian grid lines (horizontal + vertical through center) - SOLID
-            const cartesianGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            cartesianGroup.setAttribute('class', 'cartesian-grid');
-
-            // Horizontal line (Reflection-Expression axis)
-            const horizontalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            horizontalLine.setAttribute('x1', CENTER_X - MAX_RADIUS);
-            horizontalLine.setAttribute('y1', CENTER_Y);
-            horizontalLine.setAttribute('x2', CENTER_X + MAX_RADIUS);
-            horizontalLine.setAttribute('y2', CENTER_Y);
-            horizontalLine.setAttribute('stroke', '#B0B0B0');
-            horizontalLine.setAttribute('stroke-width', '2');
-            cartesianGroup.appendChild(horizontalLine);
-
-            // Vertical line (Top-down/Bottom-up axis)
-            const verticalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            verticalLine.setAttribute('x1', CENTER_X);
-            verticalLine.setAttribute('y1', CENTER_Y - MAX_RADIUS);
-            verticalLine.setAttribute('x2', CENTER_X);
-            verticalLine.setAttribute('y2', CENTER_Y + MAX_RADIUS);
-            verticalLine.setAttribute('stroke', '#B0B0B0');
-            verticalLine.setAttribute('stroke-width', '2');
-            cartesianGroup.appendChild(verticalLine);
-
-            svg.appendChild(cartesianGroup);
-
-            // Add axis labels
-            const axisLabelsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            axisLabelsGroup.setAttribute('class', 'axis-labels');
-
-            // Top-down label (top)
-            const topLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            topLabel.setAttribute('x', CENTER_X);
-            topLabel.setAttribute('y', CENTER_Y - MAX_RADIUS - 15);
-            topLabel.setAttribute('text-anchor', 'middle');
-            topLabel.setAttribute('fill', '#6B7280');
-            topLabel.setAttribute('font-size', '13');
-            topLabel.setAttribute('font-style', 'italic');
-            topLabel.textContent = 'Top-down';
-            axisLabelsGroup.appendChild(topLabel);
-
-            // Bottom-up label (bottom)
-            const bottomLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            bottomLabel.setAttribute('x', CENTER_X);
-            bottomLabel.setAttribute('y', CENTER_Y + MAX_RADIUS + 25);
-            bottomLabel.setAttribute('text-anchor', 'middle');
-            bottomLabel.setAttribute('fill', '#6B7280');
-            bottomLabel.setAttribute('font-size', '13');
-            bottomLabel.setAttribute('font-style', 'italic');
-            bottomLabel.textContent = 'Bottom-up';
-            axisLabelsGroup.appendChild(bottomLabel);
-
-            // Reflection label (left)
-            const leftLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            leftLabel.setAttribute('x', 15);  // Fixed position from left edge
-            leftLabel.setAttribute('y', CENTER_Y + 5);
-            leftLabel.setAttribute('text-anchor', 'start');
-            leftLabel.setAttribute('fill', '#6B7280');
-            leftLabel.setAttribute('font-size', '13');
-            leftLabel.setAttribute('font-style', 'italic');
-            leftLabel.textContent = 'Reflection';
-            axisLabelsGroup.appendChild(leftLabel);
-
-            // Expression label (right)
-            const rightLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            rightLabel.setAttribute('x', 485);  // Fixed position from right edge
-            rightLabel.setAttribute('y', CENTER_Y + 5);
-            rightLabel.setAttribute('text-anchor', 'end');
-            rightLabel.setAttribute('fill', '#6B7280');
-            rightLabel.setAttribute('font-size', '13');
-            rightLabel.setAttribute('font-style', 'italic');
-            rightLabel.textContent = 'Expression';
-            axisLabelsGroup.appendChild(rightLabel);
-
-            svg.appendChild(axisLabelsGroup);
-
-            // Draw axis lines (spokes)
-            const axesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            axesGroup.setAttribute('class', 'radar-axes');
-            axes.forEach(axis => {
-                const angleRad = (axis.angle * Math.PI) / 180;
-                const x2 = CENTER_X + MAX_RADIUS * Math.cos(angleRad);
-                const y2 = CENTER_Y + MAX_RADIUS * Math.sin(angleRad);
-
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', CENTER_X);
-                line.setAttribute('y1', CENTER_Y);
-                line.setAttribute('x2', x2);
-                line.setAttribute('y2', y2);
-                axesGroup.appendChild(line);
+            renderRadarChart(scores, {
+                svgId: 'radarChartArchetypes',
+                includeCartesian: true,
+                animationDelay: 600
             });
-            svg.appendChild(axesGroup);
-
-            // Calculate polygon points from scores (relative scaling aligned to concentric circles)
-            const polygonPoints = axes.map(axis => {
-                const score = scores[axis.key];
-
-                let radius;
-                if (maxScore === minScore) {
-                    // All scores equal - render balanced polygon at 60% radius (circle 3 of 5)
-                    radius = 0.6 * MAX_RADIUS;
-                } else {
-                    // Scale so: lowest score = level 2/5 (40%), highest score = level 5/5 (100%)
-                    // This ensures lowest score hits second-lowest concentric circle
-                    const normalizedScore = (score - minScore) / (maxScore - minScore);
-                    const paddedScore = normalizedScore * 0.6 + 0.4;  // Scale to 40%-100% range
-                    radius = paddedScore * MAX_RADIUS;
-                }
-
-                const angleRad = (axis.angle * Math.PI) / 180;
-                const x = CENTER_X + radius * Math.cos(angleRad);
-                const y = CENTER_Y + radius * Math.sin(angleRad);
-
-                return { x, y, score, label: axis.label };
-            });
-
-            // Draw score polygon (filled area)
-            const dataGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            dataGroup.setAttribute('class', 'radar-data');
-
-            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            const pointsString = polygonPoints.map(p => `${p.x},${p.y}`).join(' ');
-            polygon.setAttribute('points', pointsString);
-            polygon.setAttribute('class', 'score-polygon');
-            dataGroup.appendChild(polygon);
-
-            // Draw score dots at each vertex
-            polygonPoints.forEach((point, index) => {
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', point.x);
-                circle.setAttribute('cy', point.y);
-                circle.setAttribute('class', 'score-dot');
-                circle.setAttribute('data-score', point.score);
-                circle.setAttribute('data-label', point.label);
-                circle.style.fill = getArchetypeColor(axes[index].key);
-                dataGroup.appendChild(circle);
-            });
-
-            svg.appendChild(dataGroup);
-
-            // Draw labels at each axis endpoint
-            const labelsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            labelsGroup.setAttribute('class', 'radar-labels');
-
-            axes.forEach(axis => {
-                const angleRad = (axis.angle * Math.PI) / 180;
-                const labelRadius = MAX_RADIUS + 50;  // Increased spacing for labels
-                const x = CENTER_X + labelRadius * Math.cos(angleRad);
-                const y = CENTER_Y + labelRadius * Math.sin(angleRad);
-
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttribute('x', x);
-                text.setAttribute('y', y);
-                text.textContent = axis.label;
-                labelsGroup.appendChild(text);
-            });
-
-            svg.appendChild(labelsGroup);
-
-            // Animate the chart
-            setTimeout(() => {
-                polygon.style.opacity = '0.6';
-                polygon.style.transform = 'scale(1)';
-
-                const dots = svg.querySelectorAll('.score-dot');
-                dots.forEach((dot, index) => {
-                    setTimeout(() => {
-                        dot.style.opacity = '1';
-                        dot.style.transform = 'scale(1)';
-                    }, index * 100);
-                });
-            }, 600);  // Delay slightly longer than first chart
         }
 
         function getArchetypeColor(key) {
