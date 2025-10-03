@@ -828,7 +828,8 @@
             ANIMATION_DELAY: 300,
             DOT_ANIMATION_STAGGER: 100,
             // Fixed absolute scale: Circle 1 = 8, Circle 2 = 18, Circle 3 = 23, Circle 4 = 28, Circle 5 = 32
-            SCALE_MIN_VALUE: 8,
+            // Using 7 as minimum so score 8 appears ON first circle (not at center)
+            SCALE_MIN_VALUE: 7,
             SCALE_MAX_VALUE: 32
         };
 
@@ -932,12 +933,12 @@
                 svg.insertBefore(defs, svg.firstChild);
             }
 
-            // Define quadrant gradients
+            // Define quadrant gradients (using brand colors)
             const gradients = [
-                { id: 'synthesizerGradient', color1: '#93C5FD', color2: 'rgba(147, 197, 253, 0.1)' }, // Blue
-                { id: 'producerGradient', color1: '#FCA5A5', color2: 'rgba(252, 165, 165, 0.1)' },     // Red
-                { id: 'creativeGradient', color1: '#DDA0DD', color2: 'rgba(221, 160, 221, 0.1)' },    // Purple
-                { id: 'innerGuideGradient', color1: '#FDE047', color2: 'rgba(253, 224, 71, 0.1)' }   // Yellow
+                { id: 'synthesizerGradient', color1: '#5dbcd2', color2: 'rgba(93, 188, 210, 0.1)' },   // Teal/Cyan
+                { id: 'producerGradient', color1: '#d669bc', color2: 'rgba(214, 105, 188, 0.1)' },     // Pink
+                { id: 'creativeGradient', color1: '#b9adff', color2: 'rgba(185, 173, 255, 0.1)' },    // Purple
+                { id: 'innerGuideGradient', color1: '#fcf601', color2: 'rgba(252, 246, 1, 0.1)' }     // Yellow
             ];
 
             gradients.forEach(({ id, color1, color2 }) => {
@@ -995,7 +996,7 @@
 
                 const label = createText(labelX, labelY, value.toString(), {
                     'text-anchor': 'start',
-                    'fill': '#F59E0B',  // Orange/gold color
+                    'fill': '#D1D5DB',  // Light gray
                     'font-size': '12',
                     'font-weight': '600'
                 });
@@ -1004,6 +1005,154 @@
             });
 
             svg.appendChild(labelsGroup);
+        }
+
+        /**
+         * Create SVG arc path for donut chart
+         */
+        function createDonutArc(cx, cy, radius, startAngle, endAngle, strokeWidth, color) {
+            // Convert angles to radians (subtract 90 to start from left instead of top)
+            const startRad = (startAngle - 90) * Math.PI / 180;
+            const endRad = (endAngle - 90) * Math.PI / 180;
+
+            // Calculate arc points
+            const x1 = cx + radius * Math.cos(startRad);
+            const y1 = cy + radius * Math.sin(startRad);
+            const x2 = cx + radius * Math.cos(endRad);
+            const y2 = cy + radius * Math.sin(endRad);
+
+            // Large arc flag
+            const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
+
+            // Create path
+            const pathData = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2}`;
+
+            return createSVGElement('path', {
+                d: pathData,
+                fill: 'none',
+                stroke: color,
+                'stroke-width': strokeWidth,
+                'stroke-linecap': 'round'
+            });
+        }
+
+        /**
+         * Render Architect vs Gardener donut chart
+         * @param {Object} scores - Score object with A and G properties
+         */
+        function renderArchitectGardenerDonut(scores) {
+            const svg = document.getElementById('architectGardenerDonut');
+            if (!svg) return;
+
+            const centerX = 150;
+            const centerY = 150;
+            const radius = 100;
+            const strokeWidth = 40;
+
+            // Calculate percentages
+            const total = scores.A + scores.G;
+            const architectPercent = (scores.A / total) * 100;
+            const gardenerPercent = (scores.G / total) * 100;
+
+            // Start at 180° (left side)
+            const startAngle = 180;
+            const architectAngle = (architectPercent / 100) * 360;
+
+            // Clear SVG
+            svg.innerHTML = '';
+
+            // Draw background circle (full donut outline)
+            const bgCircle = createSVGElement('circle', {
+                cx: centerX, cy: centerY, r: radius,
+                fill: 'none',
+                stroke: '#f3f4f6',
+                'stroke-width': strokeWidth
+            });
+            svg.appendChild(bgCircle);
+
+            // Draw Architect arc (from 180° clockwise)
+            const architectArc = createDonutArc(
+                centerX, centerY, radius,
+                startAngle, startAngle + architectAngle,
+                strokeWidth, '#5dbcd2'
+            );
+            svg.appendChild(architectArc);
+
+            // Draw Gardener arc (continues from Architect)
+            const gardenerArc = createDonutArc(
+                centerX, centerY, radius,
+                startAngle + architectAngle, startAngle + 360,
+                strokeWidth, '#67c073'
+            );
+            svg.appendChild(gardenerArc);
+
+            // Add percentage labels
+            // Architect label (upper-left quadrant)
+            const architectLabel = createText(
+                centerX - 50, centerY - 20,
+                `${architectPercent.toFixed(1)}%`,
+                {
+                    'text-anchor': 'middle',
+                    'font-size': '18',
+                    'font-weight': '600',
+                    'fill': '#5dbcd2'
+                }
+            );
+            svg.appendChild(architectLabel);
+
+            const architectName = createText(
+                centerX - 50, centerY - 5,
+                'Architect',
+                {
+                    'text-anchor': 'middle',
+                    'font-size': '12',
+                    'fill': '#4a5568'
+                }
+            );
+            svg.appendChild(architectName);
+
+            // Gardener label (lower-right quadrant)
+            const gardenerLabel = createText(
+                centerX + 50, centerY + 20,
+                `${gardenerPercent.toFixed(1)}%`,
+                {
+                    'text-anchor': 'middle',
+                    'font-size': '18',
+                    'font-weight': '600',
+                    'fill': '#67c073'
+                }
+            );
+            svg.appendChild(gardenerLabel);
+
+            const gardenerName = createText(
+                centerX + 50, centerY + 35,
+                'Gardener',
+                {
+                    'text-anchor': 'middle',
+                    'font-size': '12',
+                    'fill': '#4a5568'
+                }
+            );
+            svg.appendChild(gardenerName);
+
+            // Add "dominant" indicator on right side
+            if (architectPercent > 50) {
+                const indicator = createSVGElement('circle', {
+                    cx: centerX + radius + 20,
+                    cy: centerY - 20,
+                    r: 8,
+                    fill: '#5dbcd2'
+                });
+                svg.appendChild(indicator);
+            } else if (gardenerPercent > 50) {
+                const indicator = createSVGElement('circle', {
+                    cx: centerX + radius + 20,
+                    cy: centerY + 20,
+                    r: 8,
+                    fill: '#67c073'
+                });
+                svg.appendChild(indicator);
+            }
         }
 
         function drawAxisLabels(svg, axes, centerX, centerY, maxRadius, labelOffset = 50) {
@@ -1271,9 +1420,9 @@
             chordImage.src = `./Assets/Images/Clean_STTI_${profile.code}_Thin.png`;
             chordImage.alt = `${profile.code} Sensemaking Pattern`;
 
-            // Render both radar charts and animate score bars
-            renderRadarChart(profile.scores, profile.code);
+            // Render archetype radar chart, donut chart, and animate score bars
             renderRadarChartArchetypesOnly(profile.scores);
+            renderArchitectGardenerDonut(profile.scores);
             animateScoreBars(profile.scores);
 
             hasRenderedResults = true; // Mark results as successfully rendered

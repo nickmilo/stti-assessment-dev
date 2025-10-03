@@ -1752,3 +1752,28 @@
     color: var(--lyt-purple-deep);
     margin-bottom: var(--space-md);
 }
+
+/* Architect/Gardener Donut Chart */
+.donut-chart-section {
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+}
+
+.donut-chart-title {
+    font-family: 'DM Mono', monospace;
+    text-decoration: underline;
+    color: var(--lyt-purple-deep);
+    margin-bottom: var(--space-xl);
+    font-size: 1.1rem;
+}
+
+.donut-chart-container {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.donut-chart-svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(93, 188, 210, 0.15));
+}
