@@ -1134,24 +1134,24 @@
             const gardenerAngle = (gardenerPercent / 100) * 360;    // Gardener's portion in degrees
 
             // Calculate arc endpoints
-            const architectArcEnd = startAngle - architectAngle;  // Counterclockwise through top
-            const gardenerArcEnd = startAngle + gardenerAngle;    // Clockwise through bottom
+            const architectArcEnd = startAngle + architectAngle;  // Clockwise through bottom
+            const gardenerArcEnd = startAngle - gardenerAngle;    // Counterclockwise through top
 
-            // Create Architect arc (sweeps UPWARD/counterclockwise through top)
-            // REVERSED parameters: end → start for counterclockwise direction
+            // Create Architect arc (sweeps DOWNWARD/clockwise through bottom)
             const architectPath = createDonutSegment(
                 centerX, centerY,
                 outerRadius, innerRadius,
-                architectArcEnd, startAngle,  // REVERSED: end → start
+                startAngle, architectArcEnd,  // NORMAL: start → end (clockwise)
                 '#5dbcd2'
             );
             svg.appendChild(architectPath);
 
-            // Create Gardener arc (sweeps DOWNWARD/clockwise through bottom)
+            // Create Gardener arc (sweeps UPWARD/counterclockwise through top)
+            // REVERSED parameters: end → start for counterclockwise direction
             const gardenerPath = createDonutSegment(
                 centerX, centerY,
                 outerRadius, innerRadius,
-                startAngle, gardenerArcEnd,  // NORMAL: start → end
+                gardenerArcEnd, startAngle,  // REVERSED: end → start (counterclockwise)
                 '#67c073'
             );
             svg.appendChild(gardenerPath);
