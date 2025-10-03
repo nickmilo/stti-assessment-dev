@@ -1127,6 +1127,37 @@
             // Clear SVG
             svg.innerHTML = '';
 
+            // Add gradient definitions
+            const defs = createSVGElement('defs');
+
+            // Architect radial gradient (cool blue-teal)
+            const architectGradient = createSVGElement('radialGradient', {
+                id: 'architectGradient',
+                cx: '50%',
+                cy: '50%',
+                r: '50%'
+            });
+            architectGradient.innerHTML = `
+                <stop offset="0%" style="stop-color:#3ECDE0;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#2B7A8A;stop-opacity:1" />
+            `;
+            defs.appendChild(architectGradient);
+
+            // Gardener radial gradient (warm yellow-green)
+            const gardenerGradient = createSVGElement('radialGradient', {
+                id: 'gardenerGradient',
+                cx: '50%',
+                cy: '50%',
+                r: '50%'
+            });
+            gardenerGradient.innerHTML = `
+                <stop offset="0%" style="stop-color:#7FD687;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#4A8C54;stop-opacity:1" />
+            `;
+            defs.appendChild(gardenerGradient);
+
+            svg.appendChild(defs);
+
             // DYNAMIC DONUT: Proportional arcs based on A/G scores
             // Start at left (180°), Architect sweeps upward, Gardener sweeps downward
             const startAngle = 180;  // Left side (9 o'clock position)
@@ -1142,7 +1173,7 @@
                 centerX, centerY,
                 outerRadius, innerRadius,
                 startAngle, architectArcEnd,  // NORMAL: start → end (clockwise)
-                '#5dbcd2'
+                'url(#architectGradient)'
             );
             svg.appendChild(architectPath);
 
@@ -1152,7 +1183,7 @@
                 centerX, centerY,
                 outerRadius, innerRadius,
                 gardenerArcEnd, startAngle,  // REVERSED: end → start (counterclockwise)
-                '#67c073'
+                'url(#gardenerGradient)'
             );
             svg.appendChild(gardenerPath);
 
@@ -1173,7 +1204,7 @@
                     'text-anchor': 'middle',
                     'font-size': '18',
                     'font-weight': '600',
-                    'fill': '#5dbcd2'
+                    'fill': '#2B7A8A'
                 }
             );
             svg.appendChild(architectLabel);
@@ -1185,7 +1216,7 @@
                     'text-anchor': 'middle',
                     'font-size': '18',
                     'font-weight': '600',
-                    'fill': '#67c073'
+                    'fill': '#4A8C54'
                 }
             );
             svg.appendChild(gardenerLabel);
