@@ -786,13 +786,14 @@
             const allScores = [scores.I, scores.S, scores.P, scores.C, scores.A, scores.G];
             const maxScore = Math.max(...allScores);
 
-            // Data structure: 5 axes (removed Synthesizer) in clockwise order from top
+            // Data structure: 6 axes in clockwise order from top
             const axes = [
                 { key: 'A', label: 'Architect', angle: -90 },
-                { key: 'P', label: 'Producer', angle: -18 },
-                { key: 'C', label: 'Creative', angle: 54 },
-                { key: 'G', label: 'Gardener', angle: 126 },
-                { key: 'I', label: 'Inner Guide', angle: 198 }
+                { key: 'P', label: 'Producer', angle: -30 },
+                { key: 'C', label: 'Creative', angle: 30 },
+                { key: 'G', label: 'Gardener', angle: 90 },
+                { key: 'I', label: 'Inner Guide', angle: 150 },
+                { key: 'S', label: 'Synthesizer', angle: 210 }
             ];
 
             // Clear existing content
