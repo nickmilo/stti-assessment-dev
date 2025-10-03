@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Chart Refactoring Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .charts-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .chart-wrapper {
+            flex: 1;
+        }
+        svg {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status.pass {
+            background: #10b981;
+            color: white;
+        }
+        .status.fail {
+            background: #ef4444;
+            color: white;
+        }
+        .score-info {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .test-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .test-button:hover {
+            background: #2563eb;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Radar Chart Refactoring Test Suite</h1>
+    <p>Testing the refactored radar chart implementation for visual and functional regression.</p>
+
+    <div class="test-section">
+        <h2>Test 1: Balanced Scores (All Equal)</h2>
+        <button class="test-button" onclick="testBalanced()">Run Test</button>
+        <span class="status" id="status-balanced"></span>
+        <div class="score-info">Scores: I:20 S:20 P:20 C:20 A:20 G:20 (Perfect balance)</div>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h3>6-Axis Chart</h3>
+                <svg id="test-radar-balanced-6" viewBox="0 0 500 500"></svg>
+            </div>
+            <div class="chart-wrapper">
+                <h3>4-Axis Chart</h3>
+                <svg id="test-radar-balanced-4" viewBox="0 0 500 500"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Extreme Variance</h2>
+        <button class="test-button" onclick="testExtreme()">Run Test</button>
+        <span class="status" id="status-extreme"></span>
+        <div class="score-info">Scores: I:32 S:8 P:26 C:15 A:32 G:10 (High variance)</div>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h3>6-Axis Chart</h3>
+                <svg id="test-radar-extreme-6" viewBox="0 0 500 500"></svg>
+            </div>
+            <div class="chart-wrapper">
+                <h3>4-Axis Chart</h3>
+                <svg id="test-radar-extreme-4" viewBox="0 0 500 500"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Typical Profile</h2>
+        <button class="test-button" onclick="testTypical()">Run Test</button>
+        <span class="status" id="status-typical"></span>
+        <div class="score-info">Scores: I:24 S:18 P:33 C:20 A:20 G:18 (Normal variance)</div>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h3>6-Axis Chart</h3>
+                <svg id="test-radar-typical-6" viewBox="0 0 500 500"></svg>
+            </div>
+            <div class="chart-wrapper">
+                <h3>4-Axis Chart</h3>
+                <svg id="test-radar-typical-4" viewBox="0 0 500 500"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: All Minimum</h2>
+        <button class="test-button" onclick="testMinimum()">Run Test</button>
+        <span class="status" id="status-minimum"></span>
+        <div class="score-info">Scores: I:8 S:8 P:8 C:8 A:8 G:8 (Edge case: minimum)</div>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h3>6-Axis Chart</h3>
+                <svg id="test-radar-minimum-6" viewBox="0 0 500 500"></svg>
+            </div>
+            <div class="chart-wrapper">
+                <h3>4-Axis Chart</h3>
+                <svg id="test-radar-minimum-4" viewBox="0 0 500 500"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 5: All Maximum</h2>
+        <button class="test-button" onclick="testMaximum()">Run Test</button>
+        <span class="status" id="status-maximum"></span>
+        <div class="score-info">Scores: I:32 S:32 P:32 C:32 A:32 G:32 (Edge case: maximum)</div>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h3>6-Axis Chart</h3>
+                <svg id="test-radar-maximum-6" viewBox="0 0 500 500"></svg>
+            </div>
+            <div class="chart-wrapper">
+                <h3>4-Axis Chart</h3>
+                <svg id="test-radar-maximum-4" viewBox="0 0 500 500"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Console Output</h2>
+        <div id="console-output" style="background: #1f2937; color: #10b981; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto;">
+            <div>Ready to test. Click buttons above.</div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Intercept console.log for display
+        const consoleOutput = document.getElementById('console-output');
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            consoleOutput.innerHTML += '<div>' + args.join(' ') + '</div>';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+
+        function updateStatus(id, success) {
+            const status = document.getElementById(id);
+            status.className = 'status ' + (success ? 'pass' : 'fail');
+            status.textContent = success ? 'PASS' : 'FAIL';
+        }
+
+        function testBalanced() {
+            console.log('Testing balanced scores (20/20/20/20/20/20)...');
+            const scores = { I: 20, S: 20, P: 20, C: 20, A: 20, G: 20 };
+            try {
+                // Test 6-axis with legacy call signature
+                const svg6 = document.getElementById('test-radar-balanced-6');
+                svg6.id = 'radarChart';
+                renderRadarChart(scores, 'IP-Architect');
+                svg6.id = 'test-radar-balanced-6';
+
+                // Test 4-axis with options
+                const svg4 = document.getElementById('test-radar-balanced-4');
+                svg4.id = 'radarChartArchetypes';
+                renderRadarChartArchetypesOnly(scores);
+                svg4.id = 'test-radar-balanced-4';
+
+                updateStatus('status-balanced', true);
+                console.log('✓ Balanced scores test passed');
+            } catch (err) {
+                updateStatus('status-balanced', false);
+                console.error('✗ Balanced scores test failed:', err);
+            }
+        }
+
+        function testExtreme() {
+            console.log('Testing extreme variance scores...');
+            const scores = { I: 32, S: 8, P: 26, C: 15, A: 32, G: 10 };
+            try {
+                const svg6 = document.getElementById('test-radar-extreme-6');
+                svg6.id = 'radarChart';
+                renderRadarChart(scores, 'IP-Architect');
+                svg6.id = 'test-radar-extreme-6';
+
+                const svg4 = document.getElementById('test-radar-extreme-4');
+                svg4.id = 'radarChartArchetypes';
+                renderRadarChartArchetypesOnly(scores);
+                svg4.id = 'test-radar-extreme-4';
+
+                updateStatus('status-extreme', true);
+                console.log('✓ Extreme variance test passed');
+            } catch (err) {
+                updateStatus('status-extreme', false);
+                console.error('✗ Extreme variance test failed:', err);
+            }
+        }
+
+        function testTypical() {
+            console.log('Testing typical profile scores...');
+            const scores = { I: 24, S: 18, P: 33, C: 20, A: 20, G: 18 };
+            try {
+                const svg6 = document.getElementById('test-radar-typical-6');
+                svg6.id = 'radarChart';
+                renderRadarChart(scores, 'PI-Architect');
+                svg6.id = 'test-radar-typical-6';
+
+                const svg4 = document.getElementById('test-radar-typical-4');
+                svg4.id = 'radarChartArchetypes';
+                renderRadarChartArchetypesOnly(scores);
+                svg4.id = 'test-radar-typical-4';
+
+                updateStatus('status-typical', true);
+                console.log('✓ Typical profile test passed');
+            } catch (err) {
+                updateStatus('status-typical', false);
+                console.error('✗ Typical profile test failed:', err);
+            }
+        }
+
+        function testMinimum() {
+            console.log('Testing minimum scores (8/8/8/8/8/8)...');
+            const scores = { I: 8, S: 8, P: 8, C: 8, A: 8, G: 8 };
+            try {
+                const svg6 = document.getElementById('test-radar-minimum-6');
+                svg6.id = 'radarChart';
+                renderRadarChart(scores, 'IP-Architect');
+                svg6.id = 'test-radar-minimum-6';
+
+                const svg4 = document.getElementById('test-radar-minimum-4');
+                svg4.id = 'radarChartArchetypes';
+                renderRadarChartArchetypesOnly(scores);
+                svg4.id = 'test-radar-minimum-4';
+
+                updateStatus('status-minimum', true);
+                console.log('✓ Minimum scores test passed');
+            } catch (err) {
+                updateStatus('status-minimum', false);
+                console.error('✗ Minimum scores test failed:', err);
+            }
+        }
+
+        function testMaximum() {
+            console.log('Testing maximum scores (32/32/32/32/32/32)...');
+            const scores = { I: 32, S: 32, P: 32, C: 32, A: 32, G: 32 };
+            try {
+                const svg6 = document.getElementById('test-radar-maximum-6');
+                svg6.id = 'radarChart';
+                renderRadarChart(scores, 'IP-Architect');
+                svg6.id = 'test-radar-maximum-6';
+
+                const svg4 = document.getElementById('test-radar-maximum-4');
+                svg4.id = 'radarChartArchetypes';
+                renderRadarChartArchetypesOnly(scores);
+                svg4.id = 'test-radar-maximum-4';
+
+                updateStatus('status-maximum', true);
+                console.log('✓ Maximum scores test passed');
+            } catch (err) {
+                updateStatus('status-maximum', false);
+                console.error('✗ Maximum scores test failed:', err);
+            }
+        }
+
+        console.log('Test suite loaded. Click buttons to run tests.');
+    </script>
+</body>
+</html>
