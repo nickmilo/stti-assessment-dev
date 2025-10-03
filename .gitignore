@@ -404,3 +404,6 @@ PHASE_3_VALIDATION.md
 # macOS system files
 .DS_Store
 **/.DS_Store
+BACK_BUTTON_BUG_FIX.md
+Analysis/Back-Button-Bug-Analysis.md
+Analysis/Debug-Scripts/test-back-button-flow.js
