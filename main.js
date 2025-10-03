@@ -253,6 +253,30 @@
                         I: 24, S: 18, P: 33, C: 20, A: 20, G: 18
                     });
                     keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0027') {
+                    // Test profile: All equal (I:20 S:20 P:20 C:20 A:20 G:20) - perfect balance
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 20, S: 20, P: 20, C: 20, A: 20, G: 20
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0028') {
+                    // Test profile: All minimum (I:8 S:8 P:8 C:8 A:8 G:8) - edge case
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 8, S: 8, P: 8, C: 8, A: 8, G: 8
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0029') {
+                    // Test profile: All maximum (I:32 S:32 P:32 C:32 A:32 G:32) - edge case
+                    activateProfile('IP-Architect', 'The Converter', {
+                        I: 32, S: 32, P: 32, C: 32, A: 32, G: 32
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
+                } else if (keySequence === '0030') {
+                    // Test profile: Gardener extreme (I:15 S:26 P:8 C:32 A:10 G:32) - reverse of 0025
+                    activateProfile('CP-Gardener', 'The Maker', {
+                        I: 15, S: 26, P: 8, C: 32, A: 10, G: 32
+                    });
+                    keySequence = ''; clearTimeout(keyTimer);
                 } else if (keySequence.length >= 4) {
                     keySequence = '';
                     clearTimeout(keyTimer);
