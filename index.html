@@ -150,17 +150,9 @@
                     </div>
                 </div>
 
-                <!-- Archetype-Only Radar Chart Section -->
-                <div class="radar-chart-section">
-                    <div class="radar-chart-container">
-                        <svg id="radarChartArchetypes" viewBox="0 0 440 440" class="radar-chart-svg" role="img" aria-labelledby="radarChartArchetypesTitle radarChartArchetypesDesc">
-                            <title id="radarChartArchetypesTitle">Archetype Radar Chart</title>
-                            <desc id="radarChartArchetypesDesc">A radar chart showing your scores across 4 archetypes</desc>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="second-row">
+                <!-- NEW ROW 1: Orientation (LEFT) + Radar Chart (RIGHT) -->
+                <div class="layout-row-1">
+                    <!-- Orientation Section (LEFT) -->
                     <div class="westerner-section">
                         <div class="westerner-title" id="westernerTitle">Orientation</div>
                         <div class="orientation-pill" id="orientationPill">Western</div>
@@ -168,6 +160,31 @@
                             Your orientation analysis will appear here.
                         </div>
                     </div>
+
+                    <!-- Radar Chart (RIGHT) - NO BACKGROUND BOX -->
+                    <div class="radar-chart-minimal">
+                        <div class="radar-chart-container">
+                            <svg id="radarChartArchetypes" viewBox="0 0 440 440" class="radar-chart-svg" role="img" aria-labelledby="radarChartArchetypesTitle radarChartArchetypesDesc">
+                                <title id="radarChartArchetypesTitle">Archetype Radar Chart</title>
+                                <desc id="radarChartArchetypesDesc">A radar chart showing your scores across 4 archetypes</desc>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW ROW 2: Donut Chart (LEFT) + Tendency (RIGHT) -->
+                <div class="layout-row-2">
+                    <!-- Donut Chart (LEFT) - NO BACKGROUND BOX -->
+                    <div class="donut-chart-minimal">
+                        <div class="donut-chart-title">Architect vs Gardener Balance</div>
+                        <div class="donut-chart-container">
+                            <svg id="architectGardenerDonut" viewBox="0 0 300 300" class="donut-chart-svg">
+                                <title>Architect vs Gardener Tendency Balance</title>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Tendency Section (RIGHT) -->
                     <div class="tendency-section">
                         <div class="tendency-title">Tendency</div>
                         <div class="tendency-pills-container">
@@ -180,16 +197,6 @@
                         <div class="tendency-score-hint">
                             Exact scores, ratios, and analysis in the LYT Workshop.
                         </div>
-                    </div>
-                </div>
-
-                <!-- Architect vs Gardener Donut Chart -->
-                <div class="donut-chart-section section-box section-box--cyan">
-                    <div class="donut-chart-title">Architect vs Gardener Balance</div>
-                    <div class="donut-chart-container">
-                        <svg id="architectGardenerDonut" viewBox="0 0 300 300" class="donut-chart-svg">
-                            <title>Architect vs Gardener Tendency Balance</title>
-                        </svg>
                     </div>
                 </div>
 
@@ -326,32 +333,6 @@
                 </div>
 
 
-                <div class="results-grid">
-                    <!-- Unlocked: Core Strengths -->
-                    <div class="result-box unlocked">
-                        <div class="workshop-badge">Workshop</div>
-                        <h4>Core Strengths</h4>
-                        <ul class="result-list blurred-content" id="strengthsList">
-                            <li>Lorem ipsum dolor sit amet consectetur</li>
-                            <li>Adipiscing elit sed do eiusmod tempor</li>
-                            <li>Incididunt ut labore et dolore magna</li>
-                            <li>Aliqua enim ad minim veniam quis</li>
-                        </ul>
-                    </div>
-
-                    <!-- Unlocked: Growth Areas -->
-                    <div class="result-box unlocked">
-                        <div class="workshop-badge">Workshop</div>
-                        <h4>Growth Opportunities</h4>
-                        <ul class="result-list blurred-content" id="weaknessesList">
-                            <li>Nostrud exercitation ullamco laboris</li>
-                            <li>Nisi ut aliquip ex ea commodo consequat</li>
-                            <li>Duis aute irure dolor in reprehenderit</li>
-                            <li>Voluptate velit esse cillum dolore</li>
-                        </ul>
-                    </div>
-                </div>
-
                 <!-- Action buttons -->
                 <div style="margin: 3rem 0; text-align: center;">
                     <div class="share-dropdown-container">
@@ -375,60 +356,6 @@
                 </div>
 
                 <div class="results-grid">
-                    <!-- Teaser: Moving to Producer -->
-                    <div class="result-box teaser">
-                        <div class="teaser-badge">Workshop</div>
-                        <h4><span class="lock-icon">🔒</span> How to Access Your Producer Side</h4>
-                        <div class="teaser-content">
-                            Discover specific strategies to amplify your productive capabilities and overcome analysis paralysis...
-                        </div>
-                    </div>
-
-                    <!-- Teaser: Accessing Gardener -->
-                    <div class="result-box teaser">
-                        <div class="teaser-badge">Workshop</div>
-                        <h4><span class="lock-icon">🔒</span> Developing Your Gardener Tendencies</h4>
-                        <div class="teaser-content">
-                            Learn how to embrace flexibility and spontaneity while maintaining your structured approach...
-                        </div>
-                    </div>
-
-                    <!-- Teaser: Methods & Practices -->
-                    <div class="result-box teaser">
-                        <div class="teaser-badge">Workshop</div>
-                        <h4><span class="lock-icon">🔒</span> Personalized Methods & Practices</h4>
-                        <div class="teaser-content">
-                            Custom workflows, tools, and daily practices designed specifically for your type...
-                        </div>
-                    </div>
-
-                    <!-- Teaser: Attributes -->
-                    <div class="result-box teaser">
-                        <div class="teaser-badge">Workshop</div>
-                        <h4><span class="lock-icon">🔒</span> Deep Personality Attributes</h4>
-                        <div class="teaser-content">
-                            Comprehensive analysis of your cognitive patterns, decision-making style, and mental models...
-                        </div>
-                    </div>
-
-                    <!-- Teaser: Communication Style -->
-                    <div class="result-box teaser">
-                        <div class="teaser-badge">Workshop</div>
-                        <h4><span class="lock-icon">🔒</span> Things You Say & Communication Style</h4>
-                        <div class="teaser-content">
-                            Typical phrases, communication patterns, and how others perceive your unique perspective...
-                        </div>
-                    </div>
-
-                    <!-- Teaser: Career Insights -->
-                    <div class="result-box teaser">
-                        <div class="teaser-badge">Workshop</div>
-                        <h4><span class="lock-icon">🔒</span> Career & Role Optimization</h4>
-                        <div class="teaser-content">
-                            Ideal work environments, team roles, and career paths that align with your sensemaking style...
-                        </div>
-                    </div>
-
                     <!-- Teaser: Stress & Recovery -->
                     <div class="result-box teaser">
                         <div class="teaser-badge">Workshop</div>

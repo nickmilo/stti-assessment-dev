@@ -616,7 +616,17 @@
             font-size: 1rem;
         }
 
-        .second-row {
+        /* NEW: Row 1 - Orientation (LEFT) + Radar Chart (RIGHT) */
+        .layout-row-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: start;
+        }
+
+        /* NEW: Row 2 - Donut Chart (LEFT) + Tendency (RIGHT) */
+        .layout-row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -1267,10 +1277,19 @@
             .container {
                 padding: 1rem;
             }
-            
-            .second-row {
+
+            .layout-row-1,
+            .layout-row-2 {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+            }
+
+            .radar-chart-minimal .radar-chart-container {
+                max-width: 350px;
+            }
+
+            .donut-chart-minimal .donut-chart-container {
+                max-width: 300px;
             }
 
             .profile-banner {
@@ -1525,6 +1544,20 @@
                 gap: 1rem;
             }
 
+            .layout-row-1,
+            .layout-row-2 {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .radar-chart-minimal .radar-chart-container {
+                max-width: 280px;
+            }
+
+            .donut-chart-minimal .donut-chart-container {
+                max-width: 250px;
+            }
+
             .results {
                 padding: 2rem 1rem;
             }
@@ -1597,14 +1630,12 @@
    RADAR CHART STYLES
    ============================================ */
 
-/* Radar Chart Section */
-.radar-chart-section {
-    background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--lyt-purple);
-    padding: var(--space-sm) var(--space-lg);  /* OPTIMIZED: 8px top/bottom, 16px left/right for compact display */
-    margin-bottom: var(--space-md);  /* REDUCED from 2xl (32px) to md (12px) - kills white space */
-    text-align: center;
+/* NEW: Radar chart without background box */
+.radar-chart-minimal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
 }
 
 .radar-profile-code {
@@ -1754,19 +1785,21 @@
     margin-bottom: var(--space-md);
 }
 
-/* Architect/Gardener Donut Chart */
-.donut-chart-section {
-    margin-bottom: var(--space-lg);  /* Reduced from 2xl to lg - less white space */
-    padding: var(--space-lg);  /* Minimal padding */
-    text-align: center;
+/* NEW: Donut chart without background box */
+.donut-chart-minimal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
 }
 
-.donut-chart-title {
+.donut-chart-minimal .donut-chart-title {
     font-family: 'DM Mono', monospace;
     text-decoration: underline;
     color: var(--lyt-purple-deep);
-    margin-bottom: var(--space-md);  /* Reduced from xl to md */
+    margin-bottom: var(--space-md);
     font-size: 1.1rem;
+    text-align: center;
 }
 
 .donut-chart-container {
