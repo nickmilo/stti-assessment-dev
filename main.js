@@ -1041,20 +1041,20 @@
          * @param {Object} scores - Score object with A and G properties
          */
         function renderArchitectGardenerDonut(scores) {
-            console.log('🍩 Rendering donut chart with scores:', scores);
+            console.log('🍩 DONUT: Starting render with scores:', scores);
             const svg = document.getElementById('architectGardenerDonut');
             if (!svg) {
-                console.error('❌ Donut SVG element #architectGardenerDonut not found in DOM!');
+                console.error('❌ DONUT: SVG element #architectGardenerDonut NOT FOUND!');
                 return;
             }
-            console.log('✓ Donut SVG element found');
+            console.log('✓ DONUT: SVG element found');
 
-            // ADD VALIDATION FOR SCORES
+            // Validation
             if (!scores || typeof scores.A === 'undefined' || typeof scores.G === 'undefined') {
-                console.error('❌ Donut chart error: Missing A or G scores', { scores });
+                console.error('❌ DONUT: Missing A or G scores', { scores });
                 return;
             }
-            console.log('✓ Architect and Gardener scores found:', { A: scores.A, G: scores.G });
+            console.log('✓ DONUT: A=' + scores.A + ', G=' + scores.G);
 
             const centerX = 150;
             const centerY = 150;
@@ -1165,6 +1165,25 @@
                 });
                 svg.appendChild(indicator);
             }
+
+            // SIMPLE TEST: Just draw two basic circles to prove SVG is working
+            const testOuter = createSVGElement('circle', {
+                cx: centerX, cy: centerY, r: 80,
+                fill: 'none',
+                stroke: 'red',
+                'stroke-width': '3'
+            });
+            svg.appendChild(testOuter);
+
+            const testInner = createSVGElement('circle', {
+                cx: centerX, cy: centerY, r: 50,
+                fill: 'white',
+                stroke: 'blue',
+                'stroke-width': '3'
+            });
+            svg.appendChild(testInner);
+
+            console.log('✓ DONUT: Test circles added - you should see red outer ring and blue inner ring');
         }
 
         function drawAxisLabels(svg, axes, centerX, centerY, maxRadius, labelOffset = 50) {
