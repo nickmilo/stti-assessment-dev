@@ -496,11 +496,11 @@
             let orientation = '';
 
             if (sortedArchetypes === 'IS') {
-                orientation = 'Westerner';
+                orientation = 'Western';
             } else if (sortedArchetypes === 'CP') {
-                orientation = 'Easterner';
+                orientation = 'Eastern';
             } else if (sortedArchetypes === 'PS') {
-                orientation = 'Northerner';
+                orientation = 'Northern';
             } else if (sortedArchetypes === 'CI') {
                 orientation = 'Southern';
             } else if (sortedArchetypes === 'CS') {
@@ -822,7 +822,7 @@
         const RADAR_CHART_CONFIG = {
             CENTER_X: 250,
             CENTER_Y: 250,
-            MAX_RADIUS: 180,
+            MAX_RADIUS: 135,  // 75% of 180 for more compact chart
             GRID_LEVELS: 5,
             LABEL_OFFSET: 50,
             ANIMATION_DELAY: 300,
@@ -935,10 +935,10 @@
 
             // Define quadrant gradients (using brand colors)
             const gradients = [
-                { id: 'synthesizerGradient', color1: '#5dbcd2', color2: 'rgba(93, 188, 210, 0.1)' },   // Teal/Cyan
-                { id: 'producerGradient', color1: '#d669bc', color2: 'rgba(214, 105, 188, 0.1)' },     // Pink
-                { id: 'creativeGradient', color1: '#b9adff', color2: 'rgba(185, 173, 255, 0.1)' },    // Purple
-                { id: 'innerGuideGradient', color1: '#fcf601', color2: 'rgba(252, 246, 1, 0.1)' }     // Yellow
+                { id: 'synthesizerGradient', color1: '#5dbcd2', color2: 'rgba(93, 188, 210, 0.25)' },   // Teal/Cyan
+                { id: 'producerGradient', color1: '#d669bc', color2: 'rgba(214, 105, 188, 0.25)' },     // Pink
+                { id: 'creativeGradient', color1: '#b9adff', color2: 'rgba(185, 173, 255, 0.25)' },    // Purple
+                { id: 'innerGuideGradient', color1: '#fcf601', color2: 'rgba(252, 246, 1, 0.25)' }     // Yellow
             ];
 
             gradients.forEach(({ id, color1, color2 }) => {
@@ -996,7 +996,7 @@
 
                 const label = createText(labelX, labelY, value.toString(), {
                     'text-anchor': 'start',
-                    'fill': '#D1D5DB',  // Light gray
+                    'fill': '#9CA3AF',  // Medium gray - better readability
                     'font-size': '12',
                     'font-weight': '600'
                 });
@@ -1048,6 +1048,13 @@
                 return;
             }
             console.log('✓ Donut SVG element found');
+
+            // ADD VALIDATION FOR SCORES
+            if (!scores || typeof scores.A === 'undefined' || typeof scores.G === 'undefined') {
+                console.error('❌ Donut chart error: Missing A or G scores', { scores });
+                return;
+            }
+            console.log('✓ Architect and Gardener scores found:', { A: scores.A, G: scores.G });
 
             const centerX = 150;
             const centerY = 150;

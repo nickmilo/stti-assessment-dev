@@ -1602,7 +1602,7 @@
     background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
     border-radius: var(--radius-md);
     border-left: 4px solid var(--lyt-purple);
-    padding: var(--space-2xl);
+    padding: var(--space-lg) var(--space-2xl);  /* 16px top/bottom, 32px left/right */
     margin-bottom: var(--space-2xl);
     text-align: center;
 }
