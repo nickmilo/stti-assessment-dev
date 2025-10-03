@@ -906,9 +906,9 @@
                 { 'text-anchor': 'middle', ...labelAttrs }));
             labelsGroup.appendChild(createText(centerX, centerY + maxRadius + 25, 'Bottom-up',
                 { 'text-anchor': 'middle', ...labelAttrs }));
-            labelsGroup.appendChild(createText(15, centerY + 5, 'Reflection',
+            labelsGroup.appendChild(createText(25, centerY + 5, 'Reflection',
                 { 'text-anchor': 'start', ...labelAttrs }));
-            labelsGroup.appendChild(createText(485, centerY + 5, 'Expression',
+            labelsGroup.appendChild(createText(475, centerY + 5, 'Expression',
                 { 'text-anchor': 'end', ...labelAttrs }));
 
             svg.appendChild(labelsGroup);
