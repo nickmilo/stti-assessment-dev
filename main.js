@@ -1604,11 +1604,11 @@
             renderArchitectGardenerDonut(profile.scores);
             animateScoreBars(profile.scores);
 
-            // Initialize tendency education sections with accordion behavior
-            initializeTendencySections(profile.scores);
-
             hasRenderedResults = true; // Mark results as successfully rendered
             showScreen('resultsScreen');
+
+            // Initialize tendency education sections AFTER screen is shown (ensures DOM is ready)
+            initializeTendencySections(profile.scores);
         }
 
         function shareResults() {
