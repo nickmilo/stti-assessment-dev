@@ -1243,6 +1243,12 @@
                 return;
             }
 
+            // Check if already initialized to prevent duplicate listeners (memory leak protection)
+            if (sections[0].dataset.initialized === 'true') {
+                console.log('✓ TENDENCY: Already initialized, skipping duplicate setup');
+                return;
+            }
+
             // Determine which section should be auto-expanded
             let autoExpandSection = 'equal-scores';
 
@@ -1277,6 +1283,9 @@
                 if (section.dataset.section === autoExpandSection) {
                     expandTendencySection(section, button, content);
                 }
+
+                // Mark section as initialized to prevent duplicate listeners
+                section.dataset.initialized = 'true';
             });
 
             console.log('✓ TENDENCY: Initialized', sections.length, 'expandable sections');
@@ -1607,8 +1616,10 @@
             hasRenderedResults = true; // Mark results as successfully rendered
             showScreen('resultsScreen');
 
-            // Initialize tendency education sections AFTER screen is shown (ensures DOM is ready)
-            initializeTendencySections(profile.scores);
+            // Initialize tendency education sections AFTER browser has painted the visible screen
+            requestAnimationFrame(() => {
+                initializeTendencySections(profile.scores);
+            });
         }
 
         function shareResults() {
