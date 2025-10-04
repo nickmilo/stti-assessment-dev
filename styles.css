@@ -419,6 +419,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-top: var(--space-xl); /* 1.5rem - shift down for balance */
         }
 
         /* RIGHT COLUMN - Rows 1+2: Archetypes (spans both rows) */
@@ -1322,11 +1323,16 @@
             .chord-diagram-cell {
                 grid-column: 1;
                 grid-row: 2;
+                margin-top: 0; /* Remove extra spacing when stacked */
             }
 
             .archetypes-cell {
                 grid-column: 1;
                 grid-row: 3;
+            }
+
+            .radar-chart-minimal {
+                margin-top: 0.75rem; /* Add breathing room on tablets */
             }
 
             .chord-diagram img {
@@ -1620,6 +1626,10 @@
                 max-width: 200px;
             }
 
+            .chord-diagram-cell {
+                margin-top: 0; /* Remove extra spacing when stacked */
+            }
+
             .archetypes-cell {
                 padding: var(--space-lg);
             }
@@ -1702,7 +1712,7 @@
     flex-direction: column;
     align-items: center;
     padding: 0;
-    margin-top: 1.5rem;
+    margin-top: 0;
 }
 
 .radar-profile-code {
