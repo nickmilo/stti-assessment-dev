@@ -366,9 +366,12 @@
             background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
             border-radius: 12px;
             border-left: 4px solid var(--lyt-purple);
-            padding: 0.8rem 1.5rem;
-            margin: 0.25rem 0;
+            padding: 1.5rem;
             text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .banner-main-title {
@@ -395,22 +398,41 @@
             font-weight: 400;
         }
 
-        /* Banner and Chord Diagram Side-by-Side */
-        .banner-chord-wrapper {
-            display: flex;
+        /* Profile Layout Grid - 2 Column with Spanning */
+        .profile-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
             gap: 2rem;
-            align-items: center;
             margin-bottom: 2rem;
         }
 
-        .banner-chord-wrapper .profile-banner {
-            flex: 1;
-            margin: 0;
+        /* LEFT COLUMN - Row 1: Profile Banner */
+        .profile-banner-cell {
+            grid-column: 1;
+            grid-row: 1;
         }
 
-        .banner-chord-wrapper .chord-diagram {
-            flex-shrink: 0;
-            width: 300px;
+        /* LEFT COLUMN - Row 2: Chord Diagram */
+        .chord-diagram-cell {
+            grid-column: 1;
+            grid-row: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* RIGHT COLUMN - Rows 1+2: Archetypes (spans both rows) */
+        .archetypes-cell {
+            grid-column: 2;
+            grid-row: 1 / 3;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--lyt-purple);
+            padding: var(--space-xl) var(--space-2xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .results {
@@ -423,7 +445,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .profile-main-title {
             font-family: 'DM Mono', monospace;
             font-size: 1.3rem;
@@ -431,11 +453,6 @@
             text-align: center;
             margin-bottom: 1rem;
             font-weight: 500;
-        }
-
-        .profile-header {
-            display: block;
-            margin-bottom: 2rem;
         }
 
         .profile-info {
@@ -1087,11 +1104,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
         .chord-diagram img {
-            width: 300px;
-            height: 300px;
+            width: 100%;
+            max-width: 280px;
+            height: auto;
             display: block;
             cursor: pointer;
             transition: transform 0.2s ease;
@@ -1290,6 +1310,32 @@
 
             .donut-chart-minimal .donut-chart-container {
                 max-width: 300px;
+            }
+
+            /* Stack profile grid vertically on tablets */
+            .profile-layout-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                gap: 1.5rem;
+            }
+
+            .profile-banner-cell {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .chord-diagram-cell {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .archetypes-cell {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .chord-diagram img {
+                max-width: 250px;
             }
 
             .profile-banner {
@@ -1556,6 +1602,31 @@
 
             .donut-chart-minimal .donut-chart-container {
                 max-width: 250px;
+            }
+
+            /* Mobile profile grid spacing */
+            .profile-layout-grid {
+                gap: 1rem;
+            }
+
+            .profile-banner {
+                padding: 1rem;
+            }
+
+            .banner-profile-code {
+                font-size: 2rem;
+            }
+
+            .banner-subtitle {
+                font-size: 1.4rem;
+            }
+
+            .chord-diagram img {
+                max-width: 200px;
+            }
+
+            .archetypes-cell {
+                padding: var(--space-lg);
             }
 
             .results {

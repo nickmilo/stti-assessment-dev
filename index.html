@@ -119,20 +119,18 @@
                 <!-- Main title above gradient -->
                 <div class="profile-main-title">Your Sensemaking Profile</div>
 
-                <!-- Profile Banner and Chord Diagram Side-by-Side -->
-                <div class="banner-chord-wrapper">
-                    <div class="profile-banner">
-                        <div class="banner-profile-code" id="profileCode">IS-Architect</div>
-                        <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
+                <!-- Profile Layout Grid: 2 Columns -->
+                <div class="profile-layout-grid">
+                    <!-- LEFT COLUMN - Row 1: Profile Banner -->
+                    <div class="profile-banner-cell">
+                        <div class="profile-banner">
+                            <div class="banner-profile-code" id="profileCode">IS-Architect</div>
+                            <div class="banner-subtitle" id="profileSubtitle">The Philosopher</div>
+                        </div>
                     </div>
-                    <div class="chord-diagram">
-                        <img id="chordDiagram" src="./Assets/Images/Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
-                    </div>
-                </div>
 
-                <!-- Full-width Archetypes Section -->
-                <div class="profile-header">
-                    <div class="section-box section-box--purple">
+                    <!-- RIGHT COLUMN - Rows 1+2: Archetypes (spans both rows) -->
+                    <div class="archetypes-cell">
                         <div class="archetype-title">Archetypes</div>
                         <div class="archetype-pills-container">
                             <div class="archetype-pills primary-row">
@@ -146,6 +144,13 @@
                         </div>
                         <div class="archetype-description" id="archetypeDescription">
                             Your unique cognitive pattern reveals how you process information and navigate complexity.
+                        </div>
+                    </div>
+
+                    <!-- LEFT COLUMN - Row 2: Chord Diagram -->
+                    <div class="chord-diagram-cell">
+                        <div class="chord-diagram">
+                            <img id="chordDiagram" src="./Assets/Images/Clean_STTI_IP-Architect_Thin.png" alt="Your Sensemaking Pattern">
                         </div>
                     </div>
                 </div>
