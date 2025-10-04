@@ -366,6 +366,7 @@
             background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
             border-radius: 12px;
             border-left: 4px solid var(--lyt-purple);
+            border-right: 4px solid var(--lyt-purple);
             padding: 1.5rem;
             text-align: center;
             height: 100%;
