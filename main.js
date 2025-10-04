@@ -1224,6 +1224,97 @@
             console.log('✓ DONUT: Simple half-circle donut rendered - A=' + architectPercent.toFixed(1) + '%, G=' + gardenerPercent.toFixed(1) + '%');
         }
 
+        /**
+         * Initialize expandable tendency education sections
+         * @param {Object} scores - Profile scores object containing A and G scores
+         */
+        function initializeTendencySections(scores) {
+            if (!scores || typeof scores.A === 'undefined' || typeof scores.G === 'undefined') {
+                console.error('❌ TENDENCY: Missing A or G scores', { scores });
+                return;
+            }
+
+            const architectingScore = scores.A;
+            const gardeningScore = scores.G;
+            const sections = document.querySelectorAll('.expandable-section');
+
+            if (sections.length === 0) {
+                console.warn('⚠️ TENDENCY: No expandable sections found');
+                return;
+            }
+
+            // Determine which section should be auto-expanded
+            let autoExpandSection = 'equal-scores';
+
+            if (architectingScore > gardeningScore) {
+                autoExpandSection = 'higher-architecting';
+            } else if (architectingScore < gardeningScore) {
+                autoExpandSection = 'lower-architecting';
+            }
+
+            console.log('✓ TENDENCY: Auto-expanding section:', autoExpandSection, '(A=' + architectingScore + ', G=' + gardeningScore + ')');
+
+            // Add click listeners to all expand buttons
+            sections.forEach(section => {
+                const button = section.querySelector('.expand-btn');
+                const content = section.querySelector('.expand-content');
+
+                if (!button || !content) return;
+
+                button.addEventListener('click', () => {
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+                    // Close all other sections (accordion behavior)
+                    closeAllTendencySections();
+
+                    // Toggle current section
+                    if (!isExpanded) {
+                        expandTendencySection(section, button, content);
+                    }
+                });
+
+                // Auto-expand the relevant section
+                if (section.dataset.section === autoExpandSection) {
+                    expandTendencySection(section, button, content);
+                }
+            });
+
+            console.log('✓ TENDENCY: Initialized', sections.length, 'expandable sections');
+        }
+
+        /**
+         * Close all expandable tendency sections
+         */
+        function closeAllTendencySections() {
+            const sections = document.querySelectorAll('.expandable-section');
+            sections.forEach(section => {
+                const button = section.querySelector('.expand-btn');
+                const content = section.querySelector('.expand-content');
+
+                if (!button || !content) return;
+
+                button.setAttribute('aria-expanded', 'false');
+                content.setAttribute('hidden', '');
+                content.setAttribute('aria-hidden', 'true');
+                section.classList.remove('active');
+            });
+        }
+
+        /**
+         * Expand a specific tendency section
+         */
+        function expandTendencySection(section, button, content) {
+            button.setAttribute('aria-expanded', 'true');
+            content.removeAttribute('hidden');
+            content.setAttribute('aria-hidden', 'false');
+            section.classList.add('active');
+
+            // Smooth scroll to section after expansion (with slight delay for animation)
+            setTimeout(() => {
+                section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
         function drawAxisLabels(svg, axes, centerX, centerY, maxRadius, labelOffset = 50) {
             const labelsGroup = createSVGGroup('radar-labels');
             axes.forEach(axis => {
@@ -1514,6 +1605,9 @@
             renderRadarChartArchetypesOnly(profile.scores);
             renderArchitectGardenerDonut(profile.scores);
             animateScoreBars(profile.scores);
+
+            // Initialize tendency education sections with accordion behavior
+            initializeTendencySections(profile.scores);
 
             hasRenderedResults = true; // Mark results as successfully rendered
             showScreen('resultsScreen');
