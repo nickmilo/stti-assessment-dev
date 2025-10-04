@@ -1294,7 +1294,6 @@
                 if (!button || !content) return;
 
                 button.setAttribute('aria-expanded', 'false');
-                content.setAttribute('hidden', '');
                 content.setAttribute('aria-hidden', 'true');
                 section.classList.remove('active');
             });
@@ -1305,7 +1304,6 @@
          */
         function expandTendencySection(section, button, content) {
             button.setAttribute('aria-expanded', 'true');
-            content.removeAttribute('hidden');
             content.setAttribute('aria-hidden', 'false');
             section.classList.add('active');
 

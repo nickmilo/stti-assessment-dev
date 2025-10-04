@@ -753,7 +753,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
             color: white;
             border: none;
             padding: 1rem 1.5rem;
@@ -762,14 +762,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 12px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             text-align: left;
         }
 
         .expand-btn:hover {
-            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
         }
 
         .expand-btn:active {
@@ -778,7 +778,7 @@
 
         .expand-btn[aria-expanded="true"] {
             border-radius: 10px 10px 0 0;
-            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
         }
 
         .expand-btn-text {
@@ -808,6 +808,7 @@
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
+            display: block !important; /* Override hidden attribute - we use aria-hidden for state */
         }
 
         .expand-content[aria-hidden="false"] {
@@ -872,8 +873,8 @@
 
         /* Highlight Active Section */
         .expandable-section.active .expand-btn {
-            background: linear-gradient(135deg, #6d28d9 0%, #4338ca 100%);
-            box-shadow: 0 4px 20px rgba(109, 40, 217, 0.5);
+            background: linear-gradient(135deg, var(--lyt-purple) 0%, var(--lyt-cyan) 100%);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
 
         .section-title {
